@@ -31,54 +31,42 @@
 
         /* --- HEADER --- */
         header { 
-            position: relative; 
             background: var(--header-bg); 
             color: white; 
-            padding: 1.5rem 1rem 0.5rem 1rem; 
-            border-bottom-left-radius: 24px; 
-            border-bottom-right-radius: 24px; 
+            padding: 2.5rem 1rem; 
+            border-bottom-left-radius: 30px; 
+            border-bottom-right-radius: 30px; 
             box-shadow: var(--shadow); 
             z-index: 100; 
             display: flex; 
-            align-items: flex-start;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
         }
 
         .header-content { 
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            flex: none; 
-            text-align: center; 
-            width: 70%; 
-            z-index: 1;
+            position: relative; 
+            width: 100%; 
         }
 
-        header h1 { font-size: 1.5rem; font-weight: 800; letter-spacing: 0.5px; line-height: 1.2; }
-        header p { font-size: 0.85rem; opacity: 0.9; margin-top: 5px; font-weight: 400; }
+        header h1 { 
+            font-size: 1.8rem; 
+            font-weight: 900; 
+            letter-spacing: 1px; 
+            line-height: 1.2; 
+            margin-bottom: 5px;
+        }
+        header p { font-size: 0.9rem; opacity: 0.9; font-weight: 400; }
         
-        .header-controls { 
-            margin-left: auto; 
-            display: flex; 
-            flex-direction: column; 
-            gap: 10px; 
-            align-items: center; 
-            position: relative;
-            z-index: 10; 
-        }
-
-        .control-btn { background: rgba(255,255,255,0.2); border: none; color: white; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; transition: background 0.3s; }
-        .control-btn:hover { background: rgba(255,255,255,0.3); }
-        .lang-btn { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.5px; border-radius: 12px; width: auto; padding: 0 10px; }
-
         /* --- NAV TABS --- */
-        .nav-tabs { display: flex; justify-content: center; gap: 10px; width: fit-content; min-width: 280px; margin: -20px auto 20px auto; background: var(--bg-card); padding: 6px 10px; border-radius: 20px; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.15); position: relative; z-index: 101; border: 1px solid var(--border-color); }
+        .nav-tabs { display: flex; justify-content: center; gap: 10px; width: fit-content; min-width: 280px; margin: -25px auto 20px auto; background: var(--bg-card); padding: 6px 10px; border-radius: 20px; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.15); position: relative; z-index: 101; border: 1px solid var(--border-color); }
         .nav-btn { width: 85px; border: none; background: transparent; padding: 8px 4px; border-radius: 14px; color: var(--text-light); font-weight: 600; cursor: pointer; transition: all 0.2s; font-size: 0.8rem; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; white-space: nowrap; }
         .nav-btn i { font-size: 1.2rem; margin-bottom: 0; pointer-events: none; }
         .nav-btn.active { background-color: var(--primary-light); color: var(--primary-dark); }
         [data-theme="dark"] .nav-btn.active { color: #fff; background-color: var(--primary); }
 
         /* --- CONTAINER --- */
-        .container { max-width: 900px; margin: 0 auto; padding: 0 15px 80px 15px; flex: 1; }
+        .container { max-width: 900px; margin: 0 auto; padding: 0 15px 40px 15px; flex: 1; }
         .section { display: none; animation: fadeIn 0.3s ease; }
         .section.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
@@ -144,19 +132,66 @@
         .note-area { width: 100%; height: 350px; border: 1px solid var(--border-color); border-radius: 12px; padding: 15px; font-size: 1rem; line-height: 1.6; resize: none; outline: none; background: var(--bg-input); color: var(--text-main); }
         .note-status { font-size: 0.8rem; color: var(--success); margin-top: 10px; text-align: right; min-height: 20px; }
 
-        footer { text-align: center; padding: 10px; margin-top: auto; border-top: 1px solid var(--border-color); background: var(--bg-card); }
-        footer p { font-size: 0.65rem; color: var(--text-light); margin-bottom: 4px; line-height: 1.2; max-width: 95%; margin-left: auto; margin-right: auto; }
-        .signature { font-size: 0.85rem; font-weight: 600; color: var(--primary); margin-top: 5px; display: inline-block; }
+        /* --- FOOTER --- */
+        footer { 
+            padding: 15px 20px; 
+            margin-top: auto; 
+            border-top: 1px solid var(--border-color); 
+            background: var(--bg-card); 
+            display: flex;
+            justify-content: space-between; 
+            align-items: center;
+            gap: 15px;
+        }
+
+        .footer-info {
+            text-align: left;
+            flex: 1;
+        }
+
+        .footer-controls { 
+            display: flex; 
+            flex-direction: row; 
+            gap: 8px; 
+            align-items: center; 
+        }
+
+        footer p { 
+            font-size: 0.7rem; 
+            color: var(--text-light); 
+            margin-bottom: 2px; 
+            line-height: 1.3; 
+            margin-left: 0; margin-right: 0; max-width: 100%;
+        }
+        .signature { font-size: 0.8rem; font-weight: 700; color: var(--primary); display: block; margin-top: 3px; }
+
+        .control-btn { 
+            background: var(--bg-input); 
+            border: 1px solid var(--border-color); 
+            color: var(--text-main); 
+            width: 32px; height: 32px; 
+            border-radius: 50%; 
+            cursor: pointer; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 0.9rem; 
+            transition: background 0.3s;
+        }
+        .control-btn:hover { background: var(--border-color); }
+        .lang-btn { width: auto; padding: 0 8px; font-size: 0.7rem; border-radius: 12px; font-weight: 700; }
 
         @media (max-width: 600px) {
             .grid-menu { grid-template-columns: repeat(2, 1fr); }
-            header h1 { font-size: 1.15rem; } 
+            header { padding: 1.5rem 1rem; }
+            header h1 { font-size: 1.4rem; } 
             .nav-tabs { width: 95%; margin-top: -20px; justify-content: space-between; gap: 5px; } 
             .nav-btn { font-size: 0.75rem; width: auto; flex: 1; }
             .calc-input-grid { grid-template-columns: 1fr; gap: 10px; } 
             .full-width { grid-column: span 1; }
             .final-result-box { grid-column: span 1; }
             .warning-box { grid-column: span 1; }
+            footer { flex-direction: row; padding: 10px 15px; } 
         }
     </style>
 </head>
@@ -166,11 +201,6 @@
         <div class="header-content">
             <h1 data-key="title">TIBBİ BİYOKİMYA ASİSTANI</h1>
             <p data-key="subtitle">Profesyonel Laboratuvar Yönetim Aracı</p>
-        </div>
-        <div class="header-controls">
-            <button class="control-btn" onclick="toggleTheme()" id="themeBtn"><i class="fa-solid fa-moon"></i></button>
-            <button class="control-btn lang-btn" onclick="toggleLanguage()" id="langBtn">TR</button>
-            <button class="control-btn lang-btn" onclick="toggleSI()" id="siBtn">SI</button>
         </div>
     </header>
 
@@ -206,40 +236,40 @@
                     <h3 style="margin-bottom: 20px; color: var(--primary);" data-key="calc_spot">Spot İdrar Analizi</h3>
                     <div class="calc-input-grid">
                         <div class="input-group full-width">
-                            <div class="label-row"><label>Spot İdrar Kreatinin</label><span class="unit-badge">mg/dL</span></div>
+                            <div class="label-row"><label data-key="lbl_spot_crea">Spot İdrar Kreatinin</label><span class="unit-badge">mg/dL</span></div>
                             <input type="number" id="spot-crea" placeholder="Zorunlu Alan" oninput="calculateSpotUrine()">
                         </div>
                         <div style="grid-column: span 2; border-top: 1px solid var(--border-color); margin: 5px 0 15px 0;"></div>
                         
                         <div class="input-group">
-                            <div class="label-row"><label>Spot Protein</label><span class="unit-badge">mg/dL</span></div>
+                            <div class="label-row"><label data-key="lbl_spot_prot">Spot Protein</label><span class="unit-badge">mg/dL</span></div>
                             <input type="number" id="spot-prot" oninput="calculateSpotUrine()">
                             <div id="res-spot-prot" class="mini-result"></div>
                         </div>
                         <div class="input-group">
-                            <div class="label-row"><label>Spot Albümin</label><span class="unit-badge">mg/dL</span></div>
+                            <div class="label-row"><label data-key="lbl_spot_alb">Spot Albümin</label><span class="unit-badge">mg/dL</span></div>
                             <input type="number" id="spot-alb" oninput="calculateSpotUrine()">
                             <div id="res-spot-alb" class="mini-result"></div>
                         </div>
                         <div class="input-group">
-                            <div class="label-row"><label>Spot Kalsiyum</label><span class="unit-badge">mg/dL</span></div>
+                            <div class="label-row"><label data-key="lbl_spot_ca">Spot Kalsiyum</label><span class="unit-badge">mg/dL</span></div>
                             <input type="number" id="spot-ca" oninput="calculateSpotUrine()">
                             <div id="res-spot-ca" class="mini-result"></div>
                         </div>
                         <div style="grid-column: span 2; border-top: 1px solid var(--border-color); margin: 5px 0 15px 0;"></div>
                         
                         <div class="input-group">
-                            <div class="label-row"><label>Spot Sodyum</label><span class="unit-badge">mmol/L</span></div>
+                            <div class="label-row"><label data-key="lbl_spot_na">Spot Sodyum</label><span class="unit-badge">mmol/L</span></div>
                             <input type="number" id="spot-na" oninput="calculateSpotUrine()">
                             <div id="res-spot-na" class="mini-result"></div>
                         </div>
                         <div class="input-group">
-                            <div class="label-row"><label>Spot Potasyum</label><span class="unit-badge">mmol/L</span></div>
+                            <div class="label-row"><label data-key="lbl_spot_k">Spot Potasyum</label><span class="unit-badge">mmol/L</span></div>
                             <input type="number" id="spot-k" oninput="calculateSpotUrine()">
                             <div id="res-spot-k" class="mini-result"></div>
                         </div>
                         <div class="input-group">
-                            <div class="label-row"><label>Spot Klor</label><span class="unit-badge">mmol/L</span></div>
+                            <div class="label-row"><label data-key="lbl_spot_cl">Spot Klor</label><span class="unit-badge">mmol/L</span></div>
                             <input type="number" id="spot-cl" oninput="calculateSpotUrine()">
                             <div id="res-spot-cl" class="mini-result"></div>
                         </div>
@@ -282,13 +312,13 @@
                     <h3 style="margin-bottom: 20px; color: var(--primary);" data-key="calc_gfr">GFR Hesaplayıcı</h3>
                     <div class="calc-input-grid">
                         <div class="input-group full-width">
-                            <label style="margin-bottom:5px;">Hesaplama Yöntemi Seçiniz</label>
+                            <label style="margin-bottom:5px;" data-key="lbl_calc_method">Hesaplama Yöntemi Seçiniz</label>
                             <select id="gfr-method" onchange="updateGFRInputs()">
-                                <option value="2021-crea">2021 CKD-EPI Creatinine</option>
-                                <option value="2021-combo">2021 CKD-EPI Creatinine–Cystatin C</option>
-                                <option value="2009-crea">2009 CKD-EPI Creatinine</option>
-                                <option value="2012-cys">2012 CKD-EPI Cystatin C</option>
-                                <option value="2012-combo">2012 CKD-EPI Creatinine–Cystatin C</option>
+                                <option value="2021-crea" data-key="opt_2021_crea">2021 CKD-EPI Creatinine</option>
+                                <option value="2021-combo" data-key="opt_2021_combo">2021 CKD-EPI Creatinine–Cystatin C</option>
+                                <option value="2009-crea" data-key="opt_2009_crea">2009 CKD-EPI Creatinine</option>
+                                <option value="2012-cys" data-key="opt_2012_cys">2012 CKD-EPI Cystatin C</option>
+                                <option value="2012-combo" data-key="opt_2012_combo">2012 CKD-EPI Creatinine–Cystatin C</option>
                             </select>
                         </div>
                         
@@ -301,10 +331,10 @@
                         </div>
 
                         <div class="input-group full-width" id="grp-race" style="display:none;">
-                            <label style="margin-bottom:10px;">Irk</label>
+                            <label style="margin-bottom:10px;" data-key="lbl_race">Irk</label>
                             <div class="radio-vertical-group" style="flex-direction:row;">
-                                <div class="radio-option selected" style="flex:1; justify-content:center;" onclick="setCkdRace('other', this)" data-key="other">Diğer</div>
-                                <div class="radio-option" style="flex:1; justify-content:center;" onclick="setCkdRace('black', this)" data-key="black">Siyahi (Black)</div>
+                                <div class="radio-option selected" style="flex:1; justify-content:center;" onclick="setCkdRace('other', this)" data-key="race_other">Diğer</div>
+                                <div class="radio-option" style="flex:1; justify-content:center;" onclick="setCkdRace('black', this)" data-key="race_black">Siyahi (Black)</div>
                             </div>
                         </div>
 
@@ -742,10 +772,16 @@
     </div>
 
     <footer>
-        <p data-key="footer_desc">Tıbbi Biyokimya Laboratuvar Asistan Aracı</p>
-        <p data-key="footer_disclaimer">Bu sitede yer alan içerikler yalnızca genel bilgi sağlama amacıyla derlenmiştir...</p>
-        <p><span data-key="footer_contact">Görüş ve öneri için:</span> <a href="mailto:belginsaraa@gmail.com" style="color:var(--primary); text-decoration:none;">belginsaraa@gmail.com</a></p>
-        <p class="signature">Hazırlayan: Uzm. Dr. Belgin ŞARA</p>
+        <div class="footer-info">
+            <p data-key="footer_desc">Tıbbi Biyokimya Laboratuvar Asistan Aracı</p>
+            <p data-key="footer_disclaimer">Bu sitede yer alan içerikler yalnızca genel bilgi sağlama amacıyla derlenmiştir.</p>
+            <p class="signature">Hazırlayan: Uzm. Dr. Belgin ŞARA</p>
+        </div>
+        <div class="footer-controls">
+            <button class="control-btn" onclick="toggleTheme()" id="themeBtn"><i class="fa-solid fa-moon"></i></button>
+            <button class="control-btn lang-btn" onclick="toggleLanguage()" id="langBtn">TR</button>
+            <button class="control-btn lang-btn" onclick="toggleSI()" id="siBtn">SI</button>
+        </div>
     </footer>
 
     <script>
@@ -757,17 +793,37 @@
         const langData = {
             tr: {
                 title: "TIBBİ BİYOKİMYA ASİSTANI", subtitle: "Profesyonel Laboratuvar Yönetim Aracı",
+                
+                // YENİ EKLENEN ÇEVİRİLER (SPOT İDRAR)
+                lbl_spot_crea: "Spot İdrar Kreatinin",
+                lbl_spot_prot: "Spot Protein",
+                lbl_spot_alb: "Spot Albümin",
+                lbl_spot_ca: "Spot Kalsiyum",
+                lbl_spot_na: "Spot Sodyum",
+                lbl_spot_k: "Spot Potasyum",
+                lbl_spot_cl: "Spot Klor",
+                
+                // GFR SEÇENEKLERİ
+                lbl_calc_method: "Hesaplama Yöntemi",
+                lbl_race: "Irk",
+                race_other: "Diğer",
+                race_black: "Siyahi (Black)",
+                opt_2021_crea: "2021 CKD-EPI Kreatinin",
+                opt_2021_combo: "2021 CKD-EPI Kreatinin–Cystatin C",
+                opt_2009_crea: "2009 CKD-EPI Kreatinin",
+                opt_2012_cys: "2012 CKD-EPI Cystatin C",
+                opt_2012_combo: "2012 CKD-EPI Kreatinin–Cystatin C",
+
+                // MEVCUT TANIMLAR
                 tab_calc: "Hesapla", tab_guide: "Rehber", tab_notes: "Notlar",
-                search_calc: "Hesaplama ara...",
-                back_btn: "Listeye Dön",
-                calc_urine: "24 Saatlik İdrar Hesaplama", calc_ldl: "LDL Hesaplama", calc_homa: "HOMA-IR", calc_corr_ca: "Düzeltilmiş Kalsiyum",
+                search_calc: "Hesaplama ara...", back_btn: "Listeye Dön",
+                calc_spot: "Spot İdrar Analizi", calc_urine: "24 Saatlik İdrar Hesaplama", calc_ldl: "LDL Hesaplama", calc_homa: "HOMA-IR", calc_corr_ca: "Düzeltilmiş Kalsiyum",
                 calc_saag: "Serum Asit Albümin Gradyenti (SAAG)", calc_gfr: "GFR Hesaplayıcı", calc_schwartz: "Schwartz Formülü (Orijinal)", calc_fib4: "FIB-4 Skoru",
                 calc_corr_na: "Düzeltilmiş Sodyum", calc_corr_mg: "Düzeltilmiş Magnezyum", calc_anion: "Anyon Açığı", calc_osmo: "Osmolalite",
                 calc_ph: "pH Tahmini", calc_mentzer: "Mentzer İndeksi", calc_albglob: "Alb/Glob Oranı", calc_rbc: "RBC İndeksleri", calc_retic: "Düzeltilmiş Retikülosit",
                 calc_bun_crea: "BUN/Kreatinin Oranı", calc_h_ion: "AKG Doğrulama [H+]", calc_fai: "Serbest Androjen İndeksi (FAI)", calc_fpsa: "Serbest PSA %", calc_ca_ion: "Tahmini İyonize Kalsiyum", calc_a1c: "HbA1c Çevirici",
-                calc_spot: "Spot İdrar Analizi",
                 lbl_vol: "İdrar Volümü", lbl_u_prot: "İdrar Protein", lbl_u_alb: "İdrar Albumin", lbl_u_crea: "İdrar Kreatinin", lbl_u_ca: "İdrar Kalsiyum", lbl_u_phos: "İdrar Fosfor",
-                lbl_tot_chol: "Total Cholesterol", lbl_trig: "Trigliserid",
+                lbl_tot_chol: "Total Kolesterol", lbl_trig: "Trigliserid",
                 lbl_fasting_glu: "Açlık Glukoz", lbl_fasting_ins: "Açlık İnsülin", lbl_tot_ca: "Total Kalsiyum", lbl_alb: "Albumin",
                 lbl_serum_alb: "Serum Albümin", lbl_ascites_alb: "Asit Sıvısı Albümin", lbl_gender: "Cinsiyet", female: "Kadın", male: "Erkek",
                 lbl_serum_crea: "Serum Kreatinin", lbl_age: "Yaş", lbl_height: "Boy", lbl_plt: "Trombosit", lbl_meas_na: "Ölçülen Sodyum", lbl_glucose: "Glukoz",
@@ -785,15 +841,34 @@
             },
             en: {
                 title: "MEDICAL BIOCHEMISTRY ASSISTANT", subtitle: "Professional Lab Management Tool",
+                
+                // NEW TRANSLATIONS (SPOT URINE & GFR)
+                lbl_spot_crea: "Spot Urine Creatinine",
+                lbl_spot_prot: "Spot Protein",
+                lbl_spot_alb: "Spot Albumin",
+                lbl_spot_ca: "Spot Calcium",
+                lbl_spot_na: "Spot Sodium",
+                lbl_spot_k: "Spot Potassium",
+                lbl_spot_cl: "Spot Chloride",
+                
+                lbl_calc_method: "Calculation Method",
+                lbl_race: "Race",
+                race_other: "Other",
+                race_black: "Black",
+                opt_2021_crea: "2021 CKD-EPI Creatinine",
+                opt_2021_combo: "2021 CKD-EPI Creatinine–Cystatin C",
+                opt_2009_crea: "2009 CKD-EPI Creatinine",
+                opt_2012_cys: "2012 CKD-EPI Cystatin C",
+                opt_2012_combo: "2012 CKD-EPI Creatinine–Cystatin C",
+
+                // EXISTING DEFINITIONS
                 tab_calc: "Calc", tab_guide: "Guide", tab_notes: "Notes",
-                search_calc: "Search calculator...",
-                back_btn: "Back to List",
-                calc_urine: "24h Urine", calc_ldl: "LDL Calc", calc_homa: "HOMA-IR", calc_corr_ca: "Corrected Calcium",
+                search_calc: "Search calculator...", back_btn: "Back to List",
+                calc_spot: "Spot Urine Analysis", calc_urine: "24h Urine", calc_ldl: "LDL Calc", calc_homa: "HOMA-IR", calc_corr_ca: "Corrected Calcium",
                 calc_saag: "Serum Ascites Albumin Gradient (SAAG)", calc_gfr: "GFR Calculator", calc_schwartz: "Schwartz Formula (Original)", calc_fib4: "FIB-4 Score",
                 calc_corr_na: "Corrected Sodium", calc_corr_mg: "Corrected Magnesium", calc_anion: "Anion Gap", calc_osmo: "Osmolality",
                 calc_ph: "pH Estimation", calc_mentzer: "Mentzer Index", calc_albglob: "Alb/Glob Ratio", calc_rbc: "RBC Indices", calc_retic: "Corrected Reticulocyte",
                 calc_bun_crea: "BUN/Creatinine Ratio", calc_h_ion: "ABG Validation [H+]", calc_fai: "Free Androgen Index (FAI)", calc_fpsa: "Free PSA %", calc_ca_ion: "Estimated Ionized Calcium", calc_a1c: "HbA1c Converter",
-                calc_spot: "Spot Urine Analysis",
                 lbl_vol: "Urine Volume", lbl_u_prot: "Urine Protein", lbl_u_alb: "Urine Albumin", lbl_u_crea: "Urine Creatinine", lbl_u_ca: "Urine Calcium", lbl_u_phos: "Urine Phosphorus",
                 lbl_tot_chol: "Total Cholesterol", lbl_trig: "Triglycerides",
                 lbl_fasting_glu: "Fasting Glucose", lbl_fasting_ins: "Fasting Insulin", lbl_tot_ca: "Total Calcium", lbl_alb: "Albumin",
@@ -951,6 +1026,7 @@
         function renderCalcMenu() { 
             const menu = document.getElementById('calc-menu'); 
             menu.innerHTML = ''; 
+            
             const collator = new Intl.Collator('tr');
             const sortedCalculators = [...calculators].sort((a, b) => {
                 const nameA = langData[currentLang][a.key] || a.id;
@@ -1162,7 +1238,7 @@
             if(method.startsWith('2021')) {
                 grpRace.style.display = 'none';
             } else {
-                grpRace.style.display = 'block'; // block or flex depending on CSS needs, block usually fine for div
+                grpRace.style.display = 'block';
             }
 
             calculateGFR_Selected();
@@ -1180,7 +1256,7 @@
             // Birim Dönüşümleri
             const u = getUnit('gfr-crea');
             if (u === 'µmol/L') scr /= 88.4;
-            if (u === 'µmol/dL') scr /= 8.84; // Nadir birim, katsayı mantıken bu olur
+            if (u === 'µmol/dL') scr /= 8.84; 
 
             let gfr = 0;
             let formulaName = "";
@@ -1210,9 +1286,7 @@
             else if (method === '2012-cys') {
                 if(isNaN(scys)) return;
                 let sexFactor = isFemale ? 0.932 : 1;
-                // Formülde ırk faktörü belirtilmemiş ama kullanıcı isteği üzerine ekleniyor (standartta olmayabilir)
-                // Kullanıcı isteği: IF(E2="Black",1.06,1)
-                let raceFactor = ckdRace === 'black' ? 1.06 : 1; 
+                let raceFactor = ckdRace === 'black' ? 1.06 : 1;
 
                 gfr = 133 * Math.pow(min(scys/0.8, 1), -0.499) * Math.pow(max(scys/0.8, 1), -1.328) * Math.pow(0.996, age) * sexFactor * raceFactor;
                 formulaName = "2012 CKD-EPI Cystatin C";
