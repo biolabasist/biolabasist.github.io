@@ -96,7 +96,6 @@
         .nav-tabs { 
             display: flex; 
             justify-content: center; 
-            align-self: center;
             align-items: center;
             gap: 8px; 
             margin: -25px auto 20px auto; 
@@ -104,8 +103,9 @@
             padding: 6px 15px; 
             border-radius: 20px; 
             box-shadow: 0 10px 25px -5px rgba(0,0,0,0.15); 
-            width: fit-content;
-            max-width: 95%;
+            border: 1px solid var(--border-color); 
+            width: fit-content; 
+            min-width: fit-content;
             max-width: 100%;
             position: relative; 
             z-index: 10; 
@@ -116,19 +116,13 @@
             .nav-tabs {
                 padding: 6px 10px;
                 gap: 6px;
-                width: 94%;
-                justify-content: center;
-                align-items: center;
-                align-content: center;
-                margin-left: auto;
-                margin-right: auto;
             }
-            .nav-btn { background: transparent; border: none; padding: 8px 12px; border-radius: 14px; color: var(--text-light); font-weight: 600; cursor: pointer; font-size: clamp(0.7rem, 1.5vw, 0.8rem); display: flex; align-items: center; gap: 5px; flex-direction: column; transition: all 0.2s; flex-shrink: 0; }
-            .nav-btn i { font-size: clamp(1rem, 2.5vw, 1.2rem); margin-bottom: 2px; }
-            .nav-btn.active { background-color: var(--primary-light); color: var(--primary-dark); }
-            .nav-btn:hover { background-color: var(--bg-input); }
-            .nav-btn.wide { padding: 8px 20px; }
         }
+        .nav-btn { background: transparent; border: none; padding: 8px 12px; border-radius: 14px; color: var(--text-light); font-weight: 600; cursor: pointer; font-size: clamp(0.7rem, 1.5vw, 0.8rem); display: flex; align-items: center; gap: 5px; flex-direction: column; transition: all 0.2s; flex-shrink: 0; }
+        .nav-btn i { font-size: clamp(1rem, 2.5vw, 1.2rem); margin-bottom: 2px; }
+        .nav-btn.active { background-color: var(--primary-light); color: var(--primary-dark); }
+        .nav-btn:hover { background-color: var(--bg-input); }
+        .nav-btn.wide { padding: 8px 20px; }
         
         /* QC ve Notes sekmeleri - ÇOK DAHA GENİŞ - Responsive */
         .nav-tabs .nav-btn:nth-child(2),
@@ -378,16 +372,24 @@
             .calc-card-mini { height: 85px; padding: 10px; }
             .calc-icon { font-size: 1.3rem; }
             .calc-title { font-size: 0.65rem; }
-            .nav-tabs { margin: -15px 10px 15px 10px; padding: 4px 6px; gap: 3px; }
-            .calc-title { font-size: 0.75rem; }
+            .nav-tabs { margin: -15px auto 15px auto; padding: 4px 6px; gap: 3px; }
+            .nav-btn { padding: 5px 8px; font-size: 0.65rem; gap: 2px; }
             .nav-btn i { font-size: 0.9rem; }
-            .nav-btn { padding: 5px 8px; font-size: 0.75rem; gap: 2px; }
-            .nav-btn i { font-size: 0.9rem; }
+            .nav-btn.wide { padding: 5px 12px; }
+            header { padding: 1.5rem 1rem; }
             .container { padding: 0 10px 25px 10px; }
             .calculator-view { padding: 12px; }
+            .chart-container { height: 250px; }
+        }
         
         @media (min-width: 481px) and (max-width: 768px) { 
             .grid-menu { grid-template-columns: repeat(2, 1fr); } 
+            footer { flex-direction: column; gap: 15px; }
+            .footer-info { width: 100%; }
+            .footer-controls { position: static; margin-top: 10px; }
+            footer .footer-content { flex-direction: column; gap: 10px; text-align: center; } 
+            .calc-input-grid { grid-template-columns: 1fr; } 
+            .full-width { grid-column: span 1; } 
             .nav-tabs { margin: -20px 15px 20px 15px; padding: 4px 8px; gap: 4px; }
             .nav-btn { padding: 6px 10px; font-size: 0.7rem; }
             .nav-btn.wide { padding: 6px 15px; }
@@ -399,7 +401,7 @@
         @media (max-width: 480px) {
             footer { flex-direction: column; gap: 15px; }
             .footer-info { width: 100%; }
-            .nav-btn { padding: 6px 10px; font-size: 0.7rem; }
+            .footer-controls { position: static; margin-top: 10px; }
         }
         
         @media (min-width: 769px) and (max-width: 1024px) {
@@ -948,33 +950,111 @@
             <button class="btn-action btn-secondary" onclick="downloadHighResChart('ljChart')" style="margin-top:10px;"><i class="fa-solid fa-download"></i> Download Chart (HD)</button>
         </div>
     </div>
-            <div class="journal-list">
-                <a href="https://www.degruyterbrill.com/journal/key/almed/html#latestIssue" target="_blank" class="journal-link">Advances in Laboratory Medicine</a>
-                <a href="https://journals.sagepub.com/home/acb" target="_blank" class="journal-link">Annals of Clinical Biochemistry</a>
-                <a href="https://www.annlabmed.org/main.html" target="_blank" class="journal-link">Annals of Laboratory Medicine</a>
-                <a href="https://www.biochemia-medica.com/en" target="_blank" class="journal-link">Biochemia Medica</a>
-                <a href="https://www.bslonline.org/main.html" target="_blank" class="journal-link">Biomedical Science Letters</a>
-                <a href="https://www.sciencedirect.com/journal/clinica-chimica-acta" target="_blank" class="journal-link">Clinica Chimica Acta</a>
-                <a href="https://academic.oup.com/clinchem" target="_blank" class="journal-link">Clinical Chemistry</a>
-                <a href="https://www.degruyterbrill.com/journal/key/cclm/html" target="_blank" class="journal-link">Clinical Chemistry and Laboratory Medicine</a>
-                <a href="https://www.clin-lab-publications.com/" target="_blank" class="journal-link">Clinical Laboratory</a>
-                <a href="https://www.tandfonline.com/journals/ilab20" target="_blank" class="journal-link">Critical Reviews in Clinical Laboratory Sciences</a>
-                <a href="https://pmc.ncbi.nlm.nih.gov/journals/?term=%22EJIFCC%22" target="_blank" class="journal-link">eJIFCC</a>
-                <a href="https://onlinelibrary.wiley.com/journal/7072" target="_blank" class="journal-link">International Journal of Analytical Chemistry</a>
-                <a href="https://academic.oup.com/jat" target="_blank" class="journal-link">Journal of Analytical Toxicology</a>
-                <a href="https://onlinelibrary.wiley.com/journal/10982825" target="_blank" class="journal-link">Journal of Clinical Laboratory Analysis</a>
-                <a href="https://jlpm.amegroups.org/" target="_blank" class="journal-link">Journal of Laboratory and Precision Medicine</a>
-                <a href="https://www.degruyterbrill.com/journal/key/labm/html#issues" target="_blank" class="journal-link">Journal of Laboratory Medicine</a>
-                <a href="https://www.sciencedirect.com/journal/labmed-discovery" target="_blank" class="journal-link">LabMed Discovery</a>
-                <a href="https://academic.oup.com/labmed" target="_blank" class="journal-link">Laboratory Medicine</a>
-                <a href="https://njlm.net/" target="_blank" class="journal-link">National Journal Laboratory Medicine</a>
-                <a href="https://www.sciencedirect.com/journal/practical-laboratory-medicine" target="_blank" class="journal-link">Practical Laboratory Medicine</a>
-                <a href="https://www.tandfonline.com/journals/iclb20" target="_blank" class="journal-link">Scandinavian Journal of Clinical and Laboratory Investigation</a>
-                <a href="https://academic.oup.com/jalm" target="_blank" class="journal-link">The Journal of Applied Laboratory Medicine</a>
-                <a href="https://www.kjcls.org/main.html" target="_blank" class="journal-link">The Korean Journal of Clinical Laboratory Science</a>
-                <a href="https://journals.lww.com/drug-monitoring/pages/default.aspx" target="_blank" class="journal-link">Therapeutic Drug Monitoring</a>
-                <a href="https://tkb.dergisi.org/" target="_blank" class="journal-link">Türk Klinik Biyokimya Dergisi</a>
-                <a href="https://www.degruyterbrill.com/journal/key/tjb/html#issues" target="_blank" class="journal-link">Turkish Journal of Biochemistry</a>
+
+    <div class="qc-card">
+        <div class="qc-header" onclick="toggleQC('qc-pbrtqc', this)">
+            <h3><i class="fa-solid fa-chart-area"></i> PBRTQC (EWMA & MA)</h3>
+            <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div id="qc-pbrtqc" class="qc-body">
+            <div class="calc-input-grid">
+                <div class="input-group full-width">
+                    <label>Analyte</label>
+                    <select id="pbrtqc-analyte" onchange="updatePBRTQCConfig()"></select>
+                </div>
+                <div class="input-group" id="unit-group" style="display:none;">
+                    <label>Unit</label>
+                    <select id="pbrtqc-unit" onchange="updatePBRTQCConfig()"></select>
+                </div>
+            </div>
+
+            <div id="custom-params" style="display:none; background:var(--bg-input); padding:10px; border-radius:10px; margin-bottom:15px;">
+                <div class="calc-input-grid">
+                    <div class="input-group"><label>CVi (%)</label><input type="number" id="cust-cvi" value="5"></div>
+                    <div class="input-group"><label>CVg (%)</label><input type="number" id="cust-cvg" value="10"></div>
+                    <div class="input-group"><label>Low Limit</label><input type="number" id="cust-l" value="0"></div>
+                    <div class="input-group"><label>High Limit</label><input type="number" id="cust-u" value="100"></div>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label>Method</label>
+                <select id="pbrtqc-method" onchange="togglePBRTQCParams()">
+                    <option value="auto">✨ Auto (Optimal)</option>
+                    <option value="ewma">EWMA</option>
+                    <option value="ma">MA</option>
+                </select>
+            </div>
+
+            <div id="param-container" style="background:var(--bg-input); padding:10px; border-radius:10px; margin-bottom:15px;">
+                <div class="input-group" id="param-mode-group">
+                    <label>Parameter Mode</label>
+                    <select id="param-mode" onchange="toggleManualParams()">
+                        <option value="auto">Auto (From Table)</option>
+                        <option value="manual">Manual Entry</option>
+                    </select>
+                </div>
+                
+                <div id="manual-params" style="display:none; grid-template-columns: 1fr 1fr; gap:10px;">
+                    <div class="ewma-only input-group"><label>Lambda (λ)</label><input type="number" id="manual-lambda" step="0.01"></div>
+                    <div class="ewma-only input-group"><label>Limit (L)</label><input type="number" id="manual-l" step="0.1"></div>
+                    <div class="ma-only input-group"><label>Window (w)</label><input type="number" id="manual-w" step="1"></div>
+                </div>
+                <div id="auto-param-display" style="font-size:0.8rem; color:var(--primary); font-weight:bold;"></div>
+            </div>
+
+            <div class="input-group">
+                <div style="display:flex; gap:10px; margin-bottom:10px;">
+                    <button class="btn-action btn-secondary" style="flex:1;" onclick="triggerExcelInput()">
+                        <i class="fa-solid fa-file-excel"></i> Upload Excel
+                    </button>
+                    
+                    <input type="file" id="excel-upload" accept=".xlsx, .xls" style="display:none;" onchange="handleExcelUpload(this)">
+                    <span id="pbrtqc-upload-status" style="font-size:0.8rem; color:var(--success); display:none; margin-left:5px;"></span>
+                    
+                    <button class="btn-action btn-secondary" style="flex:1;" onclick="downloadTemplate()">
+                        <i class="fa-solid fa-download"></i> Template
+                    </button>
+                </div>
+                
+                <div style="display:flex; gap:10px;">
+                    <input type="number" id="single-val-input" placeholder="Enter manual value..." style="flex:1;">
+                    <button class="btn-action" style="width:auto; margin:0; padding:0 20px;" onclick="addManualValue()">
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div style="max-height:150px; overflow-y:auto; border:1px solid var(--border-color); margin-bottom:10px;">
+                <table class="data-table">
+                    <thead style="background:var(--primary-light); position:sticky; top:0;"><tr><th>No</th><th>Value</th><th>...</th></tr></thead>
+                    <tbody id="manual-data-tbody"></tbody>
+                </table>
+            </div>
+            <div style="text-align:right;"><button class="btn-secondary" style="padding:2px 8px; font-size:0.7rem;" onclick="clearManualData()">Clear</button></div>
+
+            <div style="display:flex; gap:10px; margin-top:10px;">
+                <label><input type="checkbox" id="opt-trunc" checked> <span>Truncation (RCV)</span></label>
+                <label><input type="checkbox" id="opt-norm" checked> <span>Log Trans.</span></label>
+            </div>
+
+            <button class="btn-action" onclick="runPBRTQC()">CALCULATE & PLOT</button>
+
+            <div id="qc-result-area" style="display:none;">
+                <div class="chart-container"><canvas id="qcChart"></canvas></div>
+                <div id="qc-stats" class="warning-box" style="display:block; margin-top:10px;"></div>
+                <button class="btn-action btn-secondary" onclick="downloadHighResChart('qcChart')"><i class="fa-solid fa-download"></i> Download Chart (HD)</button>
+            </div>
+        </div>
+    </div>
+<div class="qc-header" onclick="toggleQC('qc-sigma', this)">
+            <h3><i class="fa-solid fa-bullseye"></i> Sigma Metric & Method Decision</h3>
+            <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div id="qc-sigma" class="qc-body">
+            <div class="calc-input-grid">
+                <div class="input-group">
+                    <div class="label-row"><label>TEa (Total Allowable Error)</label><span class="unit-badge">%</span></div>
                     <input type="number" id="sigma-tea">
                 </div>
                 <div class="input-group">
@@ -1078,6 +1158,8 @@
     <i class="fa-solid fa-star" style="font-size:2rem; color:var(--primary); margin-bottom:10px;"></i>
     <h4 style="font-size:0.85rem;">QC Constellation</h4>
     <span style="font-size:0.7rem; color:var(--text-light);">Quality Control App</span>
+</div>
+
 </div>
 
         <div class="calculator-view" style="display:block; margin-top:15px;">
@@ -2292,6 +2374,261 @@ function getVal(id) {
                                     
                                     return `Control Value: ${val.toFixed(2)} (${sdText})`;
                                 }
+                                return '';
+                            }
+                        }
+                    },
+                    legend: {
+                        display: true,
+                        // ... (legend ayarları aynı kalacak) ...
+                        labels: {
+                            generateLabels: function(chart) {
+                                const defaultLabels = Chart.defaults.plugins.legend.labels.generateLabels.call(this, chart);
+                                const groupedLabels = [];
+                                const processed = new Set();
+                                
+                                defaultLabels.forEach((label, idx) => {
+                                    if (processed.has(idx)) return;
+                                    const text = label.text;
+                                    
+                                    // Filter out background zones from legend
+                                    if (text.startsWith('Bg')) return;
+                                    
+                                    if (text === '+3SD' || text === '-3SD') {
+                                        const plusLabel = defaultLabels.find(l => l.text === '+3SD');
+                                        const minusLabel = defaultLabels.find(l => l.text === '-3SD');
+                                        if (plusLabel && minusLabel) {
+                                            groupedLabels.push({ ...plusLabel, text: '±3SD', datasetIndex: plusLabel.datasetIndex, hidden: plusLabel.hidden || minusLabel.hidden });
+                                            processed.add(defaultLabels.indexOf(plusLabel));
+                                            processed.add(defaultLabels.indexOf(minusLabel));
+                                        }
+                                    }
+                                    else if (text === '+2SD' || text === '-2SD') {
+                                        const plusLabel = defaultLabels.find(l => l.text === '+2SD');
+                                        const minusLabel = defaultLabels.find(l => l.text === '-2SD');
+                                        if (plusLabel && minusLabel) {
+                                            groupedLabels.push({ ...plusLabel, text: '±2SD', datasetIndex: plusLabel.datasetIndex, hidden: plusLabel.hidden || minusLabel.hidden });
+                                            processed.add(defaultLabels.indexOf(plusLabel));
+                                            processed.add(defaultLabels.indexOf(minusLabel));
+                                        }
+                                    }
+                                    else if (text === '+1SD' || text === '-1SD') {
+                                        const plusLabel = defaultLabels.find(l => l.text === '+1SD');
+                                        const minusLabel = defaultLabels.find(l => l.text === '-1SD');
+                                        if (plusLabel && minusLabel) {
+                                            groupedLabels.push({ ...plusLabel, text: '±1SD', datasetIndex: plusLabel.datasetIndex, hidden: plusLabel.hidden || minusLabel.hidden });
+                                            processed.add(defaultLabels.indexOf(plusLabel));
+                                            processed.add(defaultLabels.indexOf(minusLabel));
+                                        }
+                                    }
+                                    else if (!processed.has(idx)) {
+                                        groupedLabels.push(label);
+                                        processed.add(idx);
+                                    }
+                                });
+                                return groupedLabels;
+                            }
+                        },
+                        // ... (onClick fonksiyonu aynı kalacak) ...
+                        onClick: function(e, legendItem, legend) {
+                            const chart = legend.chart;
+                            const text = legendItem.text;
+                            if (text === '±3SD') {
+                                const plusMeta = chart.getDatasetMeta(chart.data.datasets.findIndex(d => d.label === '+3SD'));
+                                const minusMeta = chart.getDatasetMeta(chart.data.datasets.findIndex(d => d.label === '-3SD'));
+                                const newState = !plusMeta.hidden;
+                                plusMeta.hidden = newState; minusMeta.hidden = newState;
+                            } else if (text === '±2SD') {
+                                const plusMeta = chart.getDatasetMeta(chart.data.datasets.findIndex(d => d.label === '+2SD'));
+                                const minusMeta = chart.getDatasetMeta(chart.data.datasets.findIndex(d => d.label === '-2SD'));
+                                const newState = !plusMeta.hidden;
+                                plusMeta.hidden = newState; minusMeta.hidden = newState;
+                            } else if (text === '±1SD') {
+                                const plusMeta = chart.getDatasetMeta(chart.data.datasets.findIndex(d => d.label === '+1SD'));
+                                const minusMeta = chart.getDatasetMeta(chart.data.datasets.findIndex(d => d.label === '-1SD'));
+                                const newState = !plusMeta.hidden;
+                                plusMeta.hidden = newState; minusMeta.hidden = newState;
+                            } else {
+                                const index = legendItem.datasetIndex;
+                                const meta = chart.getDatasetMeta(index);
+                                meta.hidden = meta.hidden === null ? !chart.data.datasets[index].hidden : null;
+                            }
+                            chart.update();
+                        }
+                    }
+                }
+            }
+        });
+
+// ... (Kalan kodlar aynı) ...
+    }
+    
+    function updateLJLimits() {
+        // If chart exists, redraw it with new limits
+        if (ljChart && ljData.length > 0) {
+            const mean = parseFloat(document.getElementById('lj-mean').value);
+            const sd = parseFloat(document.getElementById('lj-sd').value);
+            if (!isNaN(mean) && !isNaN(sd)) {
+                drawLJChart(mean, sd);
+            }
+        }
+    }
+
+    // --- 9. PBRTQC LOGIC ---
+    function populateAnalyteSelect() {
+        const sel = document.getElementById('pbrtqc-analyte');
+        sel.innerHTML = "";
+        Object.keys(analyteDB).sort().forEach(k => {
+            if(k !== 'Other') {
+                const opt = document.createElement('option');
+                opt.value = k; opt.text = k;
+                sel.add(opt);
+            }
+        });
+        const opt = document.createElement('option');
+        opt.value = 'Other'; 
+        opt.text = "Other (Custom)";
+        sel.add(opt);
+    }
+
+    function updatePBRTQCConfig() {
+        const analyte = document.getElementById('pbrtqc-analyte').value;
+        const unitDiv = document.getElementById('unit-group');
+        const unitSel = document.getElementById('pbrtqc-unit');
+        const methodSel = document.getElementById('pbrtqc-method');
+        const paramModeSel = document.getElementById('param-mode');
+        const customParams = document.getElementById('custom-params');
+
+        if (analyte === 'Other') {
+            unitDiv.style.display = 'none'; 
+            customParams.style.display = 'block'; 
+            
+            methodSel.querySelector('option[value="auto"]').style.display = 'none';
+            methodSel.value = 'ewma';
+
+            paramModeSel.querySelector('option[value="auto"]').style.display = 'none';
+            paramModeSel.value = 'manual';
+            
+        } else {
+            unitDiv.style.display = 'none'; // Unit selection hidden
+            customParams.style.display = 'none';
+            
+            methodSel.querySelector('option[value="auto"]').style.display = 'block';
+            paramModeSel.querySelector('option[value="auto"]').style.display = 'block';
+
+            // Set default unit (first unit in the list)
+            unitSel.innerHTML = "";
+            const units = analyteDB[analyte].units;
+            const unitKeys = Object.keys(units);
+            unitKeys.forEach(u => {
+                const opt = document.createElement('option');
+                opt.value = u; opt.text = u;
+                unitSel.add(opt);
+            });
+            // Set default to first unit
+            if (unitKeys.length > 0) {
+                unitSel.value = unitKeys[0];
+            }
+        }
+        togglePBRTQCParams();
+    }
+
+    function togglePBRTQCParams() {
+        const method = document.getElementById('pbrtqc-method').value;
+        const paramContainer = document.getElementById('param-container');
+        if(method === 'auto') paramContainer.style.display = 'none';
+        else {
+            paramContainer.style.display = 'block';
+            toggleManualParams();
+        }
+    }
+
+    function toggleManualParams() {
+        const method = document.getElementById('pbrtqc-method').value;
+        const mode = document.getElementById('param-mode').value;
+        const manualDiv = document.getElementById('manual-params');
+        const autoInfo = document.getElementById('auto-param-display');
+        
+        if (mode === 'manual') {
+            manualDiv.style.display = 'grid';
+            autoInfo.style.display = 'none';
+            const ewmaEls = document.querySelectorAll('.ewma-only');
+            const maEls = document.querySelectorAll('.ma-only');
+            ewmaEls.forEach(e => e.style.display = method === 'ewma' ? 'block' : 'none');
+            maEls.forEach(e => e.style.display = method === 'ma' ? 'block' : 'none');
+        } else {
+            manualDiv.style.display = 'none';
+            autoInfo.style.display = 'block';
+            const analyte = document.getElementById('pbrtqc-analyte').value;
+            const db = analyteDB[analyte].opt;
+            if(method === 'ewma') autoInfo.innerText = `Auto: λ=${db.lam}, L=${db.L}`;
+            else if(method === 'ma') autoInfo.innerText = `Auto: w=${db.w || 50}`;
+        }
+    }
+
+    function triggerExcelInput() {
+        const fileInput = document.getElementById('excel-upload');
+        if(fileInput) {
+            fileInput.value = '';
+            fileInput.click();
+        }
+    }
+
+    function handleExcelUpload(input) {
+        if (!input.files || input.files.length === 0) return;
+
+        const file = input.files[0];
+        const reader = new FileReader();
+
+        reader.onload = (e) => {
+            try {
+                const data = new Uint8Array(e.target.result);
+                const workbook = XLSX.read(data, {type: 'array'});
+                const firstSheetName = workbook.SheetNames[0];
+                const worksheet = workbook.Sheets[firstSheetName];
+                const json = XLSX.utils.sheet_to_json(worksheet, {header: 1});
+                const newValues = json.flat().map(n => parseFloat(n)).filter(n => !isNaN(n));
+
+                if (newValues.length > 0) {
+                    pbrtqcData = newValues;
+                    const statusSpan = document.getElementById('pbrtqc-upload-status');
+                    if(statusSpan) {
+                        statusSpan.innerText = `${pbrtqcData.length} data loaded.`;
+                        statusSpan.style.display = 'inline';
+                        setTimeout(() => { statusSpan.style.display = 'none'; }, 3000);
+                    }
+                    renderData();
+                } else {
+                    alert("Error: No valid numeric data found in Excel.");
+                }
+            } catch (error) {
+                console.error(error);
+                alert("File read error!");
+            }
+        };
+        reader.readAsArrayBuffer(file);
+    }
+
+    function addManualValue() {
+        const input = document.getElementById('single-val-input');
+        const val = parseFloat(input.value);
+        if(!isNaN(val)) {
+            pbrtqcData.push(val);
+            input.value = ''; input.focus();
+            renderData();
+        }
+    }
+
+    function editManualValue(index) {
+        const currentVal = pbrtqcData[index];
+        const newVal = prompt("Enter new value:", currentVal);
+        if (newVal !== null) {
+            const parsed = parseFloat(newVal);
+            if (!isNaN(parsed)) {
+                pbrtqcData[index] = parsed;
+                renderData();
+            } else {
+                alert("Please enter a valid number.");
             }
         }
     }
