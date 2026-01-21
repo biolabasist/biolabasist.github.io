@@ -367,58 +367,34 @@
         .signature-link .signature { cursor: pointer; text-decoration: underline; text-underline-offset: 3px; font-size: clamp(0.7rem, 1.5vw, 0.8rem); font-weight: 700; color: var(--primary); display: block; margin-top: 3px; text-align: center; }
 
         /* Responsive Design */
-        /* Responsive Design */
-        .guide-links-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 12px;
-            margin-top: 15px;
-        }
-
         @media (max-width: 480px) { 
             .grid-menu { grid-template-columns: repeat(2, 1fr); gap: 8px; } 
-            .guide-links-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-            .calc-card-mini { height: 95px; padding: 10px; }
-            .calc-icon { font-size: 1.5rem; }
-            .calc-title { font-size: 0.85rem; }
-            
-            /* Menu Centering Fix */
-            .nav-tabs { 
-                margin: -20px auto 15px auto; 
-                padding: 6px 8px; 
-                gap: 5px; 
-                width: 96%; 
-                justify-content: center;
-            }
-            
-            .nav-btn { 
-                padding: 8px 10px; 
-                font-size: 0.85rem; 
-                gap: 4px; 
-            }
-            .nav-btn i { font-size: 1.1rem; }
-            
-            .container { padding: 0 12px 25px 12px; }
-            .calculator-view { padding: 15px; }
-            
-            /* Footer adjustments */
-            footer { flex-direction: column; gap: 15px; }
-            .footer-info { width: 100%; }
-            
-            /* Other font size adjustments for mobile */
-            .input-group label { font-size: 0.9rem; }
-            .input-group input, .input-group select { font-size: 0.95rem; padding: 10px; }
-            .btn-action { font-size: 0.95rem; padding: 12px; }
+            .calc-card-mini { height: 85px; padding: 10px; }
+            .calc-icon { font-size: 1.3rem; }
+            .calc-title { font-size: 0.65rem; }
+            .nav-tabs { margin: -15px auto 15px auto; padding: 4px 6px; gap: 3px; }
+            .calc-title { font-size: 0.75rem; }
+            .nav-btn i { font-size: 0.9rem; }
+            .nav-btn { padding: 5px 8px; font-size: 0.75rem; gap: 2px; }
+            .nav-btn i { font-size: 0.9rem; }
+            .container { padding: 0 10px 25px 10px; }
+            .calculator-view { padding: 12px; }
         }
 
         @media (min-width: 481px) and (max-width: 768px) { 
             .grid-menu { grid-template-columns: repeat(2, 1fr); } 
             .nav-tabs { margin: -20px 15px 20px 15px; padding: 4px 8px; gap: 4px; }
-            .nav-btn { padding: 6px 10px; font-size: 0.75rem; }
+            .nav-btn { padding: 6px 10px; font-size: 0.7rem; }
             .nav-btn.wide { padding: 6px 15px; }
             header { padding: 2rem 1rem; }
             .container { padding: 0 15px 30px 15px; }
             .chart-container { height: 300px; }
+        }
+        
+        @media (max-width: 480px) {
+            footer { flex-direction: column; gap: 15px; }
+            .footer-info { width: 100%; }
+            .nav-btn { padding: 6px 10px; font-size: 0.7rem; }
         }
         
         @media (min-width: 769px) and (max-width: 1024px) {
@@ -1037,7 +1013,7 @@
             <button class="btn-action" onclick="window.open('https://drive.google.com/drive/folders/1dayFfTfZdNzpzFO80tXyA1vU5qtAsBvP?usp=drive_link')">Google Drive <i class="fa-solid fa-arrow-up-right-from-square"></i></button>
         </div>
         
-        <div class="guide-links-grid">
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap:12px; margin-top:15px;">
     
     <div class="calculator-view external-link-card" style="display:block; margin:0; padding:15px; text-align:center;" onclick="window.open('https://www.mayocliniclabs.com', '_blank')">
         <i class="fa-solid fa-microscope" style="font-size:2rem; color:var(--primary); margin-bottom:10px;"></i>
