@@ -1405,12 +1405,15 @@
     function switchTab(tabId, btn) {
         document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
         if(btn) btn.classList.add('active');
-        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+        document.querySelectorAll('.section').forEach(s => { s.classList.remove('active'); s.style.display = 'none'; });
         const activeSection = document.getElementById(tabId);
         activeSection.classList.add('active');
+        activeSection.style.display = 'block';
 
         if (tabId === 'tab-calc') {
             closeCalcDetail();
+            const listView = document.getElementById('calc-list-view');
+            if (listView) listView.style.display = 'block';
         } else {
             activeSection.querySelectorAll('.calculator-view').forEach(view => view.style.display = 'block');
         }
