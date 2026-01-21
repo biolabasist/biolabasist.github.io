@@ -179,7 +179,7 @@
         
         /* Çok küçük ekranlar (480px ve altı) */
         @media (max-width: 480px) {
-    /* Mevcut nav-btn kodlarınız burada kalsın */
+    /* Mevcut nav-btn kodların */
     .nav-tabs .nav-btn:nth-child(2),
     .nav-tabs .nav-btn:nth-child(4),
     button.nav-btn[onclick*="tab-qc"],
@@ -188,6 +188,37 @@
         padding-right: 20px !important;
         min-width: 90px !important;
     }
+
+    /* Taşmayı önleyen ve hizalayan yeni kısım */
+    .calc-input-grid { 
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important; /* Ekranı tam ikiye böler */
+        gap: 8px !important; /* Kutular arası boşluğu biraz daralttık */
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    .input-group {
+        width: 100% !important;
+        min-width: 0 !important; /* İçeriğin (yazıların) kutuyu dışarı itmesini engeller */
+    }
+
+    .input-group input {
+        width: 100% !important;
+        box-sizing: border-box !important; /* Padding'i genişliğe dahil eder */
+    }
+
+    .unit-badge {
+        font-size: 0.65rem !important; /* Birim yazılarını küçülterek yer kazandık */
+        padding: 2px 4px !important;
+    }
+
+    .calculator-view {
+        padding: 12px !important;
+        width: 100% !important;
+        box-sizing: border-box !important; /* Kartın dışarı taşmasını engeller */
+    }
+}
 
     /* --- HESAPLAMA KUTUCUKLARI İÇİN YENİ EKLEYECEĞİNİZ KISIM --- */
     .calc-input-grid { 
