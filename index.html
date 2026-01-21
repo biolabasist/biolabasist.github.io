@@ -367,20 +367,14 @@
         .signature-link .signature { cursor: pointer; text-decoration: underline; text-underline-offset: 3px; font-size: clamp(0.7rem, 1.5vw, 0.8rem); font-weight: 700; color: var(--primary); display: block; margin-top: 3px; text-align: center; }
 
         /* Responsive Design */
-        .info-links-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 12px;
-            margin-top: 15px;
-        }
-        @media (max-width: 480px) { 
+       @media (max-width: 480px) { 
             .grid-menu { grid-template-columns: repeat(2, 1fr); gap: 8px; } 
             .calc-card-mini { height: 85px; padding: 10px; }
             .calc-icon { font-size: 1.3rem; }
             .calc-title { font-size: 0.65rem; }
             .nav-tabs { margin: -15px auto 15px auto; padding: 4px 6px; gap: 3px; }
             .info-links-grid { grid-template-columns: repeat(2, 1fr); }
-            html { font-size: 18px; }
+            html { font-size: 20px; }
             .nav-btn { font-size: 0.75rem; }
             .journal-link { font-size: 0.9rem; }
             .input-group label { font-size: 0.9rem; }
@@ -1111,7 +1105,7 @@
             <button class="btn-action" onclick="window.open('https://drive.google.com/drive/folders/1dayFfTfZdNzpzFO80tXyA1vU5qtAsBvP?usp=drive_link')">Google Drive <i class="fa-solid fa-arrow-up-right-from-square"></i></button>
         </div>
         
-        <div style="display:none;">
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap:12px; margin-top:15px;">
     
     <div class="calculator-view external-link-card" style="display:block; margin:0; padding:15px; text-align:center;" onclick="window.open('https://www.mayocliniclabs.com', '_blank')">
         <i class="fa-solid fa-microscope" style="font-size:2rem; color:var(--primary); margin-bottom:10px;"></i>
@@ -1165,7 +1159,7 @@
     <i class="fa-solid fa-magnifying-glass-chart" style="font-size:2rem; color:var(--primary); margin-bottom:10px;"></i>
     <h4 style="font-size:0.85rem;">Lab Error Finder</h4>
     <span style="font-size:0.7rem; color:var(--text-light);">Lab Error Finder</span>
-        </div>
+</div>
 
 <div class="calculator-view external-link-card" style="display:block; margin:0; padding:15px; text-align:center;" onclick="window.open('https://hikmetc-qcconstellation.streamlit.app/', '_blank')">
     <i class="fa-solid fa-star" style="font-size:2rem; color:var(--primary); margin-bottom:10px;"></i>
@@ -1338,73 +1332,6 @@
                 </div>
             </div>
             <!-- Removed other widgets to simplify: using PubMed journal aggregator only -->
-        </div>
-        
-        <div class="calculator-view" style="display:block; margin-top:15px;">
-            <h3 style="color:var(--primary); margin-bottom:10px;">
-                <i class="fa-solid fa-link"></i> Useful Links
-            </h3>
-            <div class="info-links-grid">
-                <div class="calculator-view external-link-card" style="display:block; margin:0; padding:15px; text-align:center;" onclick="window.open('https://www.mayocliniclabs.com', '_blank')">
-                    <i class="fa-solid fa-microscope" style="font-size:2rem; color:var(--primary); margin-bottom:10px;"></i>
-                    <h4 style="font-size:0.85rem;">Mayo Clinic Labs</h4>
-                    <span style="font-size:0.7rem; color:var(--text-light);">Test Catalog</span>
-                </div>
-            
-                <div class="calculator-view external-link-card" style="display:block; margin:0; padding:15px; text-align:center;" onclick="window.open('https://clinical-laboratory-diagnostics.com/', '_blank')">
-                    <i class="fa-solid fa-book-medical" style="font-size:2rem; color:var(--primary); margin-bottom:10px;"></i>
-                    <h4 style="font-size:0.85rem;">Clinical Lab Diagnostics</h4>
-                    <span style="font-size:0.7rem; color:var(--text-light);">Online Textbook</span>
-                </div>
-            
-                <div class="calculator-view external-link-card" style="display:block; margin:0; padding:15px; text-align:center;" onclick="window.open('https://myadlm.org/', '_blank')">
-                    <i class="fa-solid fa-flask-vial" style="font-size:2rem; color:var(--primary); margin-bottom:10px;"></i>
-                    <h4 style="font-size:0.85rem;">ADLM (AACC)</h4>
-                    <span style="font-size:0.7rem; color:var(--text-light);">Lab Medicine Authority</span>
-                </div>
-            
-                <div class="calculator-view external-link-card" style="display:block; margin:0; padding:15px; text-align:center;" onclick="window.open('https://labtestsonline.org.uk/', '_blank')">
-                    <i class="fa-solid fa-vial-circle-check" style="font-size:2rem; color:var(--primary); margin-bottom:10px;"></i>
-                    <h4 style="font-size:0.85rem;">Lab Tests Online</h4>
-                    <span style="font-size:0.7rem; color:var(--text-light);">Test Explanations</span>
-                </div>
-            
-                <div class="calculator-view external-link-card" style="display:block; margin:0; padding:15px; text-align:center;" onclick="window.open('https://www.turkbiyokimyadernegi.org.tr/', '_blank')">
-                    <i class="fa-solid fa-dna" style="font-size:2rem; color:var(--primary); margin-bottom:10px;"></i>
-                    <h4 style="font-size:0.85rem;">TBD</h4>
-                    <span style="font-size:0.7rem; color:var(--text-light);">Türk Biyokimya Derneği</span>
-                </div>
-            
-                <div class="calculator-view external-link-card" style="display:block; margin:0; padding:15px; text-align:center;" onclick="window.open('https://tkbd.org/', '_blank')">
-                    <i class="fa-solid fa-hospital-user" style="font-size:2rem; color:var(--primary); margin-bottom:10px;"></i>
-                    <h4 style="font-size:0.85rem;">TKBD</h4>
-                    <span style="font-size:0.7rem; color:var(--text-light);">Klinik Biyokimya Derneği</span>
-                </div>
-            
-                <div class="calculator-view external-link-card" style="display:block; margin:0; padding:15px; text-align:center;" onclick="window.open('https://kbud.org.tr/', '_blank')">
-                    <i class="fa-solid fa-user-doctor" style="font-size:2rem; color:var(--primary); margin-bottom:10px;"></i>
-                    <h4 style="font-size:0.85rem;">KBUD</h4>
-                    <span style="font-size:0.7rem; color:var(--text-light);">Biyokimya Uzmanları Derneği</span>
-                </div>
-            
-                <div class="calculator-view external-link-card" style="display:block; margin:0; padding:15px; text-align:center;" onclick="window.open('https://www.reddit.com/r/medlabprofessionals/', '_blank')">
-                    <i class="fa-brands fa-reddit-alien" style="font-size:2rem; color:var(--primary); margin-bottom:10px;"></i>
-                    <h4 style="font-size:0.85rem;">Reddit MedLab</h4>
-                    <span style="font-size:0.7rem; color:var(--text-light);">Global Lab Community</span>
-                </div>
-            
-                <div class="calculator-view external-link-card" style="display:block; margin:0; padding:15px; text-align:center;" onclick="window.open('https://laberrorfinder.streamlit.app/', '_blank')">
-                    <i class="fa-solid fa-magnifying-glass-chart" style="font-size:2rem; color:var(--primary); margin-bottom:10px;"></i>
-                    <h4 style="font-size:0.85rem;">Lab Error Finder</h4>
-                    <span style="font-size:0.7rem; color:var(--text-light);">Lab Error Finder</span>
-                </div>
-            
-                <div class="calculator-view external-link-card" style="display:block; margin:0; padding:15px; text-align:center;" onclick="window.open('https://hikmetc-qcconstellation.streamlit.app/', '_blank')">
-                    <i class="fa-solid fa-star" style="font-size:2rem; color:var(--primary); margin-bottom:10px;"></i>
-                    <h4 style="font-size:0.85rem;">QC Constellation</h4>
-                    <span style="font-size:0.7rem; color:var(--text-light);">Quality Control App</span>
-                </div>
-            </div>
         </div>
     </div>
 
@@ -3663,4 +3590,3 @@ function renderPubMedList(articles, container) {
 </script>
 </body>
 </html>
-
