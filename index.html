@@ -12,7 +12,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
-        
 
         /* QC Accordion Styles */
 .qc-card {
@@ -96,7 +95,6 @@
         .nav-tabs { 
             display: flex; 
             justify-content: center; 
-            align-self: center;
             align-items: center;
             gap: 8px; 
             margin: -25px auto 20px auto; 
@@ -104,8 +102,9 @@
             padding: 6px 15px; 
             border-radius: 20px; 
             box-shadow: 0 10px 25px -5px rgba(0,0,0,0.15); 
-            width: fit-content;
-            max-width: 95%;
+            border: 1px solid var(--border-color); 
+            width: fit-content; 
+            min-width: fit-content;
             max-width: 100%;
             position: relative; 
             z-index: 10; 
@@ -116,19 +115,13 @@
             .nav-tabs {
                 padding: 6px 10px;
                 gap: 6px;
-                width: 94%;
-                justify-content: center;
-                align-items: center;
-                align-content: center;
-                margin-left: auto;
-                margin-right: auto;
             }
-            .nav-btn { background: transparent; border: none; padding: 8px 12px; border-radius: 14px; color: var(--text-light); font-weight: 600; cursor: pointer; font-size: clamp(0.7rem, 1.5vw, 0.8rem); display: flex; align-items: center; gap: 5px; flex-direction: column; transition: all 0.2s; flex-shrink: 0; }
-            .nav-btn i { font-size: clamp(1rem, 2.5vw, 1.2rem); margin-bottom: 2px; }
-            .nav-btn.active { background-color: var(--primary-light); color: var(--primary-dark); }
-            .nav-btn:hover { background-color: var(--bg-input); }
-            .nav-btn.wide { padding: 8px 20px; }
         }
+        .nav-btn { background: transparent; border: none; padding: 8px 12px; border-radius: 14px; color: var(--text-light); font-weight: 600; cursor: pointer; font-size: clamp(0.7rem, 1.5vw, 0.8rem); display: flex; align-items: center; gap: 5px; flex-direction: column; transition: all 0.2s; flex-shrink: 0; }
+        .nav-btn i { font-size: clamp(1rem, 2.5vw, 1.2rem); margin-bottom: 2px; }
+        .nav-btn.active { background-color: var(--primary-light); color: var(--primary-dark); }
+        .nav-btn:hover { background-color: var(--bg-input); }
+        .nav-btn.wide { padding: 8px 20px; }
         
         /* QC ve Notes sekmeleri - ÇOK DAHA GENİŞ - Responsive */
         .nav-tabs .nav-btn:nth-child(2),
@@ -304,34 +297,9 @@
 
         /* Journal List */
         .journal-list { max-height: clamp(300px, 50vh, 400px); overflow-y: auto; border: 1px solid var(--border-color); border-radius: 10px; background: var(--bg-card); width: 100%; }
-        .journal-link { display: block; padding: clamp(10px, 1.5vw, 12px) clamp(12px, 2vw, 15px); border-bottom: 1px solid var(--border-color); color: var(--text-main); text-decoration: none; font-size: clamp(0.8rem, 1.5vw, 0.85rem); font-weight: 500; transition: all 0.2s; line-height: 1.2; }
+        .journal-link { display: block; padding: clamp(10px, 1.5vw, 12px) clamp(12px, 2vw, 15px); border-bottom: 1px solid var(--border-color); color: var(--text-main); text-decoration: none; font-size: clamp(0.8rem, 1.5vw, 0.85rem); font-weight: 500; transition: all 0.2s; }
         .journal-link:hover { background-color: var(--primary-light); color: var(--primary-dark); padding-left: clamp(15px, 2.5vw, 20px); }
         .journal-link:last-child { border-bottom: none; }
-        .journal-list > div {
-    display: flex;
-    align-items: center; /* Kutucuk ve metni dikeyde ortalar */
-    gap: 10px;           /* Aralarındaki boşluk */
-    padding: 8px 12px;   /* Satır içi boşluklar */
-    border-bottom: 1px solid var(--border-color);
-}
-        .journal-list .journal-link {
-    display: inline-block;
-    line-height: 1;      /* Metin yüksekliğini kutucuğa eşitler */
-    padding: 0;
-    margin: 0;
-    text-decoration: none;}
-        .journal-list .btn-action, 
-.journal-list .btn-secondary {
-    width: 20px;
-    height: 20px;
-    flex-shrink: 0;      /* Kutucuğun daralmasını engeller */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 4px;
-    font-size: 0.8rem;
-    cursor: pointer;
-}
         .external-link-card { cursor: pointer; transition: transform 0.2s; border: 1px solid var(--border-color); width: 100%; }
         .external-link-card:hover { transform: translateY(-2px); border-color: var(--primary); }
 
@@ -379,15 +347,23 @@
             .calc-icon { font-size: 1.3rem; }
             .calc-title { font-size: 0.65rem; }
             .nav-tabs { margin: -15px 10px 15px 10px; padding: 4px 6px; gap: 3px; }
-            .calc-title { font-size: 0.75rem; }
+            .nav-btn { padding: 5px 8px; font-size: 0.65rem; gap: 2px; }
             .nav-btn i { font-size: 0.9rem; }
-            .nav-btn { padding: 5px 8px; font-size: 0.75rem; gap: 2px; }
-            .nav-btn i { font-size: 0.9rem; }
+            .nav-btn.wide { padding: 5px 12px; }
+            header { padding: 1.5rem 1rem; }
             .container { padding: 0 10px 25px 10px; }
             .calculator-view { padding: 12px; }
+            .chart-container { height: 250px; }
+        }
         
         @media (min-width: 481px) and (max-width: 768px) { 
             .grid-menu { grid-template-columns: repeat(2, 1fr); } 
+            footer { flex-direction: column; gap: 15px; }
+            .footer-info { width: 100%; }
+            .footer-controls { position: static; margin-top: 10px; }
+            footer .footer-content { flex-direction: column; gap: 10px; text-align: center; } 
+            .calc-input-grid { grid-template-columns: 1fr; } 
+            .full-width { grid-column: span 1; } 
             .nav-tabs { margin: -20px 15px 20px 15px; padding: 4px 8px; gap: 4px; }
             .nav-btn { padding: 6px 10px; font-size: 0.7rem; }
             .nav-btn.wide { padding: 6px 15px; }
@@ -399,7 +375,7 @@
         @media (max-width: 480px) {
             footer { flex-direction: column; gap: 15px; }
             .footer-info { width: 100%; }
-            .nav-btn { padding: 6px 10px; font-size: 0.7rem; }
+            .footer-controls { position: static; margin-top: 10px; }
         }
         
         @media (min-width: 769px) and (max-width: 1024px) {
@@ -420,74 +396,6 @@
             .calc-input-grid { grid-template-columns: 1fr 1fr; }
             .full-width { grid-column: span 2; }
         }
-
-        /* Dış Bağlantı Kartları Konteynırı */
-.external-links-grid {
-    display: grid;
-    /* Kutucukları daha küçük (min 120px) yaparak yan yana daha fazla sığmasını sağlar */
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); 
-    gap: 10px;
-    margin-top: 15px;
-    width: 100%;
-}
-
-.external-link-card {
-    background: var(--bg-card);
-    border-radius: var(--radius);
-    padding: 2px !important; /* İç boşluğu azalttık */
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.2s;
-    border: 1px solid var(--border-color);
-    display: flex !important;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 80px; /* Yüksekliği küçülttük */
-}
-
-.external-link-card:hover {
-    transform: translateY(-2px);
-    border-color: var(--primary);
-    box-shadow: var(--shadow);
-}
-
-.external-link-card i {
-    font-size: 1.4rem !important; /* İkonları küçülttük */
-    color: var(--primary);
-    margin-bottom: 6px !important;
-}
-
-.external-link-card h4 {
-    font-size: 0.75rem !important; /* Başlık fontunu küçülttük */
-    margin: 0;
-    line-height: 1.1;
-    display: -webkit-box;
-    -webkit-line-clamp: 2; /* Uzun başlıkları 2 satırda keser */
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-
-.external-link-card span {
-    font-size: 0.65rem !important; /* Alt metni küçülttük */
-    color: var(--text-light);
-    margin-top: 3px;
-}
-
-/* Mobil için ekstra küçültme */
-@media (max-width: 480px) {
-    .external-links-grid {
-        grid-template-columns: repeat(3, 1fr); /* Mobilde yan yana 3 tane sığdır */
-        gap: 3px;
-    }
-    .external-link-card {
-        min-height: 80px;
-        padding: 3px !important;
-    }
-    .external-link-card i {
-        font-size: 1.1rem !important;
-    }
-}
     </style>
 </head>
 <body>
@@ -948,33 +856,111 @@
             <button class="btn-action btn-secondary" onclick="downloadHighResChart('ljChart')" style="margin-top:10px;"><i class="fa-solid fa-download"></i> Download Chart (HD)</button>
         </div>
     </div>
-            <div class="journal-list">
-                <a href="https://www.degruyterbrill.com/journal/key/almed/html#latestIssue" target="_blank" class="journal-link">Advances in Laboratory Medicine</a>
-                <a href="https://journals.sagepub.com/home/acb" target="_blank" class="journal-link">Annals of Clinical Biochemistry</a>
-                <a href="https://www.annlabmed.org/main.html" target="_blank" class="journal-link">Annals of Laboratory Medicine</a>
-                <a href="https://www.biochemia-medica.com/en" target="_blank" class="journal-link">Biochemia Medica</a>
-                <a href="https://www.bslonline.org/main.html" target="_blank" class="journal-link">Biomedical Science Letters</a>
-                <a href="https://www.sciencedirect.com/journal/clinica-chimica-acta" target="_blank" class="journal-link">Clinica Chimica Acta</a>
-                <a href="https://academic.oup.com/clinchem" target="_blank" class="journal-link">Clinical Chemistry</a>
-                <a href="https://www.degruyterbrill.com/journal/key/cclm/html" target="_blank" class="journal-link">Clinical Chemistry and Laboratory Medicine</a>
-                <a href="https://www.clin-lab-publications.com/" target="_blank" class="journal-link">Clinical Laboratory</a>
-                <a href="https://www.tandfonline.com/journals/ilab20" target="_blank" class="journal-link">Critical Reviews in Clinical Laboratory Sciences</a>
-                <a href="https://pmc.ncbi.nlm.nih.gov/journals/?term=%22EJIFCC%22" target="_blank" class="journal-link">eJIFCC</a>
-                <a href="https://onlinelibrary.wiley.com/journal/7072" target="_blank" class="journal-link">International Journal of Analytical Chemistry</a>
-                <a href="https://academic.oup.com/jat" target="_blank" class="journal-link">Journal of Analytical Toxicology</a>
-                <a href="https://onlinelibrary.wiley.com/journal/10982825" target="_blank" class="journal-link">Journal of Clinical Laboratory Analysis</a>
-                <a href="https://jlpm.amegroups.org/" target="_blank" class="journal-link">Journal of Laboratory and Precision Medicine</a>
-                <a href="https://www.degruyterbrill.com/journal/key/labm/html#issues" target="_blank" class="journal-link">Journal of Laboratory Medicine</a>
-                <a href="https://www.sciencedirect.com/journal/labmed-discovery" target="_blank" class="journal-link">LabMed Discovery</a>
-                <a href="https://academic.oup.com/labmed" target="_blank" class="journal-link">Laboratory Medicine</a>
-                <a href="https://njlm.net/" target="_blank" class="journal-link">National Journal Laboratory Medicine</a>
-                <a href="https://www.sciencedirect.com/journal/practical-laboratory-medicine" target="_blank" class="journal-link">Practical Laboratory Medicine</a>
-                <a href="https://www.tandfonline.com/journals/iclb20" target="_blank" class="journal-link">Scandinavian Journal of Clinical and Laboratory Investigation</a>
-                <a href="https://academic.oup.com/jalm" target="_blank" class="journal-link">The Journal of Applied Laboratory Medicine</a>
-                <a href="https://www.kjcls.org/main.html" target="_blank" class="journal-link">The Korean Journal of Clinical Laboratory Science</a>
-                <a href="https://journals.lww.com/drug-monitoring/pages/default.aspx" target="_blank" class="journal-link">Therapeutic Drug Monitoring</a>
-                <a href="https://tkb.dergisi.org/" target="_blank" class="journal-link">Türk Klinik Biyokimya Dergisi</a>
-                <a href="https://www.degruyterbrill.com/journal/key/tjb/html#issues" target="_blank" class="journal-link">Turkish Journal of Biochemistry</a>
+
+    <div class="qc-card">
+        <div class="qc-header" onclick="toggleQC('qc-pbrtqc', this)">
+            <h3><i class="fa-solid fa-chart-area"></i> PBRTQC (EWMA & MA)</h3>
+            <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div id="qc-pbrtqc" class="qc-body">
+            <div class="calc-input-grid">
+                <div class="input-group full-width">
+                    <label>Analyte</label>
+                    <select id="pbrtqc-analyte" onchange="updatePBRTQCConfig()"></select>
+                </div>
+                <div class="input-group" id="unit-group" style="display:none;">
+                    <label>Unit</label>
+                    <select id="pbrtqc-unit" onchange="updatePBRTQCConfig()"></select>
+                </div>
+            </div>
+
+            <div id="custom-params" style="display:none; background:var(--bg-input); padding:10px; border-radius:10px; margin-bottom:15px;">
+                <div class="calc-input-grid">
+                    <div class="input-group"><label>CVi (%)</label><input type="number" id="cust-cvi" value="5"></div>
+                    <div class="input-group"><label>CVg (%)</label><input type="number" id="cust-cvg" value="10"></div>
+                    <div class="input-group"><label>Low Limit</label><input type="number" id="cust-l" value="0"></div>
+                    <div class="input-group"><label>High Limit</label><input type="number" id="cust-u" value="100"></div>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label>Method</label>
+                <select id="pbrtqc-method" onchange="togglePBRTQCParams()">
+                    <option value="auto">✨ Auto (Optimal)</option>
+                    <option value="ewma">EWMA</option>
+                    <option value="ma">MA</option>
+                </select>
+            </div>
+
+            <div id="param-container" style="background:var(--bg-input); padding:10px; border-radius:10px; margin-bottom:15px;">
+                <div class="input-group" id="param-mode-group">
+                    <label>Parameter Mode</label>
+                    <select id="param-mode" onchange="toggleManualParams()">
+                        <option value="auto">Auto (From Table)</option>
+                        <option value="manual">Manual Entry</option>
+                    </select>
+                </div>
+                
+                <div id="manual-params" style="display:none; grid-template-columns: 1fr 1fr; gap:10px;">
+                    <div class="ewma-only input-group"><label>Lambda (λ)</label><input type="number" id="manual-lambda" step="0.01"></div>
+                    <div class="ewma-only input-group"><label>Limit (L)</label><input type="number" id="manual-l" step="0.1"></div>
+                    <div class="ma-only input-group"><label>Window (w)</label><input type="number" id="manual-w" step="1"></div>
+                </div>
+                <div id="auto-param-display" style="font-size:0.8rem; color:var(--primary); font-weight:bold;"></div>
+            </div>
+
+            <div class="input-group">
+                <div style="display:flex; gap:10px; margin-bottom:10px;">
+                    <button class="btn-action btn-secondary" style="flex:1;" onclick="triggerExcelInput()">
+                        <i class="fa-solid fa-file-excel"></i> Upload Excel
+                    </button>
+                    
+                    <input type="file" id="excel-upload" accept=".xlsx, .xls" style="display:none;" onchange="handleExcelUpload(this)">
+                    <span id="pbrtqc-upload-status" style="font-size:0.8rem; color:var(--success); display:none; margin-left:5px;"></span>
+                    
+                    <button class="btn-action btn-secondary" style="flex:1;" onclick="downloadTemplate()">
+                        <i class="fa-solid fa-download"></i> Template
+                    </button>
+                </div>
+                
+                <div style="display:flex; gap:10px;">
+                    <input type="number" id="single-val-input" placeholder="Enter manual value..." style="flex:1;">
+                    <button class="btn-action" style="width:auto; margin:0; padding:0 20px;" onclick="addManualValue()">
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div style="max-height:150px; overflow-y:auto; border:1px solid var(--border-color); margin-bottom:10px;">
+                <table class="data-table">
+                    <thead style="background:var(--primary-light); position:sticky; top:0;"><tr><th>No</th><th>Value</th><th>...</th></tr></thead>
+                    <tbody id="manual-data-tbody"></tbody>
+                </table>
+            </div>
+            <div style="text-align:right;"><button class="btn-secondary" style="padding:2px 8px; font-size:0.7rem;" onclick="clearManualData()">Clear</button></div>
+
+            <div style="display:flex; gap:10px; margin-top:10px;">
+                <label><input type="checkbox" id="opt-trunc" checked> <span>Truncation (RCV)</span></label>
+                <label><input type="checkbox" id="opt-norm" checked> <span>Log Trans.</span></label>
+            </div>
+
+            <button class="btn-action" onclick="runPBRTQC()">CALCULATE & PLOT</button>
+
+            <div id="qc-result-area" style="display:none;">
+                <div class="chart-container"><canvas id="qcChart"></canvas></div>
+                <div id="qc-stats" class="warning-box" style="display:block; margin-top:10px;"></div>
+                <button class="btn-action btn-secondary" onclick="downloadHighResChart('qcChart')"><i class="fa-solid fa-download"></i> Download Chart (HD)</button>
+            </div>
+        </div>
+    </div>
+<div class="qc-header" onclick="toggleQC('qc-sigma', this)">
+            <h3><i class="fa-solid fa-bullseye"></i> Sigma Metric & Method Decision</h3>
+            <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div id="qc-sigma" class="qc-body">
+            <div class="calc-input-grid">
+                <div class="input-group">
+                    <div class="label-row"><label>TEa (Total Allowable Error)</label><span class="unit-badge">%</span></div>
                     <input type="number" id="sigma-tea">
                 </div>
                 <div class="input-group">
@@ -1018,231 +1004,51 @@
             <button class="btn-action" onclick="window.open('https://drive.google.com/drive/folders/1dayFfTfZdNzpzFO80tXyA1vU5qtAsBvP?usp=drive_link')">Google Drive <i class="fa-solid fa-arrow-up-right-from-square"></i></button>
         </div>
         
-        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap:12px; margin-top:15px;">
-    
-    <div class="calculator-view external-link-card" style="display:block; margin:0; padding:15px; text-align:center;" onclick="window.open('https://www.mayocliniclabs.com', '_blank')">
-        <i class="fa-solid fa-microscope" style="font-size:2rem; color:var(--primary); margin-bottom:10px;"></i>
-        <h4 style="font-size:0.85rem;">Mayo Clinic Labs</h4>
-        <span style="font-size:0.7rem; color:var(--text-light);">Test Catalog</span>
-    </div>
-
-    <div class="calculator-view external-link-card" style="display:block; margin:0; padding:15px; text-align:center;" onclick="window.open('https://clinical-laboratory-diagnostics.com/', '_blank')">
-        <i class="fa-solid fa-book-medical" style="font-size:2rem; color:var(--primary); margin-bottom:10px;"></i>
-        <h4 style="font-size:0.85rem;">Clinical Lab Diagnostics</h4>
-        <span style="font-size:0.7rem; color:var(--text-light);">Online Textbook</span>
-    </div>
-
-    <div class="calculator-view external-link-card" style="display:block; margin:0; padding:15px; text-align:center;" onclick="window.open('https://myadlm.org/', '_blank')">
-        <i class="fa-solid fa-flask-vial" style="font-size:2rem; color:var(--primary); margin-bottom:10px;"></i>
-        <h4 style="font-size:0.85rem;">ADLM (AACC)</h4>
-        <span style="font-size:0.7rem; color:var(--text-light);">Lab Medicine Authority</span>
-    </div>
-
-    <div class="calculator-view external-link-card" style="display:block; margin:0; padding:15px; text-align:center;" onclick="window.open('https://labtestsonline.org.uk/', '_blank')">
-        <i class="fa-solid fa-vial-circle-check" style="font-size:2rem; color:var(--primary); margin-bottom:10px;"></i>
-        <h4 style="font-size:0.85rem;">Lab Tests Online</h4>
-        <span style="font-size:0.7rem; color:var(--text-light);">Test Explanations</span>
-    </div>
-
-    <div class="calculator-view external-link-card" style="display:block; margin:0; padding:15px; text-align:center;" onclick="window.open('https://www.turkbiyokimyadernegi.org.tr/', '_blank')">
-        <i class="fa-solid fa-dna" style="font-size:2rem; color:var(--primary); margin-bottom:10px;"></i>
-        <h4 style="font-size:0.85rem;">TBD</h4>
-        <span style="font-size:0.7rem; color:var(--text-light);">Türk Biyokimya Derneği</span>
-    </div>
-
-    <div class="calculator-view external-link-card" style="display:block; margin:0; padding:15px; text-align:center;" onclick="window.open('https://tkbd.org/', '_blank')">
-        <i class="fa-solid fa-hospital-user" style="font-size:2rem; color:var(--primary); margin-bottom:10px;"></i>
-        <h4 style="font-size:0.85rem;">TKBD</h4>
-        <span style="font-size:0.7rem; color:var(--text-light);">Klinik Biyokimya Derneği</span>
-    </div>
-
-    <div class="calculator-view external-link-card" style="display:block; margin:0; padding:15px; text-align:center;" onclick="window.open('https://kbud.org.tr/', '_blank')">
-        <i class="fa-solid fa-user-doctor" style="font-size:2rem; color:var(--primary); margin-bottom:10px;"></i>
-        <h4 style="font-size:0.85rem;">KBUD</h4>
-        <span style="font-size:0.7rem; color:var(--text-light);">Biyokimya Uzmanları Derneği</span>
-    </div>
-
-    <div class="calculator-view external-link-card" style="display:block; margin:0; padding:15px; text-align:center;" onclick="window.open('https://www.reddit.com/r/medlabprofessionals/', '_blank')">
-        <i class="fa-brands fa-reddit-alien" style="font-size:2rem; color:var(--primary); margin-bottom:10px;"></i>
-        <h4 style="font-size:0.85rem;">Reddit MedLab</h4>
-        <span style="font-size:0.7rem; color:var(--text-light);">Global Lab Community</span>
-    </div>
-
-    <div class="calculator-view external-link-card" style="display:block; margin:0; padding:15px; text-align:center;" onclick="window.open('https://laberrorfinder.streamlit.app/', '_blank')">
-    <i class="fa-solid fa-magnifying-glass-chart" style="font-size:2rem; color:var(--primary); margin-bottom:10px;"></i>
-    <h4 style="font-size:0.85rem;">Lab Error Finder</h4>
-    <span style="font-size:0.7rem; color:var(--text-light);">Lab Error Finder</span>
-</div>
-
-<div class="calculator-view external-link-card" style="display:block; margin:0; padding:15px; text-align:center;" onclick="window.open('https://hikmetc-qcconstellation.streamlit.app/', '_blank')">
-    <i class="fa-solid fa-star" style="font-size:2rem; color:var(--primary); margin-bottom:10px;"></i>
-    <h4 style="font-size:0.85rem;">QC Constellation</h4>
-    <span style="font-size:0.7rem; color:var(--text-light);">Quality Control App</span>
-</div>
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:15px;">
+            <div class="calculator-view external-link-card" style="display:block; margin:0; padding:15px; text-align:center;" onclick="window.open('https://www.mayocliniclabs.com', '_blank')">
+                <i class="fa-solid fa-microscope" style="font-size:2rem; color:var(--primary); margin-bottom:10px;"></i>
+                <h4 style="font-size:0.9rem;">Mayo Clinic Labs</h4>
+                <span style="font-size:0.7rem; color:var(--text-light);">Test Catalog</span>
+            </div>
+            <div class="calculator-view external-link-card" style="display:block; margin:0; padding:15px; text-align:center;" onclick="window.open('https://clinical-laboratory-diagnostics.com/', '_blank')">
+                <i class="fa-solid fa-book-medical" style="font-size:2rem; color:var(--primary); margin-bottom:10px;"></i>
+                <h4 style="font-size:0.9rem;">Clinical Lab Diagnostics</h4>
+                <span style="font-size:0.7rem; color:var(--text-light);">Online Textbook</span>
+            </div>
+        </div>
 
         <div class="calculator-view" style="display:block; margin-top:15px;">
             <h3 style="color:var(--primary); margin-bottom:15px; border-bottom:1px solid var(--border-color); padding-bottom:10px;">
                 <i class="fa-solid fa-newspaper"></i> Journals
             </h3>
-            <div id="pubmedJournalWidget" style="display:block; margin-bottom:15px;">
-                <div style="display:flex; gap:10px; align-items:center; margin-bottom:6px;">
-                    <span style="font-size:0.85rem; color:var(--text-light);">Please select the journals you wish to follow and the number of recent articles to display, then click Lab Digest to continue.
-</span>
-                </div>
-                <div style="display:flex; gap:10px; align-items:center; margin-bottom:10px; flex-wrap:nowrap; justify-content:flex-start;">
-    <select id="pubmedCountSelect" class="input-group" style="width:160px; padding:10px; border-radius:8px; height:42px; margin:0;">
-        <option value="5">Last 5</option>
-        <option value="10">Last 10</option>
-        <option value="15">Last 15</option>
-        <option value="20">Last 20</option>
-        <option value="30">Last 30</option>
-    </select>
-    
-    <button class="btn-action morning-brief-btn" onclick="loadPubMedJournalsLatest()" style="width:auto; margin:0; padding:0 20px; height:42px; display:inline-flex; align-items:center; gap:12px;">
-        <i class="fa-solid fa-flask"></i> 
-        <span>Lab Digest</span>
-    </button>
-</div>
-</button>
-                </div>
-                <div id="pubmedJournalResults" style="border:1px solid var(--border-color); border-radius:10px; background:var(--bg-card); padding:10px; max-height:300px; overflow-y:auto;"></div>
+            <div class="journal-list">
+                <a href="https://www.degruyterbrill.com/journal/key/almed/html#latestIssue" target="_blank" class="journal-link">Advances in Laboratory Medicine</a>
+                <a href="https://journals.sagepub.com/home/acb" target="_blank" class="journal-link">Annals of Clinical Biochemistry</a>
+                <a href="https://www.annlabmed.org/main.html" target="_blank" class="journal-link">Annals of Laboratory Medicine</a>
+                <a href="https://www.biochemia-medica.com/en" target="_blank" class="journal-link">Biochemia Medica</a>
+                <a href="https://www.bslonline.org/main.html" target="_blank" class="journal-link">Biomedical Science Letters</a>
+                <a href="https://www.sciencedirect.com/journal/clinica-chimica-acta" target="_blank" class="journal-link">Clinica Chimica Acta</a>
+                <a href="https://academic.oup.com/clinchem" target="_blank" class="journal-link">Clinical Chemistry</a>
+                <a href="https://www.degruyterbrill.com/journal/key/cclm/html" target="_blank" class="journal-link">Clinical Chemistry and Laboratory Medicine</a>
+                <a href="https://www.clin-lab-publications.com/" target="_blank" class="journal-link">Clinical Laboratory</a>
+                <a href="https://www.tandfonline.com/journals/ilab20" target="_blank" class="journal-link">Critical Reviews in Clinical Laboratory Sciences</a>
+                <a href="https://pmc.ncbi.nlm.nih.gov/journals/?term=%22EJIFCC%22" target="_blank" class="journal-link">eJIFCC</a>
+                <a href="https://onlinelibrary.wiley.com/journal/7072" target="_blank" class="journal-link">International Journal of Analytical Chemistry</a>
+                <a href="https://academic.oup.com/jat" target="_blank" class="journal-link">Journal of Analytical Toxicology</a>
+                <a href="https://onlinelibrary.wiley.com/journal/10982825" target="_blank" class="journal-link">Journal of Clinical Laboratory Analysis</a>
+                <a href="https://jlpm.amegroups.org/" target="_blank" class="journal-link">Journal of Laboratory and Precision Medicine</a>
+                <a href="https://www.degruyterbrill.com/journal/key/labm/html#issues" target="_blank" class="journal-link">Journal of Laboratory Medicine</a>
+                <a href="https://www.sciencedirect.com/journal/labmed-discovery" target="_blank" class="journal-link">LabMed Discovery</a>
+                <a href="https://academic.oup.com/labmed" target="_blank" class="journal-link">Laboratory Medicine</a>
+                <a href="https://njlm.net/" target="_blank" class="journal-link">National Journal Laboratory Medicine</a>
+                <a href="https://www.sciencedirect.com/journal/practical-laboratory-medicine" target="_blank" class="journal-link">Practical Laboratory Medicine</a>
+                <a href="https://www.tandfonline.com/journals/iclb20" target="_blank" class="journal-link">Scandinavian Journal of Clinical and Laboratory Investigation</a>
+                <a href="https://academic.oup.com/jalm" target="_blank" class="journal-link">The Journal of Applied Laboratory Medicine</a>
+                <a href="https://www.kjcls.org/main.html" target="_blank" class="journal-link">The Korean Journal of Clinical Laboratory Science</a>
+                <a href="https://journals.lww.com/drug-monitoring/pages/default.aspx" target="_blank" class="journal-link">Therapeutic Drug Monitoring</a>
+                <a href="https://tkb.dergisi.org/" target="_blank" class="journal-link">Türk Klinik Biyokimya Dergisi</a>
+                <a href="https://www.degruyterbrill.com/journal/key/tjb/html#issues" target="_blank" class="journal-link">Turkish Journal of Biochemistry</a>
             </div>
-            <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
-                <input id="journalSearchInput" class="input-group" type="text" placeholder="Search journals" style="flex:1; padding:10px; border-radius:8px;" oninput="filterJournalLists()">
-            </div>
-            <div class="journal-list" id="rssJournalList">
-                <div style="display:flex; align-items:center; gap:6px; white-space:nowrap; line-height:1;">
-                    <button data-journal="Clinical Chemistry" class="btn-action btn-secondary" style="width:18px; height:18px; padding:0; font-size:0.8rem; line-height:1; min-width:unset; display:inline-flex; align-items:center; justify-content:center; border-radius:4px; vertical-align:middle;" onclick="toggleFav('Clinical Chemistry', this)"></button>
-                    <a href="https://academic.oup.com/clinchem" target="_blank" class="journal-link">Clinical Chemistry</a>
-                </div>
-                <div style="display:flex; align-items:center; gap:6px; white-space:nowrap; line-height:1;">
-                    <button data-journal="American Journal of Clinical Pathology" class="btn-action btn-secondary" style="width:18px; height:18px; padding:0; font-size:0.8rem; line-height:1; min-width:unset; display:inline-flex; align-items:center; justify-content:center; border-radius:4px; vertical-align:middle;" onclick="toggleFav('American Journal of Clinical Pathology', this)"></button>
-                    <a href="https://academic.oup.com/ajcp" target="_blank" class="journal-link">American Journal of Clinical Pathology</a>
-                </div>
-                <div style="display:flex; align-items:center; gap:6px; white-space:nowrap; line-height:1;">
-                    <button data-journal="Advances in Laboratory Medicine" class="btn-action btn-secondary" style="width:18px; height:18px; padding:0; font-size:0.8rem; line-height:1; min-width:unset; display:inline-flex; align-items:center; justify-content:center; border-radius:4px; vertical-align:middle;" onclick="toggleFav('Advances in Laboratory Medicine', this)"></button>
-                    <a href="https://www.degruyterbrill.com/journal/key/almed/html#latestIssue" target="_blank" class="journal-link">Advances in Laboratory Medicine</a>
-                </div>
-                <div style="display:flex; align-items:center; gap:6px; white-space:nowrap;">
-                    <button data-journal="Annals of Clinical Biochemistry" class="btn-action btn-secondary" style="width:18px; height:18px; padding:0; font-size:0.8rem; line-height:1; min-width:unset; display:inline-flex; align-items:center; justify-content:center; border-radius:4px;" onclick="toggleFav('Annals of Clinical Biochemistry', this)"></button>
-                    <a href="https://journals.sagepub.com/home/acb" target="_blank" class="journal-link">Annals of Clinical Biochemistry</a>
-                </div>
-                <div style="display:flex; align-items:center; gap:6px; white-space:nowrap;">
-                    <button data-journal="Annals of Laboratory Medicine" class="btn-action btn-secondary" style="width:18px; height:18px; padding:0; font-size:0.8rem; line-height:1; min-width:unset; display:inline-flex; align-items:center; justify-content:center; border-radius:4px;" onclick="toggleFav('Annals of Laboratory Medicine', this)"></button>
-                    <a href="https://www.annlabmed.org/main.html" target="_blank" class="journal-link">Annals of Laboratory Medicine</a>
-                </div>
-                <div style="display:flex; align-items:center; gap:6px; white-space:nowrap;">
-                    <button data-journal="Biochemia Medica" class="btn-action btn-secondary" style="width:18px; height:18px; padding:0; font-size:0.8rem; line-height:1; min-width:unset; display:inline-flex; align-items:center; justify-content:center; border-radius:4px;" onclick="toggleFav('Biochemia Medica', this)"></button>
-                    <a href="https://www.biochemia-medica.com/en" target="_blank" class="journal-link">Biochemia Medica</a>
-                </div>
-                <div style="display:flex; align-items:center; gap:6px; white-space:nowrap; line-height:1;">
-                    <button data-journal="Clinica Chimica Acta" class="btn-action btn-secondary" style="width:18px; height:18px; padding:0; font-size:0.8rem; line-height:1; min-width:unset; display:inline-flex; align-items:center; justify-content:center; border-radius:4px;" onclick="toggleFav('Clinica Chimica Acta', this)"></button>
-                    <a href="https://www.sciencedirect.com/journal/clinica-chimica-acta" target="_blank" class="journal-link">Clinica Chimica Acta</a>
-                </div>
-                <div style="display:flex; align-items:center; gap:6px; white-space:nowrap; line-height:1;">
-                    <button data-journal="Clinical Laboratory" class="btn-action btn-secondary" style="width:18px; height:18px; padding:0; font-size:0.8rem; line-height:1; min-width:unset; display:inline-flex; align-items:center; justify-content:center; border-radius:4px;" onclick="toggleFav('Clinical Laboratory', this)"></button>
-                    <a href="https://www.clin-lab-publications.com/" target="_blank" class="journal-link">Clinical Laboratory</a>
-                </div>
-                <div style="display:flex; align-items:center; gap:6px; white-space:nowrap; line-height:1;">
-                    <button data-journal="Clinical Chemistry and Laboratory Medicine" class="btn-action btn-secondary" style="width:18px; height:18px; padding:0; font-size:0.8rem; line-height:1; min-width:unset; display:inline-flex; align-items:center; justify-content:center; border-radius:4px;" onclick="toggleFav('Clinical Chemistry and Laboratory Medicine', this)"></button>
-                    <a href="https://www.degruyterbrill.com/journal/key/cclm/html" target="_blank" class="journal-link">Clinical Chemistry and Laboratory Medicine</a>
-                </div>
-                <div style="display:flex; align-items:center; gap:6px; white-space:nowrap; line-height:1;">
-                    <button data-journal="Critical Reviews in Clinical Laboratory Sciences" class="btn-action btn-secondary" style="width:18px; height:18px; padding:0; font-size:0.8rem; line-height:1; min-width:unset; display:inline-flex; align-items:center; justify-content:center; border-radius:4px;" onclick="toggleFav('Critical Reviews in Clinical Laboratory Sciences', this)"></button>
-                    <a href="https://www.tandfonline.com/journals/ilab20" target="_blank" class="journal-link">Critical Reviews in Clinical Laboratory Sciences</a>
-                </div>
-                <div style="display:flex; align-items:center; gap:6px; white-space:nowrap; line-height:1;">
-                    <button data-journal="eJIFCC" class="btn-action btn-secondary" style="width:18px; height:18px; padding:0; font-size:0.8rem; line-height:1; min-width:unset; display:inline-flex; align-items:center; justify-content:center; border-radius:4px;" onclick="toggleFav('eJIFCC', this)"></button>
-                    <a href="https://pmc.ncbi.nlm.nih.gov/journals/?term=%22EJIFCC%22" target="_blank" class="journal-link">eJIFCC</a>
-                </div>
-                <div style="display:flex; align-items:center; gap:6px; white-space:nowrap; line-height:1;">
-                    <button data-journal="International Journal of Analytical Chemistry" class="btn-action btn-secondary" style="width:18px; height:18px; padding:0; font-size:0.8rem; line-height:1; min-width:unset; display:inline-flex; align-items:center; justify-content:center; border-radius:4px;" onclick="toggleFav('International Journal of Analytical Chemistry', this)"></button>
-                    <a href="https://onlinelibrary.wiley.com/journal/7072" target="_blank" class="journal-link">International Journal of Analytical Chemistry</a>
-                </div>
-                <div style="display:flex; align-items:center; gap:6px; white-space:nowrap; line-height:1;">
-                    <button data-journal="Journal of Analytical Toxicology" class="btn-action btn-secondary" style="width:18px; height:18px; padding:0; font-size:0.8rem; line-height:1; min-width:unset; display:inline-flex; align-items:center; justify-content:center; border-radius:4px;" onclick="toggleFav('Journal of Analytical Toxicology', this)"></button>
-                    <a href="https://academic.oup.com/jat" target="_blank" class="journal-link">Journal of Analytical Toxicology</a>
-                </div>
-                <div style="display:flex; align-items:center; gap:6px; white-space:nowrap; line-height:1;">
-                    <button data-journal="Journal of Clinical Laboratory Analysis" class="btn-action btn-secondary" style="width:18px; height:18px; padding:0; font-size:0.8rem; line-height:1; min-width:unset; display:inline-flex; align-items:center; justify-content:center; border-radius:4px;" onclick="toggleFav('Journal of Clinical Laboratory Analysis', this)"></button>
-                    <a href="https://onlinelibrary.wiley.com/journal/10982825" target="_blank" class="journal-link">Journal of Clinical Laboratory Analysis</a>
-                </div>
-                <div style="display:flex; align-items:center; gap:6px; white-space:nowrap; line-height:1;">
-                    <button data-journal="Applied Biochemistry and Biotechnology" class="btn-action btn-secondary" style="width:18px; height:18px; padding:0; font-size:0.8rem; line-height:1; min-width:unset; display:inline-flex; align-items:center; justify-content:center; border-radius:4px;" onclick="toggleFav('Applied Biochemistry and Biotechnology', this)"></button>
-                    <a href="https://link.springer.com/journal/12010" target="_blank" class="journal-link">Applied Biochemistry and Biotechnology</a>
-                </div>
-                <div style="display:flex; align-items:center; gap:6px; white-space:nowrap; line-height:1;">
-                    <button data-journal="Indian Journal of Clinical Biochemistry" class="btn-action btn-secondary" style="width:18px; height:18px; padding:0; font-size:0.8rem; line-height:1; min-width:unset; display:inline-flex; align-items:center; justify-content:center; border-radius:4px;" onclick="toggleFav('Indian Journal of Clinical Biochemistry', this)"></button>
-                    <a href="https://link.springer.com/journal/12291" target="_blank" class="journal-link">Indian Journal of Clinical Biochemistry</a>
-                </div>
-                <div style="display:flex; align-items:center; gap:6px; white-space:nowrap; line-height:1;">
-                    <button data-journal="Journal of Laboratory Automation" class="btn-action btn-secondary" style="width:18px; height:18px; padding:0; font-size:0.8rem; line-height:1; min-width:unset; display:inline-flex; align-items:center; justify-content:center; border-radius:4px;" onclick="toggleFav('Journal of Laboratory Automation', this)"></button>
-                    <a href="https://journals.sagepub.com/home/jla" target="_blank" class="journal-link">Journal of Laboratory Automation</a>
-                </div>
-                <div style="display:flex; align-items:center; gap:6px; white-space:nowrap; line-height:1;">
-                    <button data-journal="Chemistry and Physics of Lipids" class="btn-action btn-secondary" style="width:18px; height:18px; padding:0; font-size:0.8rem; line-height:1; min-width:unset; display:inline-flex; align-items:center; justify-content:center; border-radius:4px;" onclick="toggleFav('Chemistry and Physics of Lipids', this)"></button>
-                    <a href="https://www.sciencedirect.com/journal/chemistry-and-physics-of-lipids" target="_blank" class="journal-link">Chemistry and Physics of Lipids</a>
-                </div>
-                <div style="display:flex; align-items:center; gap:6px; white-space:nowrap; line-height:1;">
-                    <button data-journal="Biological Trace Element Research" class="btn-action btn-secondary" style="width:18px; height:18px; padding:0; font-size:0.8rem; line-height:1; min-width:unset; display:inline-flex; align-items:center; justify-content:center; border-radius:4px;" onclick="toggleFav('Biological Trace Element Research', this)"></button>
-                    <a href="https://link.springer.com/journal/12011" target="_blank" class="journal-link">Biological Trace Element Research</a>
-                </div>
-                <div style="display:flex; align-items:center; gap:6px; white-space:nowrap; line-height:1;">
-                    <button data-journal="Clinical and Experimental Medicine" class="btn-action btn-secondary" style="width:18px; height:18px; padding:0; font-size:0.8rem; line-height:1; min-width:unset; display:inline-flex; align-items:center; justify-content:center; border-radius:4px;" onclick="toggleFav('Clinical and Experimental Medicine', this)"></button>
-                    <a href="https://link.springer.com/journal/10238" target="_blank" class="journal-link">Clinical and Experimental Medicine</a>
-                </div>
-                <div style="display:flex; align-items:center; gap:6px; white-space:nowrap; line-height:1;">
-                    <button data-journal="Annals of Clinical & Laboratory Science" class="btn-action btn-secondary" style="width:18px; height:18px; padding:0; font-size:0.8rem; line-height:1; min-width:unset; display:inline-flex; align-items:center; justify-content:center; border-radius:4px;" onclick="toggleFav('Annals of Clinical & Laboratory Science', this)"></button>
-                    <a href="http://www.annclinlabsci.org/" target="_blank" class="journal-link">Annals of Clinical & Laboratory Science</a>
-                </div>
-                <div style="display:flex; align-items:center; gap:6px; white-space:nowrap; line-height:1;">
-                    <button data-journal="Laboratory Medicine" class="btn-action btn-secondary" style="width:18px; height:18px; padding:0; font-size:0.8rem; line-height:1; min-width:unset; display:inline-flex; align-items:center; justify-content:center; border-radius:4px;" onclick="toggleFav('Laboratory Medicine', this)"></button>
-                    <a href="https://academic.oup.com/labmed" target="_blank" class="journal-link">Laboratory Medicine</a>
-                </div>
-                <div style="display:flex; align-items:center; gap:6px; white-space:nowrap; line-height:1;">
-                    <button data-journal="Practical Laboratory Medicine" class="btn-action btn-secondary" style="width:18px; height:18px; padding:0; font-size:0.8rem; line-height:1; min-width:unset; display:inline-flex; align-items:center; justify-content:center; border-radius:4px;" onclick="toggleFav('Practical Laboratory Medicine', this)"></button>
-                    <a href="https://www.sciencedirect.com/journal/practical-laboratory-medicine" target="_blank" class="journal-link">Practical Laboratory Medicine</a>
-                </div>
-                <div style="display:flex; align-items:center; gap:6px; white-space:nowrap; line-height:1;">
-                    <button data-journal="Scandinavian Journal of Clinical and Laboratory Investigation" class="btn-action btn-secondary" style="width:18px; height:18px; padding:0; font-size:0.8rem; line-height:1; min-width:unset; display:inline-flex; align-items:center; justify-content:center; border-radius:4px;" onclick="toggleFav('Scandinavian Journal of Clinical and Laboratory Investigation', this)"></button>
-                    <a href="https://www.tandfonline.com/journals/iclb20" target="_blank" class="journal-link">Scandinavian Journal of Clinical and Laboratory Investigation</a>
-                </div>
-                <div style="display:flex; align-items:center; gap:6px; white-space:nowrap; line-height:1;">
-                    <button data-journal="The Journal of Applied Laboratory Medicine" class="btn-action btn-secondary" style="width:18px; height:18px; padding:0; font-size:0.8rem; line-height:1; min-width:unset; display:inline-flex; align-items:center; justify-content:center; border-radius:4px;" onclick="toggleFav('The Journal of Applied Laboratory Medicine', this)"></button>
-                    <a href="https://academic.oup.com/jalm" target="_blank" class="journal-link">The Journal of Applied Laboratory Medicine</a>
-                </div>
-            </div>
-            <h4 style="font-size:0.85rem; color:var(--text-light); margin:10px 0 6px 0;">Also visit journals</h4>
-            <div class="journal-list" id="visitJournalList">
-                <div style="white-space:nowrap;">
-                    <a href="https://www.bslonline.org/main.html" target="_blank" class="journal-link">Biomedical Science Letters</a>
-                </div>
-                <div style="white-space:nowrap;">
-                    <a href="https://jlpm.amegroups.org/" target="_blank" class="journal-link">Journal of Laboratory and Precision Medicine</a>
-                </div>
-                <div style="white-space:nowrap;">
-                    <a href="https://www.degruyterbrill.com/journal/key/labm/html#issues" target="_blank" class="journal-link">Journal of Laboratory Medicine</a>
-                </div>
-                <div style="white-space:nowrap;">
-                    <a href="https://www.sciencedirect.com/journal/labmed-discovery" target="_blank" class="journal-link">LabMed Discovery</a>
-                </div>
-                <div style="white-space:nowrap;">
-                    <a href="https://njlm.net/" target="_blank" class="journal-link">National Journal Laboratory Medicine</a>
-                </div>
-                <div style="white-space:nowrap;">
-                    <a href="https://www.kjcls.org/main.html" target="_blank" class="journal-link">The Korean Journal of Clinical Laboratory Science</a>
-                </div>
-                <div style="white-space:nowrap;">
-                    <a href="https://journals.lww.com/drug-monitoring/pages/default.aspx" target="_blank" class="journal-link">Therapeutic Drug Monitoring</a>
-                </div>
-                <div style="white-space:nowrap;">
-                    <a href="https://tkb.dergisi.org/" target="_blank" class="journal-link">Türk Klinik Biyokimya Dergisi</a>
-                </div>
-                <div style="white-space:nowrap;">
-                    <a href="https://www.degruyterbrill.com/journal/key/tjb/html#issues" target="_blank" class="journal-link">Turkish Journal of Biochemistry</a>
-                </div>
-            </div>
-            <!-- Removed other widgets to simplify: using PubMed journal aggregator only -->
         </div>
     </div>
 
@@ -1351,8 +1157,6 @@
         loadTheme();
         renderCalcMenu();
         renderLJData();
-        initJournalListTicks();
-        sortJournalLists();
         // Add onclick to all unit badges that don't have it
         document.querySelectorAll('.unit-badge:not([onclick])').forEach(badge => {
             const unitText = badge.textContent.trim().replace(/\s*\(SI\)/g, '').trim();
@@ -1405,15 +1209,12 @@
     function switchTab(tabId, btn) {
         document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
         if(btn) btn.classList.add('active');
-        document.querySelectorAll('.section').forEach(s => { s.classList.remove('active'); s.style.display = 'none'; });
+        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
         const activeSection = document.getElementById(tabId);
         activeSection.classList.add('active');
-        activeSection.style.display = 'block';
 
         if (tabId === 'tab-calc') {
             closeCalcDetail();
-            const listView = document.getElementById('calc-list-view');
-            if (listView) listView.style.display = 'block';
         } else {
             activeSection.querySelectorAll('.calculator-view').forEach(view => view.style.display = 'block');
         }
@@ -2295,6 +2096,261 @@ function getVal(id) {
                                     
                                     return `Control Value: ${val.toFixed(2)} (${sdText})`;
                                 }
+                                return '';
+                            }
+                        }
+                    },
+                    legend: {
+                        display: true,
+                        // ... (legend ayarları aynı kalacak) ...
+                        labels: {
+                            generateLabels: function(chart) {
+                                const defaultLabels = Chart.defaults.plugins.legend.labels.generateLabels.call(this, chart);
+                                const groupedLabels = [];
+                                const processed = new Set();
+                                
+                                defaultLabels.forEach((label, idx) => {
+                                    if (processed.has(idx)) return;
+                                    const text = label.text;
+                                    
+                                    // Filter out background zones from legend
+                                    if (text.startsWith('Bg')) return;
+                                    
+                                    if (text === '+3SD' || text === '-3SD') {
+                                        const plusLabel = defaultLabels.find(l => l.text === '+3SD');
+                                        const minusLabel = defaultLabels.find(l => l.text === '-3SD');
+                                        if (plusLabel && minusLabel) {
+                                            groupedLabels.push({ ...plusLabel, text: '±3SD', datasetIndex: plusLabel.datasetIndex, hidden: plusLabel.hidden || minusLabel.hidden });
+                                            processed.add(defaultLabels.indexOf(plusLabel));
+                                            processed.add(defaultLabels.indexOf(minusLabel));
+                                        }
+                                    }
+                                    else if (text === '+2SD' || text === '-2SD') {
+                                        const plusLabel = defaultLabels.find(l => l.text === '+2SD');
+                                        const minusLabel = defaultLabels.find(l => l.text === '-2SD');
+                                        if (plusLabel && minusLabel) {
+                                            groupedLabels.push({ ...plusLabel, text: '±2SD', datasetIndex: plusLabel.datasetIndex, hidden: plusLabel.hidden || minusLabel.hidden });
+                                            processed.add(defaultLabels.indexOf(plusLabel));
+                                            processed.add(defaultLabels.indexOf(minusLabel));
+                                        }
+                                    }
+                                    else if (text === '+1SD' || text === '-1SD') {
+                                        const plusLabel = defaultLabels.find(l => l.text === '+1SD');
+                                        const minusLabel = defaultLabels.find(l => l.text === '-1SD');
+                                        if (plusLabel && minusLabel) {
+                                            groupedLabels.push({ ...plusLabel, text: '±1SD', datasetIndex: plusLabel.datasetIndex, hidden: plusLabel.hidden || minusLabel.hidden });
+                                            processed.add(defaultLabels.indexOf(plusLabel));
+                                            processed.add(defaultLabels.indexOf(minusLabel));
+                                        }
+                                    }
+                                    else if (!processed.has(idx)) {
+                                        groupedLabels.push(label);
+                                        processed.add(idx);
+                                    }
+                                });
+                                return groupedLabels;
+                            }
+                        },
+                        // ... (onClick fonksiyonu aynı kalacak) ...
+                        onClick: function(e, legendItem, legend) {
+                            const chart = legend.chart;
+                            const text = legendItem.text;
+                            if (text === '±3SD') {
+                                const plusMeta = chart.getDatasetMeta(chart.data.datasets.findIndex(d => d.label === '+3SD'));
+                                const minusMeta = chart.getDatasetMeta(chart.data.datasets.findIndex(d => d.label === '-3SD'));
+                                const newState = !plusMeta.hidden;
+                                plusMeta.hidden = newState; minusMeta.hidden = newState;
+                            } else if (text === '±2SD') {
+                                const plusMeta = chart.getDatasetMeta(chart.data.datasets.findIndex(d => d.label === '+2SD'));
+                                const minusMeta = chart.getDatasetMeta(chart.data.datasets.findIndex(d => d.label === '-2SD'));
+                                const newState = !plusMeta.hidden;
+                                plusMeta.hidden = newState; minusMeta.hidden = newState;
+                            } else if (text === '±1SD') {
+                                const plusMeta = chart.getDatasetMeta(chart.data.datasets.findIndex(d => d.label === '+1SD'));
+                                const minusMeta = chart.getDatasetMeta(chart.data.datasets.findIndex(d => d.label === '-1SD'));
+                                const newState = !plusMeta.hidden;
+                                plusMeta.hidden = newState; minusMeta.hidden = newState;
+                            } else {
+                                const index = legendItem.datasetIndex;
+                                const meta = chart.getDatasetMeta(index);
+                                meta.hidden = meta.hidden === null ? !chart.data.datasets[index].hidden : null;
+                            }
+                            chart.update();
+                        }
+                    }
+                }
+            }
+        });
+
+// ... (Kalan kodlar aynı) ...
+    }
+    
+    function updateLJLimits() {
+        // If chart exists, redraw it with new limits
+        if (ljChart && ljData.length > 0) {
+            const mean = parseFloat(document.getElementById('lj-mean').value);
+            const sd = parseFloat(document.getElementById('lj-sd').value);
+            if (!isNaN(mean) && !isNaN(sd)) {
+                drawLJChart(mean, sd);
+            }
+        }
+    }
+
+    // --- 9. PBRTQC LOGIC ---
+    function populateAnalyteSelect() {
+        const sel = document.getElementById('pbrtqc-analyte');
+        sel.innerHTML = "";
+        Object.keys(analyteDB).sort().forEach(k => {
+            if(k !== 'Other') {
+                const opt = document.createElement('option');
+                opt.value = k; opt.text = k;
+                sel.add(opt);
+            }
+        });
+        const opt = document.createElement('option');
+        opt.value = 'Other'; 
+        opt.text = "Other (Custom)";
+        sel.add(opt);
+    }
+
+    function updatePBRTQCConfig() {
+        const analyte = document.getElementById('pbrtqc-analyte').value;
+        const unitDiv = document.getElementById('unit-group');
+        const unitSel = document.getElementById('pbrtqc-unit');
+        const methodSel = document.getElementById('pbrtqc-method');
+        const paramModeSel = document.getElementById('param-mode');
+        const customParams = document.getElementById('custom-params');
+
+        if (analyte === 'Other') {
+            unitDiv.style.display = 'none'; 
+            customParams.style.display = 'block'; 
+            
+            methodSel.querySelector('option[value="auto"]').style.display = 'none';
+            methodSel.value = 'ewma';
+
+            paramModeSel.querySelector('option[value="auto"]').style.display = 'none';
+            paramModeSel.value = 'manual';
+            
+        } else {
+            unitDiv.style.display = 'none'; // Unit selection hidden
+            customParams.style.display = 'none';
+            
+            methodSel.querySelector('option[value="auto"]').style.display = 'block';
+            paramModeSel.querySelector('option[value="auto"]').style.display = 'block';
+
+            // Set default unit (first unit in the list)
+            unitSel.innerHTML = "";
+            const units = analyteDB[analyte].units;
+            const unitKeys = Object.keys(units);
+            unitKeys.forEach(u => {
+                const opt = document.createElement('option');
+                opt.value = u; opt.text = u;
+                unitSel.add(opt);
+            });
+            // Set default to first unit
+            if (unitKeys.length > 0) {
+                unitSel.value = unitKeys[0];
+            }
+        }
+        togglePBRTQCParams();
+    }
+
+    function togglePBRTQCParams() {
+        const method = document.getElementById('pbrtqc-method').value;
+        const paramContainer = document.getElementById('param-container');
+        if(method === 'auto') paramContainer.style.display = 'none';
+        else {
+            paramContainer.style.display = 'block';
+            toggleManualParams();
+        }
+    }
+
+    function toggleManualParams() {
+        const method = document.getElementById('pbrtqc-method').value;
+        const mode = document.getElementById('param-mode').value;
+        const manualDiv = document.getElementById('manual-params');
+        const autoInfo = document.getElementById('auto-param-display');
+        
+        if (mode === 'manual') {
+            manualDiv.style.display = 'grid';
+            autoInfo.style.display = 'none';
+            const ewmaEls = document.querySelectorAll('.ewma-only');
+            const maEls = document.querySelectorAll('.ma-only');
+            ewmaEls.forEach(e => e.style.display = method === 'ewma' ? 'block' : 'none');
+            maEls.forEach(e => e.style.display = method === 'ma' ? 'block' : 'none');
+        } else {
+            manualDiv.style.display = 'none';
+            autoInfo.style.display = 'block';
+            const analyte = document.getElementById('pbrtqc-analyte').value;
+            const db = analyteDB[analyte].opt;
+            if(method === 'ewma') autoInfo.innerText = `Auto: λ=${db.lam}, L=${db.L}`;
+            else if(method === 'ma') autoInfo.innerText = `Auto: w=${db.w || 50}`;
+        }
+    }
+
+    function triggerExcelInput() {
+        const fileInput = document.getElementById('excel-upload');
+        if(fileInput) {
+            fileInput.value = '';
+            fileInput.click();
+        }
+    }
+
+    function handleExcelUpload(input) {
+        if (!input.files || input.files.length === 0) return;
+
+        const file = input.files[0];
+        const reader = new FileReader();
+
+        reader.onload = (e) => {
+            try {
+                const data = new Uint8Array(e.target.result);
+                const workbook = XLSX.read(data, {type: 'array'});
+                const firstSheetName = workbook.SheetNames[0];
+                const worksheet = workbook.Sheets[firstSheetName];
+                const json = XLSX.utils.sheet_to_json(worksheet, {header: 1});
+                const newValues = json.flat().map(n => parseFloat(n)).filter(n => !isNaN(n));
+
+                if (newValues.length > 0) {
+                    pbrtqcData = newValues;
+                    const statusSpan = document.getElementById('pbrtqc-upload-status');
+                    if(statusSpan) {
+                        statusSpan.innerText = `${pbrtqcData.length} data loaded.`;
+                        statusSpan.style.display = 'inline';
+                        setTimeout(() => { statusSpan.style.display = 'none'; }, 3000);
+                    }
+                    renderData();
+                } else {
+                    alert("Error: No valid numeric data found in Excel.");
+                }
+            } catch (error) {
+                console.error(error);
+                alert("File read error!");
+            }
+        };
+        reader.readAsArrayBuffer(file);
+    }
+
+    function addManualValue() {
+        const input = document.getElementById('single-val-input');
+        const val = parseFloat(input.value);
+        if(!isNaN(val)) {
+            pbrtqcData.push(val);
+            input.value = ''; input.focus();
+            renderData();
+        }
+    }
+
+    function editManualValue(index) {
+        const currentVal = pbrtqcData[index];
+        const newVal = prompt("Enter new value:", currentVal);
+        if (newVal !== null) {
+            const parsed = parseFloat(newVal);
+            if (!isNaN(parsed)) {
+                pbrtqcData[index] = parsed;
+                renderData();
+            } else {
+                alert("Please enter a valid number.");
             }
         }
     }
@@ -2902,349 +2958,6 @@ function getVal(id) {
         };
         reader.readAsArrayBuffer(file);
     }
-    
-    const defaultFavJournals = ['Clinical Chemistry','The Journal of Applied Laboratory Medicine','Laboratory Medicine'];
-    const rssMap = {
-        'Advances in Laboratory Medicine': 'https://pubmed.ncbi.nlm.nih.gov/rss/search/1z52wgQGrymR2X9hFvtFn2eMNt_ZPOBcHce7z9ZDAilDuOJkxd/?limit=15&utm_campaign=pubmed-2&fc=20260120051449',
-        'Annals of Clinical Biochemistry': 'https://pubmed.ncbi.nlm.nih.gov/rss/journals/0324055/?limit=15&name=Ann%20Clin%20Biochem&utm_campaign=journals',
-        'Annals of Laboratory Medicine': 'https://pubmed.ncbi.nlm.nih.gov/rss/journals/101571172/?limit=15&name=Ann%20Lab%20Med&utm_campaign=journals',
-        'Biochemia Medica': 'https://pubmed.ncbi.nlm.nih.gov/rss/journals/9610305/?limit=15&name=Biochem%20Med%20%28Zagreb%29&utm_campaign=journals',
-        'Clinica Chimica Acta': 'https://pubmed.ncbi.nlm.nih.gov/rss/journals/1302422/?limit=15&name=Clin%20Chim%20Acta&utm_campaign=journals',
-        'Clinical Chemistry and Laboratory Medicine': 'https://pubmed.ncbi.nlm.nih.gov/rss/journals/9806306/?limit=15&name=Clin%20Chem%20Lab%20Med&utm_campaign=journals',
-        'Clinical Chemistry': 'https://pubmed.ncbi.nlm.nih.gov/rss/journals/9421549/?limit=15&name=Clin%20Chem&utm_campaign=journals',
-        'American Journal of Clinical Pathology': 'https://pubmed.ncbi.nlm.nih.gov/rss/journals/0370470/?limit=15&name=Am%20J%20Clin%20Pathol&utm_campaign=journals',
-        'Critical Reviews in Clinical Laboratory Sciences': 'https://pubmed.ncbi.nlm.nih.gov/rss/journals/8914816/?limit=15&name=Crit%20Rev%20Clin%20Lab%20Sci&utm_campaign=journals',
-        'eJIFCC': 'https://pubmed.ncbi.nlm.nih.gov/rss/journals/101092742/?limit=15&name=EJIFCC&utm_campaign=journals',
-        'International Journal of Analytical Chemistry': 'https://pubmed.ncbi.nlm.nih.gov/rss/journals/101519424/?limit=15&name=Int%20J%20Anal%20Chem&utm_campaign=journals',
-        'Journal of Analytical Toxicology': 'https://pubmed.ncbi.nlm.nih.gov/rss/journals/7705085/?limit=15&name=J%20Anal%20Toxicol&utm_campaign=journals',
-        'Journal of Clinical Laboratory Analysis': 'https://pubmed.ncbi.nlm.nih.gov/rss/journals/8801384/?limit=15&name=J%20Clin%20Lab%20Anal&utm_campaign=journals',
-        'Laboratory Medicine': 'https://pubmed.ncbi.nlm.nih.gov/rss/journals/0250641/?limit=15&name=Lab%20Med&utm_campaign=journals',
-        'Clinical Laboratory': 'https://pubmed.ncbi.nlm.nih.gov/rss/journals/9705611/?limit=15&name=Clin%20Lab&utm_campaign=journals',
-        'Applied Biochemistry and Biotechnology': 'https://pubmed.ncbi.nlm.nih.gov/rss/journals/8208561/?limit=15&name=Appl%20Biochem%20Biotechnol&utm_campaign=journals',
-        'Indian Journal of Clinical Biochemistry': 'https://pubmed.ncbi.nlm.nih.gov/rss/journals/8708303/?limit=15&name=Indian%20J%20Clin%20Biochem&utm_campaign=journals',
-        'Journal of Laboratory Automation': 'https://pubmed.ncbi.nlm.nih.gov/rss/journals/101558509/?limit=15&name=J%20Lab%20Autom&utm_campaign=journals',
-        'Chemistry and Physics of Lipids': 'https://pubmed.ncbi.nlm.nih.gov/rss/journals/0067206/?limit=15&name=Chem%20Phys%20Lipids&utm_campaign=journals',
-        'Biological Trace Element Research': 'https://pubmed.ncbi.nlm.nih.gov/rss/journals/7911509/?limit=15&name=Biol%20Trace%20Elem%20Res&utm_campaign=journals',
-        'Clinical and Experimental Medicine': 'https://pubmed.ncbi.nlm.nih.gov/rss/journals/100973405/?limit=15&name=Clin%20Exp%20Med&utm_campaign=journals',
-        'Annals of Clinical & Laboratory Science': 'https://pubmed.ncbi.nlm.nih.gov/rss/journals/0410247/?limit=15&name=Ann%20Clin%20Lab%20Sci&utm_campaign=journals',
-        'Practical Laboratory Medicine': 'https://pubmed.ncbi.nlm.nih.gov/rss/journals/101690848/?limit=15&name=Pract%20Lab%20Med&utm_campaign=journals',
-        'Scandinavian Journal of Clinical and Laboratory Investigation': 'https://pubmed.ncbi.nlm.nih.gov/rss/journals/2984789R/?limit=15&name=Scand%20J%20Clin%20Lab%20Invest%20Suppl&utm_campaign=journals',
-        'The Journal of Applied Laboratory Medicine': 'https://pubmed.ncbi.nlm.nih.gov/rss/journals/101693884/?limit=15&name=J%20Appl%20Lab%20Med&utm_campaign=journals'
-    };
-    function initPubMedJournals() {
-        const sel = document.getElementById('favJournalSelect');
-        if (!sel) return;
-        const stored = JSON.parse(localStorage.getItem('favJournals') || '[]');
-        const journals = (stored.length ? stored : defaultFavJournals).filter(j => rssMap[j]);
-        sel.innerHTML = '';
-        journals.forEach(j => {
-            const opt = document.createElement('option');
-            opt.value = j;
-            opt.textContent = j;
-            opt.selected = true;
-            sel.appendChild(opt);
-        });
-    }
-    function addFavJournal() {
-        const inp = document.getElementById('favJournalInput');
-        const sel = document.getElementById('favJournalSelect');
-        if (!inp || !sel) return;
-        const name = (inp.value || '').trim();
-        if (!name) return;
-        const stored = JSON.parse(localStorage.getItem('favJournals') || '[]');
-        if (!stored.includes(name)) stored.push(name);
-        localStorage.setItem('favJournals', JSON.stringify(stored));
-        initPubMedJournals();
-        inp.value = '';
-    }
-    function deleteFavJournal() {
-        const inp = document.getElementById('favJournalInput');
-        const sel = document.getElementById('favJournalSelect');
-        const name = inp ? (inp.value || '').trim() : '';
-        const stored = JSON.parse(localStorage.getItem('favJournals') || '[]');
-        const target = name || (sel && sel.selectedOptions.length ? sel.selectedOptions[0].value : '');
-        if (!target) return;
-        const idx = stored.indexOf(target);
-        if (idx > -1) {
-            stored.splice(idx,1);
-            localStorage.setItem('favJournals', JSON.stringify(stored));
-            initPubMedJournals();
-        }
-    }
-    function getFavJournals() {
-        return JSON.parse(localStorage.getItem('favJournals') || '[]');
-    }
-    function setFavJournals(arr) {
-        localStorage.setItem('favJournals', JSON.stringify(arr));
-    }
-    function toggleFav(name, el) {
-        const stored = getFavJournals();
-        const idx = stored.indexOf(name);
-        if (idx > -1) {
-            stored.splice(idx,1);
-            el.className = 'btn-action btn-secondary';
-            el.textContent = '';
-        } else {
-            stored.push(name);
-            el.className = 'btn-action';
-            el.textContent = '✓';
-        }
-        setFavJournals(stored);
-        initJournalListTicks();
-    }
-    function initJournalListTicks() {
-        const stored = getFavJournals();
-        document.querySelectorAll('button[data-journal]').forEach(btn => {
-            const name = btn.getAttribute('data-journal');
-            if (stored.includes(name)) {
-                btn.className = 'btn-action';
-                btn.textContent = '✓';
-            } else {
-                btn.className = 'btn-action btn-secondary';
-                btn.textContent = '';
-            }
-        });
-    }
-    function filterJournalLists() {
-        const q = (document.getElementById('journalSearchInput') ? document.getElementById('journalSearchInput').value : '').toLowerCase().trim();
-        ['rssJournalList','visitJournalList'].forEach(id => {
-            const container = document.getElementById(id);
-            if (!container) return;
-            container.querySelectorAll('div').forEach(row => {
-                const t = row.textContent.toLowerCase();
-                row.style.display = q ? (t.includes(q) ? '' : 'none') : '';
-            });
-        });
-    }
-    function sortJournalLists() {
-        ['rssJournalList','visitJournalList'].forEach(id => {
-            const container = document.getElementById(id);
-            if (!container) return;
-            const rows = Array.from(container.children).filter(el => el.tagName && el.tagName.toLowerCase() === 'div');
-            rows.sort((a,b) => {
-                const ta = (a.textContent || '').trim().toLowerCase();
-                const tb = (b.textContent || '').trim().toLowerCase();
-                return ta.localeCompare(tb);
-            });
-            rows.forEach(r => container.appendChild(r));
-        });
-    }
-    function formatXMLDate(node) {
-        if (!node) return '';
-        const y = node.querySelector('Year') ? node.querySelector('Year').textContent : '';
-        const m = node.querySelector('Month') ? node.querySelector('Month').textContent : '';
-        const d = node.querySelector('Day') ? node.querySelector('Day').textContent : '';
-        const medline = node.querySelector('MedlineDate') ? node.querySelector('MedlineDate').textContent : '';
-        if (medline) return medline;
-        let s = '';
-        if (y) s += y;
-        if (m) s += (s ? ' ' : '') + m;
-        if (d) s += ' ' + d;
-        return s;
-    }
-    function formatAuthorsFromArticle(article) {
-        const arr = Array.from(article.querySelectorAll('AuthorList > Author')).map(a => {
-            const collective = a.querySelector('CollectiveName') ? a.querySelector('CollectiveName').textContent : '';
-            if (collective) return collective.trim();
-            const fore = a.querySelector('ForeName') ? a.querySelector('ForeName').textContent : '';
-            const last = a.querySelector('LastName') ? a.querySelector('LastName').textContent : '';
-            return (fore + (fore && last ? ' ' : '') + last).trim();
-        }).filter(Boolean);
-        return arr.join(', ');
-    }
-    function renderRSS(xmlText, res) {
-        const parser = new DOMParser();
-        const xml = parser.parseFromString(xmlText, 'application/xml');
-        const items = Array.from(xml.querySelectorAll('item'));
-        if (!items.length) { res.innerHTML = '<div style="padding:8px; font-size:0.85rem;">No items</div>'; return; }
-        const list = document.createElement('div');
-        items.forEach(it => {
-            const titleEl = it.querySelector('title');
-            const linkEl = it.querySelector('link');
-            const dateEl = it.querySelector('pubDate');
-            const title = titleEl ? titleEl.textContent : '';
-            const link = linkEl ? linkEl.textContent : '';
-            const date = dateEl ? dateEl.textContent : '';
-            const a = document.createElement('a');
-            a.href = link;
-            a.target = '_blank';
-            a.className = 'journal-link';
-            a.textContent = title + (date ? ' (' + date + ')' : '');
-            list.appendChild(a);
-        });
-        res.innerHTML = '';
-        res.appendChild(list);
-    }
-    async function fetchTextWithProxy(url) {
-        try {
-            const r = await fetch(url);
-            if (!r.ok) throw new Error('direct');
-            return await r.text();
-        } catch {
-            const r2 = await fetch('https://api.allorigins.win/raw?url=' + encodeURIComponent(url));
-            if (!r2.ok) throw new Error('proxy');
-            return await r2.text();
-        }
-    }
-    async function testPubMedRSSFeed() {
-        const url = 'https://pubmed.ncbi.nlm.nih.gov/rss/search/1pOFSvgtxnzd0l98jKE8j7BmdZn3nF3UMGOYeiTLdv9ZiJWgKr/?limit=15&utm_campaign=pubmed-2&fc=20260120050753';
-        const res = document.getElementById('pubmedJournalResults');
-        if (!res) return;
-        res.innerHTML = '<div style="padding:8px; font-size:0.85rem;">Loading RSS...</div>';
-        try {
-            const r = await fetch(url);
-            if (!r.ok) throw new Error('direct');
-            const txt = await r.text();
-            if (!txt || !txt.trim()) throw new Error('empty');
-            renderRSS(txt, res);
-        } catch (e) {
-            try {
-                const r2 = await fetch('https://api.allorigins.win/raw?url=' + encodeURIComponent(url));
-                if (!r2.ok) throw new Error('proxy');
-                const txt2 = await r2.text();
-                renderRSS(txt2, res);
-            } catch {
-                res.innerHTML = '<div style="padding:8px; font-size:0.85rem;">Failed to load RSS</div>';
-            }
-        }
-    }
-    async function loadPubMedJournalsLatest() {
-    const res = document.getElementById('pubmedJournalResults');
-    const countSel = document.getElementById('pubmedCountSelect');
-    if (!res || !countSel) return;
-    
-    const storedFavs = JSON.parse(localStorage.getItem('favJournals') || '[]');
-    const journals = storedFavs.length ? storedFavs : defaultFavJournals;
-    const retmax = parseInt(countSel.value || '10', 10);
-
-    // --- OTOMATİK TEMİZLİK VE ÖNBELLEK KONTROLÜ ---
-    const cachePrefix = "pubmed_cache_";
-    const currentCacheKey = cachePrefix + journals.join('_') + "_" + retmax;
-    const now = new Date().getTime();
-
-    // 1. Otomatik Temizlik: Diğer dergi kombinasyonlarına ait eski cache'leri siler (Hafıza şişmesini önler)
-    Object.keys(localStorage).forEach(key => {
-        if (key.startsWith(cachePrefix) && key !== currentCacheKey) {
-            localStorage.removeItem(key);
-        }
-    });
-
-    const cachedData = JSON.parse(localStorage.getItem(currentCacheKey));
-
-    // 2. Zaman Kontrolü: Eğer veriler taze ise (30 dakikadan az) direkt hafızadan yükle
-    if (cachedData && (now - cachedData.timestamp < 1800000)) {
-        renderPubMedList(cachedData.articles, res);
-        console.log("Veriler yerel hafızadan (cache) yüklendi.");
-        return;
-    }
-
-    res.innerHTML = '<div style="padding:8px; font-size:0.85rem;">Fetching latest articles...</div>';
-
-    try {
-        // Paralel Veri Çekme (Hız için)
-        const journalPromises = journals.map(async (j) => {
-            const items = [];
-            const rss = rssMap[j];
-            try {
-                if (rss) {
-                    let url = rss.replace(/limit=\d+/i, 'limit=' + retmax);
-                    if (!url.includes('limit=')) url += (url.includes('?') ? '&' : '?') + 'limit=' + retmax;
-                    
-                    const txt = await fetchTextWithProxy(url);
-                    const xml = new DOMParser().parseFromString(txt, 'application/xml');
-                    
-                    Array.from(xml.querySelectorAll('item')).slice(0, retmax).forEach(it => {
-                        const link = it.querySelector('link')?.textContent || '';
-                        const rawDate = it.querySelector('pubDate')?.textContent || '';
-                        
-                        // Tarih Sadeleştirme: "Fri, 16 Jan 2026 06:00:00 -0500" -> "16 Jan 2026"
-                        const dateParts = rawDate.split(' ');
-                        const cleanDate = dateParts.length > 3 ? `${dateParts[1]} ${dateParts[2]} ${dateParts[3]}` : rawDate;
-
-                        items.push({
-                            title: it.querySelector('title')?.textContent || '',
-                            link: link,
-                            journal: j,
-                            date: cleanDate,
-                            pmid: link.match(/pubmed\.ncbi\.nlm\.nih\.gov\/(\d+)/)?.[1] || it.querySelector('guid')?.textContent?.match(/(\d+)/)?.[1]
-                        });
-                    });
-                } else {
-                    // RSS olmayanlar için E-search
-                    const term = `"${j}"[jour]`;
-                    const s = await fetch(`https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&retmode=json&sort=pub+date&retmax=${retmax}&term=${encodeURIComponent(term)}`);
-                    const sjson = await s.json();
-                    const ids = sjson.esearchresult?.idlist || [];
-                    if (ids.length) {
-                        const f = await fetch(`https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml&id=${ids.join(',')}`);
-                        const xmlText = await f.text();
-                        const xml = new DOMParser().parseFromString(xmlText, 'application/xml');
-                        Array.from(xml.querySelectorAll('PubmedArticle')).forEach(a => {
-                            const pmid = a.querySelector('PMID')?.textContent || '';
-                            const pubDateNode = a.querySelector('ArticleDate[DateType="Electronic"]') || a.querySelector('JournalIssue > PubDate');
-                            items.push({
-                                title: a.querySelector('ArticleTitle')?.textContent || '',
-                                link: pmid ? `https://pubmed.ncbi.nlm.nih.gov/${pmid}/` : '',
-                                journal: j,
-                                date: formatXMLDate(pubDateNode),
-                                authors: formatAuthorsFromArticle(a),
-                                pmid: pmid
-                            });
-                        });
-                    }
-                }
-            } catch (e) { console.error(`${j} fetch error:`, e); }
-            return items;
-        });
-
-        const resultsArray = await Promise.all(journalPromises);
-        let allItems = resultsArray.flat();
-
-        // Eksik yazarları toplu çekme
-        const pmidsToFetch = Array.from(new Set(allItems.filter(x => !x.authors && x.pmid).map(x => x.pmid)));
-        if (pmidsToFetch.length) {
-            const f2 = await fetch(`https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml&id=${pmidsToFetch.join(',')}`);
-            if (f2.ok) {
-                const xml2 = new DOMParser().parseFromString(await f2.text(), 'application/xml');
-                const authorMap = {};
-                Array.from(xml2.querySelectorAll('PubmedArticle')).forEach(a => {
-                    const pmid = a.querySelector('PMID')?.textContent;
-                    if (pmid) authorMap[pmid] = formatAuthorsFromArticle(a);
-                });
-                allItems.forEach(it => { if (!it.authors && authorMap[it.pmid]) it.authors = authorMap[it.pmid]; });
-            }
-        }
-
-        // --- VERİLERİ ÖNBELLEĞE KAYDET ---
-        localStorage.setItem(currentCacheKey, JSON.stringify({
-            timestamp: now,
-            articles: allItems
-        }));
-
-        renderPubMedList(allItems, res);
-
-    } catch (err) {
-        res.innerHTML = '<div style="padding:8px; font-size:0.85rem;">Failed to load.</div>';
-    }
-}
-
-// Yardımcı Fonksiyon: Makaleleri Ekrana Basar
-function renderPubMedList(articles, container) {
-    if (!articles.length) { container.innerHTML = '<div style="padding:8px; font-size:0.85rem;">No items found.</div>'; return; }
-    container.innerHTML = '';
-    const listDiv = document.createElement('div');
-    articles.forEach(it => {
-        const a = document.createElement('a');
-        a.href = it.link;
-        a.target = '_blank';
-        a.className = 'journal-link';
-        const authorPart = it.authors ? ` — ${it.authors}` : '';
-        // Format: Makale Adı — Yazarlar — Tarih — Dergi Adı
-        a.textContent = `${it.title}${authorPart} — ${it.date} — ${it.journal}`;
-        listDiv.appendChild(a);
-    });
-    container.appendChild(listDiv);
-}
     
 </script>
 </body>
