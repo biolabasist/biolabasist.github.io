@@ -117,6 +117,11 @@
                 padding: 6px 10px;
                 gap: 6px;
                 width: 94%;
+                justify-content: center;
+                align-items: center;
+                align-content: center;
+                margin-left: auto;
+                margin-right: auto;
         }
         .nav-btn { background: transparent; border: none; padding: 8px 12px; border-radius: 14px; color: var(--text-light); font-weight: 600; cursor: pointer; font-size: clamp(0.7rem, 1.5vw, 0.8rem); display: flex; align-items: center; gap: 5px; flex-direction: column; transition: all 0.2s; flex-shrink: 0; }
         .nav-btn i { font-size: clamp(1rem, 2.5vw, 1.2rem); margin-bottom: 2px; }
@@ -372,15 +377,14 @@
             .calc-card-mini { height: 85px; padding: 10px; }
             .calc-icon { font-size: 1.3rem; }
             .calc-title { font-size: 0.65rem; }
-            .nav-tabs { margin: -15px auto 15px auto; padding: 4px 6px; gap: 3px; }
+            .nav-tabs { margin: -15px 10px 15px 10px; padding: 4px 6px; gap: 3px; }
             .calc-title { font-size: 0.75rem; }
             .nav-btn i { font-size: 0.9rem; }
             .nav-btn { padding: 5px 8px; font-size: 0.75rem; gap: 2px; }
             .nav-btn i { font-size: 0.9rem; }
             .container { padding: 0 10px 25px 10px; }
             .calculator-view { padding: 12px; }
-        }
-
+        
         @media (min-width: 481px) and (max-width: 768px) { 
             .grid-menu { grid-template-columns: repeat(2, 1fr); } 
             .nav-tabs { margin: -20px 15px 20px 15px; padding: 4px 8px; gap: 4px; }
