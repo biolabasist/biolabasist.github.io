@@ -924,14 +924,36 @@
             </div>
 
             <div id="calc-fai" class="calculator-view">
-                <h3 style="margin-bottom: 20px; color: var(--primary);">FAI (Free Androgen)</h3>
-                <div class="calc-input-grid">
-                    <div class="input-group"><div class="label-row"><label>Total Testosterone</label><span class="unit-badge" onclick="convertToSI(this)" style="cursor:pointer;">ng/dL <i class="fa-solid fa-rotate"></i></span></div><input type="number" id="fai-tt" oninput="calculateFAI()"></div>
-                    <div class="input-group"><div class="label-row"><label>SHBG</label><span class="unit-badge">nmol/L</span></div><input type="number" id="fai-shbg" oninput="calculateFAI()"></div>
-                    <div id="res-fai-final" class="final-result-box"></div>
-                    <div class="warning-box"><span class="warning-title"><i class="fa-solid fa-info-circle"></i> INFO:</span> Calculation uses (TT/SHBG)*100. Ensure units are converted if necessary.</div>
-                </div>
+    <h3 style="margin-bottom: 20px; color: var(--primary);">Free & Bioavailable Testosterone Calculator</h3>
+    <div class="calc-input-grid">
+        <div class="input-group">
+            <div class="label-row">
+                <label>Total Testosterone</label>
+                <span class="unit-badge" onclick="convertToSI(this)" style="cursor:pointer;">ng/dL <i class="fa-solid fa-rotate"></i></span>
             </div>
+            <input type="number" id="fai-tt" oninput="calculateFAI()">
+        </div>
+        <div class="input-group">
+            <div class="label-row">
+                <label>SHBG</label>
+                <span class="unit-badge">nmol/L</span>
+            </div>
+            <input type="number" id="fai-shbg" oninput="calculateFAI()">
+        </div>
+        <div class="input-group">
+            <div class="label-row">
+                <label>Albumin</label>
+                <span class="unit-badge" onclick="convertToSI(this)" style="cursor:pointer;">g/dL <i class="fa-solid fa-rotate"></i></span>
+            </div>
+            <input type="number" id="fai-alb" oninput="calculateFAI()">
+        </div>
+        <div id="res-fai-final" class="final-result-box"></div>
+    </div>
+    <div class="warning-box">
+        <span class="warning-title"><i class="fa-solid fa-info-circle"></i> INFO:</span> 
+        Calculations based on Vermeulen's method. Reference: <a href="https://www.issam.ch/freetesuit.htm" target="_blank" style="color:var(--primary);">ISSAM Calculator</a>
+    </div>
+</div>
 
             <div id="calc-fpsa" class="calculator-view">
                 <h3 style="margin-bottom: 20px; color: var(--primary);">Free PSA %</h3>
@@ -1158,7 +1180,9 @@
             </div>
         </div>
     </div>
-<div class="qc-header" onclick="toggleQC('qc-sigma', this)">
+
+    <div class="qc-card">
+        <div class="qc-header" onclick="toggleQC('qc-sigma', this)">
             <h3><i class="fa-solid fa-bullseye"></i> Sigma Metric & Method Decision</h3>
             <i class="fa-solid fa-chevron-down"></i>
         </div>
@@ -1199,8 +1223,92 @@
                 </div>
             </div>
         </div>
-
     </div>
+
+    <div class="qc-card">
+    <div class="qc-header" onclick="toggleQC('qc-rcv', this)">
+        <h3><i class="fa-solid fa-calculator"></i> Delta Calculation Using Reference Change Value (RCV)</h3>
+        <i class="fa-solid fa-chevron-down"></i>
+    </div>
+    <div id="qc-rcv" class="qc-body">
+        <div class="calc-input-grid">
+            <div class="input-group">
+                <label>Patient’s Previous Result</label>
+                <input type="number" id="rcv-old" step="0.01">
+            </div>
+            <div class="input-group">
+                <label>Patient’s Current Result</label>
+                <input type="number" id="rcv-new" step="0.01">
+            </div>
+            <div class="input-group">
+                <label>Within-Subject Variation CV<sub>I</sub> (%) 
+                    <a href="https://biologicalvariation.eu/meta_calculations" target="_blank" style="margin-left:5px; color:var(--primary); text-decoration:none;" title="EFLM Biological Variation Database">
+                        <i class="fa-solid fa-external-link-alt" style="font-size:0.75rem;"></i>
+                    </a>
+                </label>
+                <input type="number" id="rcv-cvi" step="0.1">
+            </div>
+            <div class="input-group">
+                <label>Between-Subject Variation CV<sub>G</sub> (%) 
+                    <a href="https://biologicalvariation.eu/meta_calculations" target="_blank" style="margin-left:5px; color:var(--primary); text-decoration:none;" title="EFLM Biological Variation Database">
+                        <i class="fa-solid fa-external-link-alt" style="font-size:0.75rem;"></i>
+                    </a>
+                </label>
+                <input type="number" id="rcv-cvg" step="0.1">
+            </div>
+            <div class="input-group full-width">
+                <label>Significance Level</label>
+                <select id="rcv-z">
+                    <option value="1.96">p < 0.05 (z = 1.96)</option>
+                    <option value="2.58">p < 0.01 (z = 2.58)</option>
+                </select>
+            </div>
+        </div>
+        
+        <button class="btn-action" onclick="calculateRCV()" style="margin-top:15px;">CALCULATE</button>
+        
+        <div id="rcv-result" style="margin-top:20px; padding:15px; border-radius:10px; background:var(--bg-input); display:none;">
+            <div style="font-size:1.1rem; font-weight:bold; margin-bottom:10px;" id="rcv-percent"></div>
+            <div style="font-size:1rem; margin-bottom:10px;" id="rcv-value"></div>
+            <div style="font-size:1rem; margin-bottom:10px; padding:8px; background:var(--bg-body); border-radius:6px;" id="rcv-ii"></div>
+            <div style="font-size:1.2rem; font-weight:bold; padding:10px; border-radius:8px; text-align:center;" id="rcv-conclusion"></div>
+        </div>
+    </div>
+</div>
+
+<div class="qc-card">
+    <div class="qc-header" onclick="toggleQC('qc-ii', this)">
+        <h3><i class="fa-solid fa-user-check"></i> Individuality Index (II)</h3>
+        <i class="fa-solid fa-chevron-down"></i>
+    </div>
+    <div id="qc-ii" class="qc-body">
+        <div class="calc-input-grid">
+            <div class="input-group">
+                <label>CV<sub>I</sub> (%) 
+                    <a href="https://biologicalvariation.eu/meta_calculations" target="_blank" style="margin-left:5px; color:var(--primary); text-decoration:none;" title="EFLM Biological Variation Database">
+                        <i class="fa-solid fa-external-link-alt" style="font-size:0.75rem;"></i>
+                    </a>
+                </label>
+                <input type="number" id="ii-cvi" step="0.1" oninput="calculateII()">
+            </div>
+            <div class="input-group">
+                <label>CV<sub>G</sub> (%) 
+                    <a href="https://biologicalvariation.eu/meta_calculations" target="_blank" style="margin-left:5px; color:var(--primary); text-decoration:none;" title="EFLM Biological Variation Database">
+                        <i class="fa-solid fa-external-link-alt" style="font-size:0.75rem;"></i>
+                    </a>
+                </label>
+                <input type="number" id="ii-cvg" step="0.1" oninput="calculateII()">
+            </div>
+        </div>
+        <div id="ii-result" style="margin-top:20px; padding:15px; border-radius:10px; background:var(--bg-input); display:none;">
+            <div style="font-size:1.3rem; font-weight:bold; margin-bottom:15px; text-align:center; color:var(--primary);" id="ii-value"></div>
+            <div style="font-size:0.95rem; padding:12px; border-radius:8px; line-height:1.5;" id="ii-interpretation"></div>
+        </div>
+    </div>
+</div>
+
+</div>
+
 
     <div id="tab-info" class="section">
         <div class="calculator-view" style="display:block;">
@@ -1689,12 +1797,15 @@
         if (containerId === 'calc-fai') {
             const ttBadge = cont.querySelector('#fai-tt') ? cont.querySelector('#fai-tt').parentNode.querySelector('.unit-badge') : null;
             const shbgBadge = cont.querySelector('#fai-shbg') ? cont.querySelector('#fai-shbg').parentNode.querySelector('.unit-badge') : null;
+            const albBadge = cont.querySelector('#fai-alb') ? cont.querySelector('#fai-alb').parentNode.querySelector('.unit-badge') : null;
             if (currentMode !== 'si') {
                 if (ttBadge && !isBadgeSI(ttBadge)) convertToSI(ttBadge);
                 if (shbgBadge && !isBadgeSI(shbgBadge)) convertToSI(shbgBadge);
+                if (albBadge && !isBadgeSI(albBadge)) convertToSI(albBadge);
                 if (toggle) { toggle.dataset.mode = 'si'; }
             } else {
                 if (ttBadge && isBadgeSI(ttBadge)) convertToSI(ttBadge);
+                if (albBadge && isBadgeSI(albBadge)) convertToSI(albBadge);
                 if (toggle) { toggle.dataset.mode = 'conv'; }
             }
             badges.forEach(b => { if(b.classList.contains('global-si-badge')) return; b.style.cursor = 'default'; b.onclick = null; const icon = b.querySelector('i'); if(icon) icon.remove(); });
@@ -1990,8 +2101,104 @@
     function calculateINR(){ const p=parseFloat(document.getElementById('inr-pt').value), c=parseFloat(document.getElementById('inr-control').value), i=parseFloat(document.getElementById('inr-isi').value); if(p&&c&&i){ const v=Math.pow((p/c),i); document.getElementById('res-inr-final').innerHTML=`INR: ${v.toFixed(2)}`; } else { document.getElementById('res-inr-final').innerHTML=''; } }
     function calculateBunCrea(){ const b=getNormalizedValue('bc-bun','mg/dL'), c=getNormalizedValue('bc-crea','mg/dL'); const el=document.getElementById('res-bun-crea-final'); if(!isNaN(b)&&!isNaN(c)&&b&&c){ const v=(b/c); el.innerHTML=`BUN/Creatinine Ratio: ${v.toFixed(1)}`; } else { el.innerHTML=''; } }
     function calculateHIon(){ const p=parseFloat(document.getElementById('h-pco2').value), h=parseFloat(document.getElementById('h-hco3').value); if(p&&h){ const val=(24*(p/h)); document.getElementById('res-h-ion-final').innerHTML=`[H+]: ${val.toFixed(1)} nmol/L`; } else { document.getElementById('res-h-ion-final').innerHTML=''; } }
-    function calculateFAI(){ const ttEl=document.getElementById('fai-tt'), shbgEl=document.getElementById('fai-shbg'); const t=parseFloat(ttEl.value), s=parseFloat(shbgEl.value); const el=document.getElementById('res-fai-final'); if(t&&s){ const ttBadge=ttEl.parentNode.querySelector('.unit-badge'); const ttUnit=ttBadge?ttBadge.textContent.trim():''; const ttNmol = ttUnit.includes('ng/dL') ? t*0.0347 : t; const fai=((ttNmol/s)*100); el.innerHTML=`FAI: ${fai.toFixed(1)}`; } else { el.innerHTML=''; } }
-    function calculateFPSA(){ const f=parseFloat(document.getElementById('fpsa-free').value), t=parseFloat(document.getElementById('fpsa-total').value); const el=document.getElementById('res-fpsa-final'); if(f&&t){ const pct=((f/t)*100); el.innerHTML=`% Free PSA: ${pct.toFixed(1)}%`; } else { el.innerHTML=''; } }
+function calculateFAI() {
+    const ttEl = document.getElementById('fai-tt');
+    const shbgEl = document.getElementById('fai-shbg');
+    const albEl = document.getElementById('fai-alb');
+    
+    const tt = parseFloat(ttEl.value);
+    const shbg = parseFloat(shbgEl.value);
+    const alb = parseFloat(albEl.value);
+    
+    const el = document.getElementById('res-fai-final');
+    
+    if (!tt || !shbg || !alb) {
+        el.innerHTML = '';
+        return;
+    }
+    
+    // Get units
+    const ttBadge = ttEl.parentNode.querySelector('.unit-badge');
+    const ttUnit = ttBadge ? ttBadge.textContent.trim() : '';
+    const albBadge = albEl.parentNode.querySelector('.unit-badge');
+    const albUnit = albBadge ? albBadge.textContent.trim() : '';
+    
+    // Convert Total Testosterone to nmol/L
+    let ttNmol;
+    if (ttUnit.includes('ng/dL')) {
+        ttNmol = tt * 0.0347; // ng/dL to nmol/L
+    } else {
+        ttNmol = tt; // already in nmol/L
+    }
+    
+    // Convert Albumin to g/L
+    let albGL;
+    if (albUnit.includes('g/dL')) {
+        albGL = alb * 10; // g/dL to g/L
+    } else {
+        albGL = alb; // already in g/L
+    }
+    
+    // Vermeulen's method constants
+    const Ka = 3.6e4; // Association constant for SHBG (L/mol)
+    const Kb = 4.06e4; // Association constant for Albumin (L/mol)
+    
+    // Convert albumin from g/L to mol/L (MW of albumin ≈ 66500 g/mol)
+    const albMol = albGL / 66.5;
+    
+    // Convert SHBG from nmol/L to mol/L
+    const shbgMol = shbg / 1e9;
+    
+    // Convert Total T from nmol/L to mol/L
+    const ttMol = ttNmol / 1e9;
+    
+    // Solve quadratic equation for free testosterone
+    // Based on: Tt = Tf + (Ka*SHBG*Tf)/(1+Ka*Tf) + (Kb*Alb*Tf)/(1+Kb*Tf)
+    // Simplified approximation (Vermeulen et al.)
+    const c = Ka * shbgMol;
+    const d = Kb * albMol;
+    
+    // Quadratic formula components
+    const a_coef = Ka * Kb;
+    const b_coef = 1 + c + d - Ka * Kb * ttMol;
+    const c_coef = -ttMol;
+    
+    // Free Testosterone (mol/L)
+    const freeTMol = (-b_coef + Math.sqrt(b_coef * b_coef - 4 * a_coef * c_coef)) / (2 * a_coef);
+    
+    // Convert Free T back to nmol/L
+    const freeTNmol = freeTMol * 1e9;
+    
+    // Bioavailable T = Free T + Albumin-bound T
+    const albBoundMol = (Kb * albMol * freeTMol) / (1 + Kb * freeTMol);
+    const bioavailTMol = freeTMol + albBoundMol;
+    const bioavailTNmol = bioavailTMol * 1e9;
+    
+    // Calculate percentages
+    const freeTPercent = (freeTNmol / ttNmol) * 100;
+    const bioavailTPercent = (bioavailTNmol / ttNmol) * 100;
+    
+    // FAI (traditional)
+    const fai = (ttNmol / shbg) * 100;
+    
+    // Convert results to original unit if needed
+    let freeTDisplay, bioavailTDisplay;
+    if (ttUnit.includes('ng/dL')) {
+        freeTDisplay = freeTNmol / 0.0347; // back to ng/dL
+        bioavailTDisplay = bioavailTNmol / 0.0347;
+        el.innerHTML = `
+            <strong>FAI (Traditional):</strong> ${fai.toFixed(1)}<br>
+            <strong>Free Testosterone:</strong> ${freeTDisplay.toFixed(2)} ng/dL (${freeTNmol.toFixed(2)} nmol/L) — ${freeTPercent.toFixed(2)}%<br>
+            <strong>Bioavailable Testosterone:</strong> ${bioavailTDisplay.toFixed(2)} ng/dL (${bioavailTNmol.toFixed(2)} nmol/L) — ${bioavailTPercent.toFixed(2)}%
+        `;
+    } else {
+        el.innerHTML = `
+            <strong>FAI (Traditional):</strong> ${fai.toFixed(1)}<br>
+            <strong>Free Testosterone:</strong> ${freeTNmol.toFixed(2)} nmol/L — ${freeTPercent.toFixed(2)}%<br>
+            <strong>Bioavailable Testosterone:</strong> ${bioavailTNmol.toFixed(2)} nmol/L — ${bioavailTPercent.toFixed(2)}%
+        `;
+    }
+}    function calculateFPSA(){ const f=parseFloat(document.getElementById('fpsa-free').value), t=parseFloat(document.getElementById('fpsa-total').value); const el=document.getElementById('res-fpsa-final'); if(f&&t){ const pct=((f/t)*100); el.innerHTML=`% Free PSA: ${pct.toFixed(1)}%`; } else { el.innerHTML=''; } }
     function calculateCaIon(){ const c=parseFloat(document.getElementById('cai-ca').value), t=parseFloat(document.getElementById('cai-tp').value); const el=document.getElementById('res-ca-ion-final'); if(c&&t){ const est=(((c*6)-(t/3))/(t+6)); el.innerHTML=`Estimated Ionized Ca: ${est.toFixed(2)}`; } else { el.innerHTML=''; } }
     function calculateTransferrin() { const fe = getNormalizedValue('trans-fe', 'µg/dL'); const tibc = getNormalizedValue('trans-tibc', 'µg/dL'); if(fe && tibc) { const sat = (fe / tibc) * 100; document.getElementById('res-transferrin-final').innerHTML = `Saturation: ${sat.toFixed(1)}%`; } else { document.getElementById('res-transferrin-final').innerHTML = ''; } }
     
@@ -3690,7 +3897,99 @@ function renderPubMedList(articles, container) {
     });
     container.appendChild(listDiv);
 }
+
+function calculateRCV() {
+    const oldVal = parseFloat(document.getElementById('rcv-old').value);
+    const newVal = parseFloat(document.getElementById('rcv-new').value);
+    const cvi = parseFloat(document.getElementById('rcv-cvi').value);
+    const cvg = parseFloat(document.getElementById('rcv-cvg').value);
+    const z = parseFloat(document.getElementById('rcv-z').value);
     
+    const resultDiv = document.getElementById('rcv-result');
+    const percentDiv = document.getElementById('rcv-percent');
+    const valueDiv = document.getElementById('rcv-value');
+    const iiDiv = document.getElementById('rcv-ii');
+    const conclusionDiv = document.getElementById('rcv-conclusion');
+    
+    // Debug - Konsola yazdır
+    console.log('Old:', oldVal, 'New:', newVal, 'CVI:', cvi, 'CVG:', cvg, 'Z:', z);
+    
+    if (isNaN(oldVal) || isNaN(newVal) || isNaN(cvi) || isNaN(cvg)) {
+        alert('Please fill in all required fields!');
+        resultDiv.style.display = 'none';
+        return;
+    }
+    
+    // Percent difference
+    const percentDiff = Math.abs((oldVal - newVal) / oldVal) * 100;
+    
+    // RCV formula
+    const rcv = z * Math.sqrt(2) * Math.sqrt(Math.pow(cvi, 2) + Math.pow(cvg, 2));
+    
+    // Individuality Index
+    const ii = cvi / cvg;
+    
+    // Conclusion
+    const isSignificant = percentDiff > rcv;
+    
+    percentDiv.innerHTML = `Percent Difference: <strong>${percentDiff.toFixed(2)}%</strong>`;
+    valueDiv.innerHTML = `RCV (${z === 1.96 ? 'p<0.05' : 'p<0.01'}): <strong>${rcv.toFixed(2)}%</strong>`;
+    iiDiv.innerHTML = `Individuality Index: <strong>${ii.toFixed(2)}</strong>`;
+    
+    if (isSignificant) {
+        conclusionDiv.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> There is a difference between the patient’s previous result and the current result.';
+        conclusionDiv.style.backgroundColor = 'rgba(220, 38, 38, 0.15)';
+        conclusionDiv.style.color = '#dc2626';
+    } else {
+        conclusionDiv.innerHTML = '<i class="fa-solid fa-check-circle"></i> There is no difference between the patient’s previous result and the current result.';
+        conclusionDiv.style.backgroundColor = 'rgba(22, 163, 74, 0.15)';
+        conclusionDiv.style.color = '#16a34a';
+    }
+    
+    resultDiv.style.display = 'block';
+}
+
+function calculateII() {
+    const cvi = parseFloat(document.getElementById('ii-cvi').value);
+    const cvg = parseFloat(document.getElementById('ii-cvg').value);
+    
+    const resultDiv = document.getElementById('ii-result');
+    const valueDiv = document.getElementById('ii-value');
+    const interpretDiv = document.getElementById('ii-interpretation');
+    
+    if (isNaN(cvi) || isNaN(cvg) || cvg === 0) {
+        resultDiv.style.display = 'none';
+        return;
+    }
+    
+    const ii = cvi / cvg;
+    
+    valueDiv.innerHTML = `II = ${ii.toFixed(2)}`;
+    
+    let interpretation = '';
+    let bgColor = '';
+    let textColor = '';
+    
+    if (ii < 0.6) {
+        interpretation = '<i class="fa-solid fa-user"></i> <strong>High Individuality:</strong> Results should preferably be evaluated against the patient\'s own previous results (serial monitoring recommended).';
+        bgColor = 'rgba(59, 130, 246, 0.15)';
+        textColor = '#2563eb';
+    } else if (ii > 1.4) {
+        interpretation = '<i class="fa-solid fa-users"></i> <strong>Low Individuality:</strong> Results should be evaluated against population-based reference intervals.';
+        bgColor = 'rgba(139, 92, 246, 0.15)';
+        textColor = '#7c3aed';
+    } else {
+        interpretation = '<i class="fa-solid fa-info-circle"></i> <strong>Moderate Individuality:</strong> Both reference intervals and serial monitoring can be useful for interpretation.';
+        bgColor = 'rgba(245, 158, 11, 0.15)';
+        textColor = '#d97706';
+    }
+    
+    interpretDiv.innerHTML = interpretation;
+    interpretDiv.style.backgroundColor = bgColor;
+    interpretDiv.style.color = textColor;
+    
+    resultDiv.style.display = 'block';
+}
 </script>
 </body>
 </html>
