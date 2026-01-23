@@ -791,6 +791,8 @@
                 </div>
             </div>
 
+            
+
             <div id="calc-corr-na" class="calculator-view">
                 <h3 style="margin-bottom: 20px; color: var(--primary);">Corrected Sodium</h3>
                 <div class="calc-input-grid">
@@ -961,10 +963,6 @@
         </div>
         <div id="res-fai-final" class="final-result-box"></div>
     </div>
-    <div class="warning-box">
-        <span class="warning-title"><i class="fa-solid fa-info-circle"></i> INFO:</span> 
-        Calculations based on Vermeulen's method. Reference: <a href="https://www.issam.ch/freetesuit.htm" target="_blank" style="color:var(--primary);">ISSAM Calculator</a>
-    </div>
 </div>
 
             <div id="calc-fpsa" class="calculator-view">
@@ -1006,7 +1004,35 @@
                 </div>
             </div>
 
-
+<div id="calc-lights" class="calculator-view">
+    <h3 style="margin-bottom: 20px; color: var(--primary);">Light's Criteria (Pleural Effusion)</h3>
+    <div class="calc-input-grid">
+        <div class="input-group">
+            <div class="label-row"><label>Pleural Fluid Protein</label><span class="unit-badge">g/dL</span></div>
+            <input type="number" id="light-p-protein" placeholder="Required" oninput="calculateLightsCriteria()">
+        </div>
+        <div class="input-group">
+            <div class="label-row"><label>Serum Protein</label><span class="unit-badge">g/dL</span></div>
+            <input type="number" id="light-s-protein" placeholder="Required" oninput="calculateLightsCriteria()">
+        </div>
+        <div class="input-group">
+            <div class="label-row"><label>Pleural Fluid LDH</label><span class="unit-badge">U/L</span></div>
+            <input type="number" id="light-p-ldh" placeholder="Required" oninput="calculateLightsCriteria()">
+        </div>
+        <div class="input-group">
+            <div class="label-row"><label>Serum LDH</label><span class="unit-badge">U/L</span></div>
+            <input type="number" id="light-s-ldh" placeholder="Required" oninput="calculateLightsCriteria()">
+        </div>
+        <div class="input-group full-width">
+            <div class="label-row"><label>Upper limit of normal serum LDH</label><span class="unit-badge">U/L</span></div>
+            <input type="number" id="light-s-ldh-uln" value="250" oninput="calculateLightsCriteria()">
+        </div>
+        
+        <div id="res-light-final" class="final-result-box" style="display: none; grid-column: span 2;"></div>
+        
+        <span class="formula-display">Criteria: Prot ratio >0.5 | LDH ratio >0.6 | P-LDH > 2/3 Serum ULN</span>
+    </div>
+</div>
 
             <div id="calc-a1c" class="calculator-view">
                 <h3 style="margin-bottom: 20px; color: var(--primary);">HbA1c Converter</h3>
@@ -1744,7 +1770,10 @@
         {id: 'calc-ca-ion', title: 'Est. Ionized Calcium', icon: 'fa-bone'},
         {id: 'calc-igg-index', title: 'IgG Index', icon: 'fa-brain'},
         {id: 'calc-transferrin', title: 'Transferrin Saturation', icon: 'fa-droplet'},
-
+{id: 'calc-lights', 
+    title: "Light's Criteria", 
+    icon: 'fa-lungs', 
+    category: 'fluids'},
         {id: 'calc-a1c', title: 'HbA1c Converter', icon: 'fa-cube'}
     ];
 
@@ -2679,6 +2708,67 @@ function calculateFENa() {
     }
 }    
 
+function calculateLightsCriteria() {
+    const pProt = parseFloat(document.getElementById('light-p-protein').value),
+          sProt = parseFloat(document.getElementById('light-s-protein').value),
+          pLdh = parseFloat(document.getElementById('light-p-ldh').value),
+          sLdh = parseFloat(document.getElementById('light-s-ldh').value),
+          uln = parseFloat(document.getElementById('light-s-ldh-uln').value);
+    
+    const resBox = document.getElementById('res-light-final');
+
+    if (pProt && sProt && pLdh && sLdh && uln) {
+        const protRatio = pProt / sProt;
+        const ldhRatio = pLdh / sLdh;
+        const ldhThreshold = (2/3) * uln;
+
+        // Kriterlerin değerlendirilmesi
+        const c1 = protRatio > 0.5;
+        const c2 = ldhRatio > 0.6;
+        const c3 = pLdh > ldhThreshold;
+        
+        const isExudate = c1 || c2 || c3;
+        
+        const color = isExudate ? "#dc2626" : "#16a34a";
+        const resultText = isExudate ? "EXUDATE" : "TRANSUDATE";
+        const interpretation = isExudate 
+            ? "Likely due to inflammation, infection, or malignancy. Further investigation (cytology, culture) is required."
+            : "Likely due to systemic factors like heart failure, cirrhosis, or nephrotic syndrome.";
+
+        resBox.style.display = 'block';
+        resBox.innerHTML = `
+            <div style="background: rgba(var(--primary-rgb), 0.05); border-left: 4px solid ${color}; padding: 15px; border-radius: 10px; margin-top: 10px;">
+                <div style="font-size: 1.2rem; font-weight: bold; color: ${color}; mb-2">Result: ${resultText}</div>
+                <div style="font-size: 0.85rem; margin-top: 4px; color: #334155; font-weight: 600;">${interpretation}</div>
+                
+                <div style="margin-top: 12px; display: flex; flex-direction: column; gap: 6px;">
+                    <div style="font-size: 0.8rem; color: ${c1 ? color : '#64748b'}; font-weight: ${c1 ? 'bold' : 'normal'}">
+                        ${c1 ? '●' : '○'} Protein Ratio: ${protRatio.toFixed(2)} ${c1 ? '(>0.5)' : ''}
+                    </div>
+                    <div style="font-size: 0.8rem; color: ${c2 ? color : '#64748b'}; font-weight: ${c2 ? 'bold' : 'normal'}">
+                        ${c2 ? '●' : '○'} LDH Ratio: ${ldhRatio.toFixed(2)} ${c2 ? '(>0.6)' : ''}
+                    </div>
+                    <div style="font-size: 0.8rem; color: ${c3 ? color : '#64748b'}; font-weight: ${c3 ? 'bold' : 'normal'}">
+                        ${c3 ? '●' : '○'} Pleural LDH: ${pLdh.toFixed(0)} ${c3 ? '(>2/3 ULN)' : ''}
+                    </div>
+                </div>
+
+                <div style="margin-top: 12px; padding-top: 8px; border-top: 1px solid rgba(0,0,0,0.1); font-size: 0.75rem; color: #64748b; line-height:1.4;">
+                    <strong>Calculation Method:</strong><br>
+                    Exudate if any of the following are met:<br>
+                    1. Pleural/Serum Protein > 0.5<br>
+                    2. Pleural/Serum LDH > 0.6<br>
+                    3. Pleural LDH > 2/3 of Serum LDH Upper Limit<br>
+                    <span style="font-style: italic; display: block; margin-top: 4px;">*Clinical Note: If the patient is on diuretics and the result is "Exudate", consider calculating the Serum-Effusion Albumin Gradient.</span>
+                </div>
+            </div>
+        `;
+    } else {
+        resBox.innerHTML = '';
+        resBox.style.display = 'none';
+    }
+}
+
 function calculateSAAG() {
     const s = getNormalizedValue('saag-serum', 'g/dL'),
           a = getNormalizedValue('saag-ascites', 'g/dL');
@@ -2722,7 +2812,55 @@ function calculateSAAG() {
         el.style.display = 'none';
     }
 }
-function calculatePH(){ const h=parseFloat(document.getElementById('ph-hco3').value), p=parseFloat(document.getElementById('ph-pco2').value); if(h&&p){ const badge=document.getElementById('ph-pco2').parentNode.querySelector('.unit-badge'); const txt=badge?badge.textContent.trim():''; const k=txt.includes('kPa')?0.226:0.03; const ph=(6.1+Math.log10(h/(k*p))); document.getElementById('res-ph-final').innerHTML=`pH: ${ph.toFixed(3)}`; } else { document.getElementById('res-ph-final').innerHTML=''; } }
+
+function calculatePH() {
+    const h = parseFloat(document.getElementById('ph-hco3').value);
+    const p = parseFloat(document.getElementById('ph-pco2').value);
+    const resBox = document.getElementById('res-ph-final');
+
+    if (h && p) {
+        const badge = document.getElementById('ph-pco2').parentNode.querySelector('.unit-badge');
+        const txt = badge ? badge.textContent.trim() : '';
+        
+        // k = Solubilite katsayısı (mmHg için 0.03, kPa için 0.226)
+        const k = txt.includes('kPa') ? 0.226 : 0.03;
+        
+        // Henderson-Hasselbalch: pH = 6.1 + log10(HCO3 / (k * pCO2))
+        const ph = (6.1 + Math.log10(h / (k * p)));
+
+        let interpretation = "";
+        let color = "#1e293b";
+
+        // Klinik Yorumlama
+        if (ph < 7.35) {
+            interpretation = "Acidemia: Blood pH is below the normal range.";
+            color = "#dc2626"; // Kırmızı
+        } else if (ph > 7.45) {
+            interpretation = "Alkalemia: Blood pH is above the normal range.";
+            color = "#2563eb"; // Mavi (Alkaloz için tipik)
+        } else {
+            interpretation = "Normal: pH is within the physiological range (7.35 - 7.45).";
+            color = "#16a34a"; // Yeşil
+        }
+
+        resBox.style.display = 'block';
+        resBox.innerHTML = `
+            <div style="background: rgba(var(--primary-rgb), 0.05); border-left: 4px solid ${color}; padding: 12px; border-radius: 8px; margin-top: 10px;">
+                <div style="font-size: 1.2rem; font-weight: bold; color: ${color};">Calculated pH: ${ph.toFixed(3)}</div>
+                <div style="font-size: 0.85rem; margin-top: 4px; color: #334155; font-weight: 600;">${interpretation}</div>
+                
+                <div style="margin-top: 10px; padding-top: 8px; border-top: 1px solid rgba(0,0,0,0.1); font-size: 0.75rem; color: #64748b; line-height:1.4;">
+                    <strong>Calculation Method (Henderson-Hasselbalch):</strong><br>
+                    pH = 6.1 + log<sub>10</sub>(HCO<sub>3</sub><sup>-</sup> / [${k} × pCO<sub>2</sub>])<br>
+                    <span style="font-style: italic;">*Note: This formula assumes a normal body temperature (37°C). Significant hypothermia or hyperthermia can affect the pKa and solubility.</span>
+                </div>
+            </div>
+        `;
+    } else {
+        resBox.innerHTML = '';
+        resBox.style.display = 'none';
+    }
+}
 function calculateMentzer() {
     const m = parseFloat(document.getElementById('men-mcv').value),
           r = parseFloat(document.getElementById('men-rbc').value);
@@ -2945,7 +3083,52 @@ function calculateBunCrea() {
         el.style.display = 'none';
     }
 }
-    function calculateHIon(){ const p=parseFloat(document.getElementById('h-pco2').value), h=parseFloat(document.getElementById('h-hco3').value); if(p&&h){ const val=(24*(p/h)); document.getElementById('res-h-ion-final').innerHTML=`[H+]: ${val.toFixed(1)} nmol/L`; } else { document.getElementById('res-h-ion-final').innerHTML=''; } }
+
+function calculateHIon() {
+    const p = parseFloat(document.getElementById('h-pco2').value);
+    const h = parseFloat(document.getElementById('h-hco3').value);
+    const resBox = document.getElementById('res-h-ion-final');
+
+    if (p && h && h > 0) {
+        // Kassirer-Bleich Equation: [H+] = 24 * (pCO2 / HCO3)
+        const val = (24 * (p / h));
+        
+        // [H+] değerinden tahmini pH hesaplama (Logaritmik dönüşüm)
+        const estPh = 9 - Math.log10(val * 1e1); // Yaklaşık pH tahmini
+
+        let interpretation = "";
+        let color = "#1e293b";
+
+        // Klinik Yorumlama
+        if (val > 45) {
+            interpretation = "Acidemia: High H+ concentration (pH < 7.35).";
+            color = "#dc2626"; // Kırmızı
+        } else if (val < 35) {
+            interpretation = "Alkalemia: Low H+ concentration (pH > 7.45).";
+            color = "#2563eb"; // Mavi
+        } else {
+            interpretation = "Normal range: H+ concentration is within 35-45 nmol/L.";
+            color = "#16a34a"; // Yeşil
+        }
+
+        resBox.style.display = 'block';
+        resBox.innerHTML = `
+            <div style="background: rgba(var(--primary-rgb), 0.05); border-left: 4px solid ${color}; padding: 12px; border-radius: 8px; margin-top: 10px;">
+                <div style="font-size: 1.2rem; font-weight: bold; color: ${color};">[H<sup>+</sup>]: ${val.toFixed(1)} nmol/L</div>
+                <div style="font-size: 0.85rem; margin-top: 4px; color: #334155; font-weight: 600;">${interpretation}</div>
+                
+                <div style="margin-top: 10px; padding-top: 8px; border-top: 1px solid rgba(0,0,0,0.1); font-size: 0.75rem; color: #64748b; line-height:1.4;">
+                    <strong>Calculation Method (Kassirer-Bleich):</strong><br>
+                    [H<sup>+</sup>] = 24 × (pCO<sub>2</sub> / HCO<sub>3</sub><sup>-</sup>)<br>
+                    <span style="font-style: italic;">*Clinical Use: This linear equation is an alternative to Henderson-Hasselbalch. It is often used at the bedside to verify the internal consistency of blood gas results.</span>
+                </div>
+            </div>
+        `;
+    } else {
+        resBox.innerHTML = '';
+        resBox.style.display = 'none';
+    }
+}
 function calculateFAI() {
     const ttEl = document.getElementById('fai-tt');
     const shbgEl = document.getElementById('fai-shbg');
