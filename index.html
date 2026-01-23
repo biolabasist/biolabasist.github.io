@@ -305,7 +305,9 @@
     overscroll-behavior: contain;
 }
         .chart-container canvas {
-    min-width: 1000px;
+    width: 100% !important;
+    height: 100% !important;
+    min-width: 0;
 }
         /* Specific Calc Styles */
         .label-row {
@@ -521,7 +523,7 @@
             .nav-btn.wide { padding: 6px 15px; }
             header { padding: 2rem 1rem; }
             .container { padding: 0 15px 30px 15px; }
-            .chart-container { height: 480px; }
+            .chart-container { height: clamp(300px, 50vh, 420px); }
         }
         
         @media (max-width: 480px) {
@@ -1012,6 +1014,7 @@
                     <div class="input-group"><div class="label-row"><label>% (NGSP)</label><span class="unit-badge">%</span></div><input type="number" id="a1c-ngsp" oninput="calculateA1c('ngsp')"></div>
                     <div class="input-group"><div class="label-row"><label>mmol/mol (IFCC)</label><span class="unit-badge">mmol/mol</span></div><input type="number" id="a1c-ifcc" oninput="calculateA1c('ifcc')"></div>
                     <div style="grid-column: span 2; font-size: 0.8rem; color: var(--text-light); margin-top: 15px; text-align: center;"><span class="formula-display">Formula: NGSP = (0.09148 × IFCC) + 2.152</span></div>
+                    <div id="res-a1c-eag" class="final-result-box" style="grid-column: span 2;"></div>
                 </div>
             </div>
 
@@ -1236,8 +1239,59 @@
     </div>
 
     <div class="qc-card">
+        <div class="qc-header" onclick="toggleQC('qc-carryover', this)">
+            <h3><i class="fa-solid fa-arrows-turn-to-dots"></i> Carryover Analysis</h3>
+            <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div id="qc-carryover" class="qc-body">
+            <div class="input-group full-width" style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
+                <label style="margin:0; color:var(--primary); font-weight:600;">TEa</label>
+                <input type="number" id="carry-tea" step="0.01" placeholder="Enter TEa" style="max-width:120px;">
+                <a href="https://westgard.com/clia-a-quality/quality-requirements/2024-clia-requirements.html" target="_blank" title="CLIA 2025 Acceptance Limits" style="color:var(--primary); text-decoration:none;">
+                    <i class="fa-solid fa-up-right-from-square"></i>
+                </a>
+            </div>
+            <div class="input-group full-width" style="font-size:0.8rem; color:var(--text-light);">
+                <label style="display:block; margin-bottom:6px; color:var(--primary);">Sequence</label>
+                <div>L1-L2-L3-H1-H2-L4-H3-H4-L5-L6-L7-L8-H5-H6-L9-H7-H8-L10-H9-H10-L11</div>
+            </div>
+            <div style="display:flex; flex-wrap:nowrap; gap:6px; overflow-x:auto; padding:8px; background:var(--bg-input); border-radius:10px;">
+                <div style="display:flex; flex-direction:column; align-items:center; min-width:60px;"><div style="font-size:0.7rem; color:var(--text-light);">L1</div><input type="number" id="carry-L1" step="0.01" style="width:60px; text-align:center;"></div>
+                <div style="display:flex; flex-direction:column; align-items:center; min-width:60px;"><div style="font-size:0.7rem; color:var(--text-light);">L2</div><input type="number" id="carry-L2" step="0.01" style="width:60px; text-align:center;"></div>
+                <div style="display:flex; flex-direction:column; align-items:center; min-width:60px;"><div style="font-size:0.7rem; color:var(--text-light);">L3</div><input type="number" id="carry-L3" step="0.01" style="width:60px; text-align:center;"></div>
+                <div style="display:flex; flex-direction:column; align-items:center; min-width:60px;"><div style="font-size:0.7rem; color:var(--text-light);">H1</div><input type="number" id="carry-H1" step="0.01" style="width:60px; text-align:center;"></div>
+                <div style="display:flex; flex-direction:column; align-items:center; min-width:60px;"><div style="font-size:0.7rem; color:var(--text-light);">H2</div><input type="number" id="carry-H2" step="0.01" style="width:60px; text-align:center;"></div>
+                <div style="display:flex; flex-direction:column; align-items:center; min-width:60px;"><div style="font-size:0.7rem; color:var(--text-light);">L4</div><input type="number" id="carry-L4" step="0.01" style="width:60px; text-align:center;"></div>
+                <div style="display:flex; flex-direction:column; align-items:center; min-width:60px;"><div style="font-size:0.7rem; color:var(--text-light);">H3</div><input type="number" id="carry-H3" step="0.01" style="width:60px; text-align:center;"></div>
+                <div style="display:flex; flex-direction:column; align-items:center; min-width:60px;"><div style="font-size:0.7rem; color:var(--text-light);">H4</div><input type="number" id="carry-H4" step="0.01" style="width:60px; text-align:center;"></div>
+                <div style="display:flex; flex-direction:column; align-items:center; min-width:60px;"><div style="font-size:0.7rem; color:var(--text-light);">L5</div><input type="number" id="carry-L5" step="0.01" style="width:60px; text-align:center;"></div>
+                <div style="display:flex; flex-direction:column; align-items:center; min-width:60px;"><div style="font-size:0.7rem; color:var(--text-light);">L6</div><input type="number" id="carry-L6" step="0.01" style="width:60px; text-align:center;"></div>
+                <div style="display:flex; flex-direction:column; align-items:center; min-width:60px;"><div style="font-size:0.7rem; color:var(--text-light);">L7</div><input type="number" id="carry-L7" step="0.01" style="width:60px; text-align:center;"></div>
+                <div style="display:flex; flex-direction:column; align-items:center; min-width:60px;"><div style="font-size:0.7rem; color:var(--text-light);">L8</div><input type="number" id="carry-L8" step="0.01" style="width:60px; text-align:center;"></div>
+                <div style="display:flex; flex-direction:column; align-items:center; min-width:60px;"><div style="font-size:0.7rem; color:var(--text-light);">H5</div><input type="number" id="carry-H5" step="0.01" style="width:60px; text-align:center;"></div>
+                <div style="display:flex; flex-direction:column; align-items:center; min-width:60px;"><div style="font-size:0.7rem; color:var(--text-light);">H6</div><input type="number" id="carry-H6" step="0.01" style="width:60px; text-align:center;"></div>
+                <div style="display:flex; flex-direction:column; align-items:center; min-width:60px;"><div style="font-size:0.7rem; color:var(--text-light);">L9</div><input type="number" id="carry-L9" step="0.01" style="width:60px; text-align:center;"></div>
+                <div style="display:flex; flex-direction:column; align-items:center; min-width:60px;"><div style="font-size:0.7rem; color:var(--text-light);">H7</div><input type="number" id="carry-H7" step="0.01" style="width:60px; text-align:center;"></div>
+                <div style="display:flex; flex-direction:column; align-items:center; min-width:60px;"><div style="font-size:0.7rem; color:var(--text-light);">H8</div><input type="number" id="carry-H8" step="0.01" style="width:60px; text-align:center;"></div>
+                <div style="display:flex; flex-direction:column; align-items:center; min-width:60px;"><div style="font-size:0.7rem; color:var(--text-light);">L10</div><input type="number" id="carry-L10" step="0.01" style="width:60px; text-align:center;"></div>
+                <div style="display:flex; flex-direction:column; align-items:center; min-width:60px;"><div style="font-size:0.7rem; color:var(--text-light);">H9</div><input type="number" id="carry-H9" step="0.01" style="width:60px; text-align:center;"></div>
+                <div style="display:flex; flex-direction:column; align-items:center; min-width:60px;"><div style="font-size:0.7rem; color:var(--text-light);">H10</div><input type="number" id="carry-H10" step="0.01" style="width:60px; text-align:center;"></div>
+                <div style="display:flex; flex-direction:column; align-items:center; min-width:60px;"><div style="font-size:0.7rem; color:var(--text-light);">L11</div><input type="number" id="carry-L11" step="0.01" style="width:60px; text-align:center;"></div>
+            </div>
+            <div class="input-group" style="margin-top:10px;">
+                <button class="btn-action" onclick="runCarryover()">CALCULATE</button>
+            </div>
+            <div id="carry-result" style="display:none; margin-top:15px;">
+                <div id="carry-summary" class="final-result-box" style="margin-bottom:10px;"></div>
+                <div id="carry-group-stats" class="warning-box" style="display:block;"></div>
+                <div id="carry-conclusion" class="final-result-box" style="font-weight:bold; text-align:center; margin-top:10px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="qc-card">
     <div class="qc-header" onclick="toggleQC('qc-rcv', this)">
-        <h3><i class="fa-solid fa-calculator"></i> Delta Calculation Using Reference Change Value (RCV)</h3>
+        <h3><i class="fa-solid fa-calculator"></i> Delta Calculation- Reference Change Value (RCV)</h3>
         <i class="fa-solid fa-chevron-down"></i>
     </div>
     <div id="qc-rcv" class="qc-body">
@@ -1733,6 +1787,18 @@
                 }
             }
         });
+        const ljInput = document.getElementById('lj-val');
+        if (ljInput) {
+            ljInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') { e.preventDefault(); addLJPoint(); }
+            });
+        }
+        const pbrtqcInput = document.getElementById('single-val-input');
+        if (pbrtqcInput) {
+            pbrtqcInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') { e.preventDefault(); addManualValue(); }
+            });
+        }
     };
 
     function toggleTheme() {
@@ -2147,7 +2213,20 @@
         }
     }
 
-    function calculateLDL() { const t=parseFloat(document.getElementById('ldl-tot').value), h=parseFloat(document.getElementById('ldl-hdl').value), tr=parseFloat(document.getElementById('ldl-trig').value); if(t&&h&&tr){ const l=t-h-(tr/5); const lmmol=l*0.0259; document.getElementById('res-ldl-final').innerHTML = `LDL (Friedewald): ${l.toFixed(0)} mg/dL (${lmmol.toFixed(2)} mmol/L)`; } else { document.getElementById('res-ldl-final').innerHTML=''; } }
+    function calculateLDL() {
+        const t = getNormalizedValue('ldl-tot','mg/dL');
+        const h = getNormalizedValue('ldl-hdl','mg/dL');
+        const tr = getNormalizedValue('ldl-trig','mg/dL');
+        const el = document.getElementById('res-ldl-final');
+        if(!isNaN(t) && !isNaN(h) && !isNaN(tr) && t>0 && h>0){
+            const l = t - h - (tr/5);
+            const lmmol = l * 0.0259;
+            const ratio = tr / h;
+            el.innerHTML = `LDL (Friedewald): ${l.toFixed(0)} mg/dL (${lmmol.toFixed(2)} mmol/L)<br>Triglyceride/HDL Ratio: ${ratio.toFixed(2)}`;
+        } else {
+            el.innerHTML = '';
+        }
+    }
     function calculateHoma() { const g=parseFloat(document.getElementById('homa-glu').value), i=parseFloat(document.getElementById('homa-ins').value); if(g&&i){ const v=((g*i)/405); document.getElementById('res-homa-final').innerHTML=`HOMA-IR: ${v.toFixed(2)}`; } else { document.getElementById('res-homa-final').innerHTML=''; } }
     function setSchwartzK(k,b){ schwartzK=k; document.querySelectorAll('#calc-schwartz .radio-option').forEach(x=>x.classList.remove('selected')); b.classList.add('selected'); calculateSchwartz(); }
     function calculateSchwartz(){ const h=parseFloat(document.getElementById('sch-height').value), c=parseFloat(document.getElementById('sch-crea').value); const el=document.getElementById('res-schwartz-final'); if(h&&c){ const gfr=((schwartzK*h)/c); el.innerHTML=`eGFR (Schwartz): ${gfr.toFixed(1)} mL/min/1.73m²`; } else { el.innerHTML=''; } }
@@ -2271,7 +2350,24 @@ function calculateFAI() {
     
 
 
-    function calculateA1c(s){ if(s==='ngsp'){ const v=parseFloat(document.getElementById('a1c-ngsp').value); if(v) document.getElementById('a1c-ifcc').value=((v-2.152)/0.09148).toFixed(1); } else { const v=parseFloat(document.getElementById('a1c-ifcc').value); if(v) document.getElementById('a1c-ngsp').value=((0.09148*v)+2.152).toFixed(1); } }
+    function calculateA1c(s){
+        if(s==='ngsp'){
+            const v=parseFloat(document.getElementById('a1c-ngsp').value);
+            if(!isNaN(v)) document.getElementById('a1c-ifcc').value=((v-2.152)/0.09148).toFixed(1);
+        } else {
+            const v=parseFloat(document.getElementById('a1c-ifcc').value);
+            if(!isNaN(v)) document.getElementById('a1c-ngsp').value=((0.09148*v)+2.152).toFixed(1);
+        }
+        const ngsp=parseFloat(document.getElementById('a1c-ngsp').value);
+        const res=document.getElementById('res-a1c-eag');
+        if(isNaN(ngsp)){
+            res.innerHTML='';
+            return;
+        }
+        const eag_mg=(28.7*ngsp)-46.7;
+        const eag_mmol=eag_mg/18;
+        res.innerHTML=`Estimated Average Glucose: ${eag_mg.toFixed(1)} mg/dL | ${eag_mmol.toFixed(1)} mmol/L`;
+    }
 
    // --- GFR FUNCTIONS (UPDATED) ---
     
@@ -2585,7 +2681,7 @@ function getVal(id) {
                 label: 'BgUpperYellow', 
                 data: Array(labels.length).fill(upper2SD), 
                 borderColor: 'transparent', pointRadius: 0, borderWidth: 0, 
-                backgroundColor: 'rgba(251, 191, 36, 0.18)',
+                backgroundColor: 'rgba(255, 255, 224)',
                 fill: 2, // Fill to dataset index 2 (+1SD)
                 order: 10 
             },
@@ -2594,7 +2690,7 @@ function getVal(id) {
                 label: 'BgUpperGreen', 
                 data: Array(labels.length).fill(upper1SD), 
                 borderColor: 'transparent', pointRadius: 0, borderWidth: 0, 
-                backgroundColor: 'rgba(34, 197, 94, 0.12)',
+                backgroundColor: 'rgba(220, 252, 231, 0.15)',
                 fill: 3, // Fill to dataset index 3 (Mean)
                 order: 10 
             },
@@ -2603,7 +2699,7 @@ function getVal(id) {
                 label: 'BgLowerGreen', 
                 data: Array(labels.length).fill(mean), 
                 borderColor: 'rgba(22, 163, 74, 0.5)', pointRadius: 0, borderWidth: 1, borderDash: [5, 5], // Mean Line style
-                backgroundColor: 'rgba(34, 197, 94, 0.12)',
+                backgroundColor: 'rgba(220, 252, 231, 0.15)',
                 fill: 4, // Fill to dataset index 4 (-1SD)
                 order: 10 
             },
@@ -2612,7 +2708,7 @@ function getVal(id) {
                 label: 'BgLowerYellow', 
                 data: Array(labels.length).fill(lower1SD), 
                 borderColor: 'transparent', pointRadius: 0, borderWidth: 0, 
-                backgroundColor: 'rgba(251, 191, 36, 0.18)',
+                backgroundColor: 'rgba(255, 255, 224)',
                 fill: 5, // Fill to dataset index 5 (-2SD)
                 order: 10 
             },
@@ -2668,6 +2764,7 @@ function getVal(id) {
             options: { 
                 responsive: true, 
                 maintainAspectRatio: false,
+                devicePixelRatio: (window.devicePixelRatio || 1),
                 layout: {
                     padding: {
                         left: 10,
@@ -3225,6 +3322,7 @@ function getVal(id) {
             options: {
                 responsive: true, 
                 maintainAspectRatio: false,
+                devicePixelRatio: (window.devicePixelRatio || 1),
                 scales: {
                     x: { title: { display: true, text: xTitle, font: {weight:'bold'} } },
                     y: { title: { display: true, text: yTitle, font: {weight:'bold'} } }
@@ -3443,6 +3541,7 @@ function getVal(id) {
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
+                devicePixelRatio: (window.devicePixelRatio || 1),
                 scales: {
                     x: {
                         type: 'linear',
@@ -4054,6 +4153,43 @@ function calculateII() {
     interpretDiv.style.color = textColor;
     
     resultDiv.style.display = 'block';
+}
+
+function runCarryover() {
+    function val(id) { const v = parseFloat(document.getElementById(id).value); return isNaN(v) ? null : v; }
+    const L = [val('carry-L1'), val('carry-L2'), val('carry-L3'), val('carry-L4'), val('carry-L5'), val('carry-L6'), val('carry-L7'), val('carry-L8'), val('carry-L9'), val('carry-L10'), val('carry-L11')];
+    const tea = parseFloat(document.getElementById('carry-tea').value);
+    const groupLL = [L[1], L[2], L[5], L[6], L[7]].filter(x => x !== null);
+    const groupLH = [L[3], L[4], L[8], L[9], L[10]].filter(x => x !== null);
+    function mean(arr){ if(arr.length===0) return NaN; return arr.reduce((a,b)=>a+b,0)/arr.length; }
+    function sd(arr){ if(arr.length<2) return 0; const m=mean(arr); const v=arr.reduce((a,b)=>a+Math.pow(b-m,2),0)/(arr.length-1); return Math.sqrt(v); }
+    const mLL = mean(groupLL);
+    const sLL = sd(groupLL);
+    const mLH = mean(groupLH);
+    const sLH = sd(groupLH);
+    const diff = mLH - mLL;
+    const thr3sd = 3 * sLL;
+    const resBox = document.getElementById('carry-result');
+    const sumBox = document.getElementById('carry-summary');
+    const statBox = document.getElementById('carry-group-stats');
+    const conclBox = document.getElementById('carry-conclusion');
+    if(!isFinite(mLL) || !isFinite(mLH)) { alert('Please enter values for required L replicates.'); resBox.style.display='none'; return; }
+    sumBox.innerHTML = `L after L: mean ${mLL.toFixed(2)}, SD ${sLL.toFixed(2)} | L after H: mean ${mLH.toFixed(2)}, SD ${sLH.toFixed(2)} | Difference: ${diff.toFixed(2)}`;
+    const g1 = groupLL.map((v,i)=>`L${[2,3,6,7,8][i]}=${v}`).join(' • ');
+    const g2 = groupLH.map((v,i)=>`L${[4,5,9,10,11][i]}=${v}`).join(' • ');
+    statBox.innerHTML = `<div style="margin-bottom:6px;">Group A (L after L): ${g1 || 'NA'}</div><div>Group B (L after H): ${g2 || 'NA'}</div><div style="margin-top:8px; font-weight:600; color:var(--primary);">TEa: ${isNaN(tea)?'NA (Please enter TEa value)':tea.toFixed(2)} | 3×SD(L after L): ${thr3sd.toFixed(2)}</div>`;
+    const passTEa = !isNaN(tea) ? Math.abs(diff) <= tea : true;
+    const pass3sd = Math.abs(diff) <= thr3sd;
+    if(passTEa && pass3sd) {
+        conclBox.style.backgroundColor = 'rgba(22,163,74,0.15)';
+        conclBox.style.color = '#16a34a';
+        conclBox.innerHTML = 'No significant carryover detected.';
+    } else {
+        conclBox.style.backgroundColor = 'rgba(220,38,38,0.15)';
+        conclBox.style.color = '#dc2626';
+        conclBox.innerHTML = 'Significant carryover suspected.';
+    }
+    resBox.style.display = 'block';
 }
 </script>
 </body>
