@@ -838,6 +838,56 @@
                 </div>
             </div>
 
+            <div id="calc-ddimer" class="calculator-view">
+    <h3 style="margin-bottom: 20px; color: var(--primary);">D-Dimer Universal Converter</h3>
+    
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+        <div style="grid-column: span 2; border-left: 4px solid #3498db; padding-left: 10px; margin-top: 10px; font-weight: bold; color: #2c3e50;">
+            Fibrinogen Equivalent Units (FEU)
+        </div>
+        <div class="input-group">
+            <div class="label-row"><label>ng/mL FEU</label></div>
+            <input type="number" id="ddimer-ngml-feu" placeholder="0" oninput="syncDDimer('ngml-feu')">
+        </div>
+        <div class="input-group">
+            <div class="label-row"><label>µg/L FEU</label></div>
+            <input type="number" id="ddimer-ugl-feu" placeholder="0" oninput="syncDDimer('ugl-feu')">
+        </div>
+        <div class="input-group">
+            <div class="label-row"><label>mg/L FEU</label></div>
+            <input type="number" id="ddimer-mgl-feu" placeholder="0" step="0.001" oninput="syncDDimer('mgl-feu')">
+        </div>
+        <div class="input-group">
+            <div class="label-row"><label>µg/mL FEU</label></div>
+            <input type="number" id="ddimer-ugml-feu" placeholder="0" step="0.001" oninput="syncDDimer('ugml-feu')">
+        </div>
+
+        <div style="grid-column: span 2; border-left: 4px solid #e67e22; padding-left: 10px; margin-top: 10px; font-weight: bold; color: #2c3e50;">
+            D-Dimer Units (DDU)
+        </div>
+        <div class="input-group">
+            <div class="label-row"><label>ng/mL DDU</label></div>
+            <input type="number" id="ddimer-ngml-ddu" placeholder="0" oninput="syncDDimer('ngml-ddu')">
+        </div>
+        <div class="input-group">
+            <div class="label-row"><label>µg/L DDU</label></div>
+            <input type="number" id="ddimer-ugl-ddu" placeholder="0" oninput="syncDDimer('ugl-ddu')">
+        </div>
+        <div class="input-group">
+            <div class="label-row"><label>mg/L DDU</label></div>
+            <input type="number" id="ddimer-mgl-ddu" placeholder="0" step="0.001" oninput="syncDDimer('mgl-ddu')">
+        </div>
+        <div class="input-group">
+            <div class="label-row"><label>µg/mL DDU</label></div>
+            <input type="number" id="ddimer-ugml-ddu" placeholder="0" step="0.001" oninput="syncDDimer('ugml-ddu')">
+        </div>
+    </div>
+    
+    <div class="formula-display" style="margin-top: 20px; font-size: 0.85rem; background: rgba(52, 152, 219, 0.1);">
+        <i class="fas fa-info-circle"></i> 1 DDU = 2 x FEU | Örn: 250 ng/mL DDU = 500 ng/mL FEU
+    </div>
+</div>
+
            <div id="calc-serial-planner" class="calculator-view">
     <h3 style="margin-bottom: 20px; color: var(--primary); border-bottom: 2px solid #f1f5f9; padding-bottom: 10px;">
         <i class="fas fa-magic" style="margin-right:10px;"></i>Smart Dilution Planner
@@ -2171,6 +2221,7 @@
         {id: 'calc-ca-ion', title: 'Est. Ionized Calcium', icon: 'fa-bone'},
         {id: 'calc-igg-index', title: 'IgG Index', icon: 'fa-brain'},
         {id: 'calc-transferrin', title: 'Transferrin Saturation', icon: 'fa-dumbbell'},
+        {id: 'calc-ddimer', title: 'D-Dimer Converter', icon: 'fa-vial-circle-check'},
 {id: 'calc-lights', 
     title: "Light's Criteria", 
     icon: 'fa-lungs', 
@@ -4059,7 +4110,55 @@ function getVal(id) {
 
     function showCalcSuggestions(){ const inp=document.getElementById('calcSearchInput'), q=inp.value.toLowerCase(), box=document.getElementById('calcSuggestions'); box.innerHTML=''; if(!q.length){box.style.display='none'; return;} const m=calculators.filter(c=>c.title.toLowerCase().includes(q)); if(m.length){ m.forEach(c=>{ const d=document.createElement('div'); d.className='suggestion-item'; d.innerHTML=`<i class="fa-solid ${c.icon}" style="color:var(--primary)"></i> ${c.title}`; d.onclick=()=>{openCalc(c.id);box.style.display='none';inp.value='';}; box.appendChild(d); }); box.style.display='block'; } else box.style.display='none'; }
 
+function syncDDimer(source) {
+    const ids = {
+        'ngml-feu': document.getElementById('ddimer-ngml-feu'),
+        'ugl-feu': document.getElementById('ddimer-ugl-feu'),
+        'mgl-feu': document.getElementById('ddimer-mgl-feu'),
+        'ugml-feu': document.getElementById('ddimer-ugml-feu'),
+        'ngml-ddu': document.getElementById('ddimer-ngml-ddu'),
+        'ugl-ddu': document.getElementById('ddimer-ugl-ddu'),
+        'mgl-ddu': document.getElementById('ddimer-mgl-ddu'),
+        'ugml-ddu': document.getElementById('ddimer-ugml-ddu')
+    };
 
+    let val = parseFloat(ids[source].value);
+
+    if (isNaN(val)) {
+        Object.values(ids).forEach(el => { if(el.id !== ids[source].id) el.value = ''; });
+        return;
+    }
+
+    // Önce girilen değeri baz FEU (ng/mL) birimine eşitleyelim
+    let baseFEU;
+    switch (source) {
+        case 'ngml-feu': case 'ugl-feu': baseFEU = val; break;
+        case 'mgl-feu': case 'ugml-feu': baseFEU = val * 1000; break;
+        case 'ngml-ddu': case 'ugl-ddu': baseFEU = val * 2; break;
+        case 'mgl-ddu': case 'ugml-ddu': baseFEU = (val * 1000) * 2; break;
+    }
+
+    // Şimdi tüm kutuları baz FEU üzerinden dolduralım
+    const results = {
+        'ngml-feu': baseFEU,
+        'ugl-feu': baseFEU,
+        'mgl-feu': baseFEU / 1000,
+        'ugml-feu': baseFEU / 1000,
+        'ngml-ddu': baseFEU / 2,
+        'ugl-ddu': baseFEU / 2,
+        'mgl-ddu': (baseFEU / 2) / 1000,
+        'ugml-ddu': (baseFEU / 2) / 1000
+    };
+
+    // Kaynak kutu hariç hepsini güncelle (imleç kaymasın diye)
+    for (let key in ids) {
+        if (key !== source) {
+            // Çok küçük veya çok büyük sayıları düzgün formatla (maks 4 ondalık)
+            let finalVal = results[key];
+            ids[key].value = Number(finalVal.toFixed(4)).toString(); 
+        }
+    }
+}
     // --- 8. LEVEY-JENNINGS ---
     function addLJPoint() {
         const val = parseFloat(document.getElementById('lj-val').value);
