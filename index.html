@@ -823,7 +823,7 @@
         /* Footer */
         footer {
             width: 100%;
-            padding: 15px clamp(15px, 4vw, 40px);
+            padding: 4px clamp(15px, 4vw, 40px);
             margin-top: auto;
             border-top: 1px solid var(--border-color);
             background: var(--bg-card);
@@ -1015,7 +1015,7 @@
 
             footer {
                 flex-direction: column;
-                gap: 15px;
+                gap: 5px;
             }
 
             .footer-info {
@@ -1072,7 +1072,7 @@
         @media (max-width: 480px) {
             footer {
                 flex-direction: column;
-                gap: 15px;
+                gap: 5px;
             }
 
             .footer-info {
@@ -1162,6 +1162,7 @@
             line-height: 1.1;
             display: -webkit-box;
             -webkit-line-clamp: 2;
+            line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
@@ -1205,7 +1206,7 @@
             Calc</button>
         <button class="nav-btn wide" onclick="switchTab('tab-qc', this)"><i class="fa-solid fa-chart-line"></i>
             QC</button>
-        <button class="nav-btn" onclick="switchTab('tab-info', this)"><i class="fa-solid fa-book-medical"></i>
+        <button class="nav-btn" onclick="switchTab('tab-info', this)"><i class="fa-solid fa-book-bookmark"></i>
             Guide</button>
         <button class="nav-btn wide" onclick="switchTab('tab-notes', this)"><i class="fa-solid fa-sticky-note"></i>
             Notes</button>
@@ -1669,7 +1670,8 @@
                             <div class="label-row"><label>Stock Concentration (C1)</label></div>
                             <input type="number" id="plan-stock-c" placeholder="e.g. 1000"
                                 oninput="planSerialDilution()">
-                            <div style="font-style: italic; font-size: 0.75rem; color: #64748b; mt-4px;">Enter the
+                            <div style="font-style: italic; font-size: 0.75rem; color: #64748b; margin-top: 4px;">Enter
+                                the
                                 starting concentration of your source solution.</div>
                         </div>
 
@@ -1680,7 +1682,8 @@
                             </div>
                             <input type="number" id="plan-target-c" placeholder="e.g. 0.5"
                                 oninput="planSerialDilution()">
-                            <div style="font-style: italic; font-size: 0.75rem; color: #64748b; mt-4px;">The system will
+                            <div style="font-style: italic; font-size: 0.75rem; color: #64748b; margin-top: 4px;">The
+                                system will
                                 find the best path to reach this value.</div>
                         </div>
 
@@ -1715,7 +1718,8 @@
                                     class="unit-badge">µL</span></div>
                             <input type="number" id="plan-transfer-v" placeholder="Default: 100 µL"
                                 oninput="planSerialDilution()">
-                            <div style="font-style: italic; font-size: 0.75rem; color: #64748b; mt-4px;">Volume to be
+                            <div style="font-style: italic; font-size: 0.75rem; color: #64748b; margin-top: 4px;">Volume
+                                to be
                                 pipetted from the previous tube in each step.</div>
                             <p style="font-size: 0.7rem; color: #94a3b8; margin-top: 5px;">*If blank, 100 µL is used
                                 automatically.</p>
@@ -1802,7 +1806,7 @@
                 </div>
 
                 <div id="calc-osmo" class="calculator-view">
-                    <h3 style="margin-bottom: 20px; color: var(--primary);">Serum Osmolality</h3>
+                    <h3 style="margin-bottom: 20px; color: var(--primary);">Serum Osmolality & Osmolal Gap</h3>
                     <div class="calc-input-grid">
                         <div class="input-group">
                             <div class="label-row"><label>Na (Sodium)</label><span class="unit-badge">mEq/L</span></div>
@@ -1813,8 +1817,20 @@
                             <input type="number" id="osmo-glu" oninput="calculateOsmo()">
                         </div>
                         <div class="input-group">
-                            <div class="label-row"><label>BUN</label><span class="unit-badge">mg/dL</span></div><input
-                                type="number" id="osmo-bun" oninput="calculateOsmo()">
+                            <div class="label-row"><label>BUN</label><span class="unit-badge">mg/dL</span></div>
+                            <input type="number" id="osmo-bun" oninput="calculateOsmo()">
+                        </div>
+                        <div class="input-group">
+                            <div class="label-row"><label>Ethanol (optional)</label><span
+                                    class="unit-badge">mg/dL</span></div>
+                            <input type="number" id="osmo-etoh" oninput="calculateOsmo()" placeholder="Optional">
+                        </div>
+                        <div class="input-group full-width"
+                            style="border-top: 1px dashed var(--border-color); padding-top: 15px; margin-top: 10px;">
+                            <div class="label-row"><label>Measured Osmolality (optional)</label><span
+                                    class="unit-badge">mOsm/kg</span></div>
+                            <input type="number" id="osmo-measured" oninput="calculateOsmo()"
+                                placeholder="Enter to calculate Osmolal Gap">
                         </div>
                         <div id="res-osmo-final" class="final-result-box"></div>
                     </div>
@@ -2197,8 +2213,55 @@
                     </div>
                 </div>
 
+                <div id="calc-apri" class="calculator-view">
+                    <h3 style="margin-bottom: 20px; color: var(--primary);"><i class="fa-solid fa-file-medical"></i>
+                        APRI Score (AST to Platelet Ratio Index)</h3>
+                    <div class="calc-input-grid">
+                        <div class="input-group">
+                            <div class="label-row"><label>AST (Measured)</label><span class="unit-badge">U/L</span>
+                            </div>
+                            <input type="number" id="apri-ast" oninput="calculateAPRI()">
+                        </div>
+                        <div class="input-group">
+                            <div class="label-row"><label>AST Upper Limit</label><span class="unit-badge">U/L</span>
+                            </div>
+                            <input type="number" id="apri-ast-uln" oninput="calculateAPRI()" placeholder="Default: 40"
+                                value="40">
+                        </div>
+                        <div class="input-group">
+                            <div class="label-row"><label>Platelet Count</label><span class="unit-badge">10³/µL</span>
+                            </div>
+                            <input type="number" id="apri-plt" oninput="calculateAPRI()">
+                        </div>
+                        <div id="res-apri-final" class="final-result-box"></div>
+                    </div>
+                </div>
+
+                <div id="calc-winters" class="calculator-view">
+                    <h3 style="margin-bottom: 20px; color: var(--primary);">Winters' Formula (Expected pCO2)</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-light); margin-bottom: 15px;">
+                        Calculates expected pCO2 in primary metabolic acidosis. Compare with measured pCO2 to detect
+                        concurrent respiratory disorder.
+                    </p>
+                    <div class="calc-input-grid">
+                        <div class="input-group">
+                            <div class="label-row"><label>HCO3⁻ (Bicarbonate)</label><span
+                                    class="unit-badge">mEq/L</span></div>
+                            <input type="number" id="winters-hco3" oninput="calculateWinters()">
+                        </div>
+                        <div class="input-group">
+                            <div class="label-row"><label>Measured pCO2 (optional)</label><span
+                                    class="unit-badge">mmHg</span></div>
+                            <input type="number" id="winters-pco2" oninput="calculateWinters()"
+                                placeholder="For comparison">
+                        </div>
+                        <div id="res-winters-final" class="final-result-box"></div>
+                    </div>
+                </div>
+
             </div>
         </div>
+
 
         <div id="tab-qc" class="section">
 
@@ -2452,11 +2515,13 @@
                             <div class="input-group"><label>CVi (%)</label><input type="number" id="cust-cvi" value="5">
                             </div>
                             <div class="input-group"><label>CVg (%)</label><input type="number" id="cust-cvg"
-                                    value="10"></div>
+                                    value="10">
+                            </div>
                             <div class="input-group"><label>Low Limit</label><input type="number" id="cust-l" value="0">
                             </div>
                             <div class="input-group"><label>High Limit</label><input type="number" id="cust-u"
-                                    value="100"></div>
+                                    value="100">
+                            </div>
                         </div>
                     </div>
 
@@ -3447,7 +3512,7 @@
 
                         <div class="qc-card">
                             <div class="qc-header" onclick="toggleQC('qc-blandaltman', this)">
-                                <h3><i class="fa-solid fa-chart-scatter"></i> Bland-Altman Plot (Method Comparison)</h3>
+                                <h3><i class="fa-solid fa-compress"></i> Bland-Altman Plot (Method Comparison)</h3>
                                 <i class="fa-solid fa-chevron-down"></i>
                             </div>
                             <div id="qc-blandaltman" class="qc-body">
@@ -3593,6 +3658,51 @@
                                                 (before analysis).</li>
                                         </ul>
                                     </div>
+
+                                    <!-- Absolute vs Percent Selection Guide -->
+                                    <div
+                                        style="background: white; padding: 10px; border-radius: 6px; margin-top: 10px; border-left: 3px solid #7c3aed;">
+                                        <strong style="color: #7c3aed;"><i class="fa-solid fa-lightbulb"></i>
+                                            Selection Guide: Absolute vs. Percent Difference</strong>
+                                        <div style="margin-top: 8px; font-size: 0.82rem; line-height: 1.6;">
+                                            <div style="margin-bottom: 8px;">
+                                                <strong>1. Choose Absolute Difference (Units)</strong> if the
+                                                measurement
+                                                error remains constant regardless of the value (Homoscedasticity).
+                                                <br><em>Best for:</em> Electrolytes (Sodium, Calcium), pH, or analytes
+                                                with
+                                                a narrow clinical range.
+                                            </div>
+                                            <div style="margin-bottom: 8px;">
+                                                <strong>2. Choose Percent Difference (%)</strong> if the measurement
+                                                error
+                                                increases as the concentration increases (Proportional Bias).
+                                                <br><em>Best for:</em> Enzymes (ALT, AST, ALP), Glucose, Hormones (PSA,
+                                                TSH,
+                                                HCG), or analytes with very wide measurement ranges.
+                                            </div>
+                                            <div
+                                                style="background: rgba(124,58,237,0.05); padding: 8px; border-radius: 4px; font-style: italic; border-left: 2px solid #7c3aed;">
+                                                <strong>Practical Tip:</strong> Observe the Trend Analysis in results.
+                                                If
+                                                <em>Proportional Bias</em> is detected (correlation r > 0.3), switching
+                                                to
+                                                Percent Difference (%) often provides a more reliable assessment of
+                                                clinical
+                                                agreement.
+                                            </div>
+                                            <div
+                                                style="margin-top: 10px; border-top: 1px dashed #d1d5db; padding-top: 8px;">
+                                                <strong>3. X-Axis Selection:</strong>
+                                                <br>• <strong>Mean of Both Methods:</strong> Standard for most cases. It
+                                                provides
+                                                the best estimate of the true value when both methods have error.
+                                                <br>• <strong>Comparative Method Only:</strong> Use ONLY if Method 2 is
+                                                a
+                                                "Gold Standard" (Reference Method) with near-zero error.
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="calc-input-grid">
@@ -3670,6 +3780,41 @@
                                             methods
                                             are not interchangeable</span>
                                     </div>
+                                    <!-- Difference Plot Settings -->
+                                    <div class="input-group"
+                                        style="margin-top:15px; padding:15px; background:linear-gradient(135deg, rgba(124,58,237,0.05) 0%, rgba(37,99,235,0.05) 100%); border-radius:12px; border:1px solid var(--border-color);">
+                                        <label
+                                            style="font-weight:600; color:#7c3aed; margin-bottom:12px; display:flex; align-items:center; gap:8px; font-size:0.95rem;">
+                                            <i class="fa-solid fa-sliders"></i> Difference Plot Settings
+                                        </label>
+                                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                                            <div>
+                                                <label
+                                                    style="font-size:0.8rem; color:var(--text-light); margin-bottom:6px; display:block;">Difference
+                                                    Type</label>
+                                                <select id="ba-diff-type"
+                                                    style="width:100%; padding:10px; border:1px solid var(--border-color); border-radius:8px; background:white; color:var(--text-main); font-size:0.85rem; cursor:pointer;">
+                                                    <option value="absolute">Absolute Difference (Units)</option>
+                                                    <option value="percent">Percent Difference (%)</option>
+                                                </select>
+                                            </div>
+                                            <div>
+                                                <label
+                                                    style="font-size:0.8rem; color:var(--text-light); margin-bottom:6px; display:block;">X-Axis</label>
+                                                <select id="ba-xaxis-type"
+                                                    style="width:100%; padding:10px; border:1px solid var(--border-color); border-radius:8px; background:white; color:var(--text-main); font-size:0.85rem; cursor:pointer;">
+                                                    <option value="mean">Mean of Both Methods</option>
+                                                    <option value="reference">Comparative Method Only</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div
+                                            style="margin-top:10px; font-size:0.75rem; color:var(--text-light); padding:8px; background:white; border-radius:6px;">
+                                            <i class="fa-solid fa-lightbulb" style="color:#eab308;"></i>
+                                            <strong>Tip:</strong> Use <em>Percent Difference</em> when comparing methods
+                                            across a wide measurement range to detect proportional bias.
+                                        </div>
+                                    </div>
 
                                     <!-- Analysis Method Selection -->
                                     <div class="input-group"
@@ -3743,7 +3888,8 @@
                                                 Method 2)
                                             </div>
                                             <div id="ba-correlation-stats"
-                                                style="font-size:0.85rem; margin-bottom:10px;"></div>
+                                                style="font-size:0.85rem; margin-bottom:10px;">
+                                            </div>
                                         </div>
                                         <div class="chart-container"><canvas id="baCorrelationChart"></canvas></div>
                                         <button class="btn-action btn-secondary"
@@ -3922,7 +4068,7 @@
                                 style="border:1px solid var(--border-color); border-radius:10px; background:var(--bg-card); padding:10px; max-height:300px; overflow-y:auto;">
                             </div>
                         </div>
-                        
+
                         <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
                             <input id="journalSearchInput" class="input-group" type="text" placeholder="Search journals"
                                 style="flex:1; padding:10px; border-radius:8px;" oninput="filterJournalLists()">
@@ -4199,6 +4345,11 @@
                 <div id="tab-notes" class="section">
                     <div class="calculator-view" style="display:block;">
                         <h3>Personal Notes</h3>
+                        <div
+                            style="font-size: 0.8rem; color: var(--text-light); margin-bottom: 15px; background: rgba(var(--primary-rgb), 0.05); padding: 10px; border-radius: 6px; border-left: 3px solid var(--primary);">
+                            <i class="fa-solid fa-lock" style="margin-right: 5px;"></i>
+                            The information you write here is private to this device and browser.
+                        </div>
                         <textarea id="myNotes"
                             style="width:100%; height:300px; padding:10px; border-radius:10px; border:1px solid var(--border-color);"
                             oninput="localStorage.setItem('labNotes', this.value)"></textarea>
@@ -4208,21 +4359,23 @@
             </div>
 
             <footer>
-                <div class="footer-info">
-                    <p style="font-weight:600; margin-bottom:5px;">Medical Biochemistry Lab Assistant</p>
-                    <p style="opacity:0.7; font-size:0.65rem; margin-bottom:5px;">This platform was compiled with
-                        caffeine,
-                        code, and a passion for biochemistry. Every line of code here is an attempt to decrease
-                        entropy.
-                        However, remember that the map is not the territory. Let your clinical intuition always be
-                        your
-                        True
-                        North.</p>
-                    <p style="font-size:0.75rem; margin-bottom:8px;">Ping me for feedback and contributions:
-                        belginsaraa@gmail.com</p>
-                    <a href="https://github.com/belqin" target="_blank" class="signature-link">
-                        <p class="signature">Belgin ŞARA, MD</p>
-                    </a>
+                <div class="footer-info" style="padding: 2px 0;">
+                    <p style="font-weight:600; margin-bottom:1px; font-size:0.75rem;">Medical Biochemistry Lab Assistant
+                    </p>
+                    <p
+                        style="opacity:0.8; font-size:0.58rem; line-height:1.2; max-width:800px; margin:0 auto 2px auto;">
+                        Compiled with caffeine and code. Every line of code is an attempt to decrease entropy.
+                        The map is not the territory; let clinical intuition be your True North.
+                    </p>
+                    <div
+                        style="color: #dc2626; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.2px; margin: 2px 0 4px 0;">
+                        <i class="fa-solid fa-triangle-exclamation"></i> FOR DECISION SUPPORT ONLY; USE WITH CAUTION.
+                    </div>
+                    <p style="font-size:0.65rem; opacity:0.6; margin:0;">
+                        belginsaraa@gmail.com |
+                        <a href="https://github.com/belqin" target="_blank"
+                            style="color:inherit; text-decoration:none;">github.com/belqin</a>
+                    </p>
                 </div>
                 <div class="footer-controls">
                     <button class="control-btn" onclick="toggleTheme()" id="themeBtn"><i
@@ -4352,7 +4505,10 @@
                         icon: 'fa-lungs',
                         category: 'fluids'
                     },
-                    { id: 'calc-a1c', title: 'HbA1c Converter', icon: 'fa-cube' }
+                    { id: 'calc-a1c', title: 'HbA1c Converter', icon: 'fa-cube' },
+                    { id: 'calc-apri', title: 'APRI Score', icon: 'fa-file-medical' },
+                    { id: 'calc-winters', title: 'Winters Formula', icon: 'fa-wind' },
+                    { id: 'calc-ba', title: 'Method Comparison', icon: 'fa-compress' }
                 ];
 
                 // --- 3. INIT ---
@@ -5469,32 +5625,65 @@
                 function calculateOsmo() {
                     const nEl = document.getElementById('osmo-na'),
                         gEl = document.getElementById('osmo-glu'),
-                        bEl = document.getElementById('osmo-bun');
+                        bEl = document.getElementById('osmo-bun'),
+                        eEl = document.getElementById('osmo-etoh'),
+                        mEl = document.getElementById('osmo-measured');
                     const n = parseFloat(nEl.value),
                         g = parseFloat(gEl.value),
-                        b = parseFloat(bEl.value);
+                        b = parseFloat(bEl.value),
+                        e = parseFloat(eEl ? eEl.value : 0) || 0,
+                        m = parseFloat(mEl ? mEl.value : 0) || 0;
                     const resBox = document.getElementById('res-osmo-final');
 
                     if (n && g && b) {
                         const gUnit = gEl.parentNode.querySelector('.unit-badge').textContent.trim();
                         const bUnit = bEl.parentNode.querySelector('.unit-badge').textContent.trim();
 
-                        // Osmolality Formülü
-                        const osmo = (2 * n) + (gUnit.includes('mmol/L') ? g : g / 18) + (bUnit.includes('mmol/L') ? b : b / 2.8);
+                        // Osmolality Formula: 2×Na + Glucose/18 + BUN/2.8 + Ethanol/4.6
+                        const gTerm = gUnit.includes('mmol/L') ? g : g / 18;
+                        const bTerm = bUnit.includes('mmol/L') ? b : b / 2.8;
+                        const eTerm = e / 4.6; // Ethanol in mg/dL
+                        const osmo = (2 * n) + gTerm + bTerm + eTerm;
 
                         let interpretation = "";
                         let color = "#1e293b";
 
-                        // Klinik Yorumlama
+                        // Clinical Interpretation
                         if (osmo < 275) {
                             interpretation = "Hypo-osmolality: Often associated with hyponatremia and water excess.";
-                            color = "#dc2626"; // Kırmızı
+                            color = "#dc2626";
                         } else if (osmo >= 275 && osmo <= 295) {
                             interpretation = "Serum Osmolality is within the normal physiological range.";
-                            color = "#16a34a"; // Yeşil
+                            color = "#16a34a";
                         } else {
                             interpretation = "Hyper-osmolality: Consider dehydration, hyperglycemia, or presence of unmeasured osmolytes.";
-                            color = "#d97706"; // Turuncu
+                            color = "#d97706";
+                        }
+
+                        // Osmolal Gap calculation if measured osmolality is provided
+                        let gapHtml = "";
+                        if (m > 0) {
+                            const gap = m - osmo;
+                            let gapInterpretation = "";
+                            let gapColor = "#16a34a";
+
+                            if (gap > 10) {
+                                gapInterpretation = "Elevated Osmolal Gap: Consider toxic alcohol ingestion (methanol, ethylene glycol, isopropanol), propylene glycol, or severe lactic acidosis.";
+                                gapColor = "#dc2626";
+                            } else if (gap >= -10 && gap <= 10) {
+                                gapInterpretation = "Osmolal Gap is within normal range (-10 to +10 mOsm/kg).";
+                                gapColor = "#16a34a";
+                            } else {
+                                gapInterpretation = "Low Osmolal Gap: Usually not clinically significant.";
+                                gapColor = "#3b82f6";
+                            }
+
+                            gapHtml = `
+                                <div style="margin-top: 12px; padding: 12px; background: rgba(var(--primary-rgb), 0.08); border-left: 4px solid ${gapColor}; border-radius: 8px;">
+                                    <div style="font-size: 1rem; font-weight: bold; color: ${gapColor};">Osmolal Gap: ${gap.toFixed(1)} mOsm/kg</div>
+                                    <div style="font-size: 0.8rem; margin-top: 4px; color: #334155;">${gapInterpretation}</div>
+                                </div>
+                            `;
                         }
 
                         resBox.style.display = 'block';
@@ -5502,11 +5691,10 @@
             <div style="background: rgba(var(--primary-rgb), 0.05); border-left: 4px solid ${color}; padding: 12px; border-radius: 8px; margin-top: 10px;">
                 <div style="font-size: 1.1rem; font-weight: bold; color: ${color};">Calculated Osmolality: ${osmo.toFixed(0)} mOsm/kg</div>
                 <div style="font-size: 0.85rem; margin-top: 4px; color: #334155; font-weight: 600;">${interpretation}</div>
-                
+                ${gapHtml}
                 <div style="margin-top: 10px; padding-top: 8px; border-top: 1px solid rgba(0,0,0,0.1); font-size: 0.75rem; color: #64748b; line-height:1.4;">
-                    <strong>Calculation Method:</strong><br>
-                    2×Na + [Glucose / ${gUnit.includes('mmol/L') ? '1' : '18'}] + [BUN / ${bUnit.includes('mmol/L') ? '1' : '2.8'}]<br>
-                    <span style="font-style: italic;">*Clinical Note: If the measured osmolality (from lab) is >10 mOsm/kg higher than this calculated value, an "Osmolar Gap" exists, suggesting toxic alcohol ingestion (e.g., methanol, ethylene glycol).</span>
+                    <strong>Formula:</strong> 2×Na + Glu/${gUnit.includes('mmol/L') ? '1' : '18'} + BUN/${bUnit.includes('mmol/L') ? '1' : '2.8'}${e > 0 ? ' + EtOH/4.6' : ''}<br>
+                    <span style="font-style: italic;">= 2×${n} + ${gTerm.toFixed(1)} + ${bTerm.toFixed(1)}${e > 0 ? ' + ' + eTerm.toFixed(1) : ''} = ${osmo.toFixed(0)} mOsm/kg</span>
                 </div>
             </div>
         `;
@@ -5515,6 +5703,907 @@
                         resBox.style.display = 'none';
                     }
                 }
+
+                function calculateAPRI() {
+                    const ast = parseFloat(document.getElementById('apri-ast').value);
+                    const astUln = parseFloat(document.getElementById('apri-ast-uln').value) || 40;
+                    const plt = parseFloat(document.getElementById('apri-plt').value);
+                    const resBox = document.getElementById('res-apri-final');
+
+                    if (ast && astUln && plt) {
+                        // APRI = ((AST / ULN) / Platelet count) × 100
+                        const apri = ((ast / astUln) / plt) * 100;
+
+                        let interpretation = "";
+                        let color = "#16a34a";
+                        let fibrosis = "";
+                        let cirrhosis = "";
+
+                        // Interpretation based on APRI thresholds
+                        if (apri < 0.5) {
+                            interpretation = "Low probability of significant fibrosis (F2-F4) and cirrhosis.";
+                            fibrosis = "Significant fibrosis ruled out (NPV ~86%)";
+                            cirrhosis = "Cirrhosis ruled out (NPV ~95%)";
+                            color = "#16a34a";
+                        } else if (apri >= 0.5 && apri < 1.5) {
+                            interpretation = "Indeterminate result. Consider further evaluation (FibroScan, liver biopsy).";
+                            fibrosis = "Indeterminate for fibrosis staging";
+                            cirrhosis = "Indeterminate for cirrhosis";
+                            color = "#d97706";
+                        } else if (apri >= 1.5 && apri < 2.0) {
+                            interpretation = "Moderate probability of significant fibrosis.";
+                            fibrosis = "Significant fibrosis likely (PPV ~88%)";
+                            cirrhosis = "Cirrhosis possible";
+                            color = "#ea580c";
+                        } else {
+                            interpretation = "High probability of cirrhosis.";
+                            fibrosis = "Significant fibrosis very likely";
+                            cirrhosis = "Cirrhosis likely (PPV ~50-65%)";
+                            color = "#dc2626";
+                        }
+
+                        resBox.style.display = 'block';
+                        resBox.innerHTML = `
+            <div style="background: rgba(var(--primary-rgb), 0.05); border-left: 4px solid ${color}; padding: 12px; border-radius: 8px; margin-top: 10px;">
+                <div style="font-size: 1.1rem; font-weight: bold; color: ${color};">APRI Score: ${apri.toFixed(2)}</div>
+                <div style="font-size: 0.85rem; margin-top: 4px; color: #334155; font-weight: 600;">${interpretation}</div>
+                <div style="margin-top: 10px; display: grid; gap: 6px; font-size: 0.8rem;">
+                    <div style="padding: 8px; background: rgba(0,0,0,0.03); border-radius: 6px;"><strong>Fibrosis:</strong> ${fibrosis}</div>
+                    <div style="padding: 8px; background: rgba(0,0,0,0.03); border-radius: 6px;"><strong>Cirrhosis:</strong> ${cirrhosis}</div>
+                </div>
+                <div style="margin-top: 10px; padding-top: 8px; border-top: 1px solid rgba(0,0,0,0.1); font-size: 0.75rem; color: #64748b;">
+                    <strong>Formula:</strong> ((AST / ULN) / Platelet) × 100<br>
+                    = ((${ast} / ${astUln}) / ${plt}) × 100 = ${apri.toFixed(2)}<br>
+                    <span style="font-style: italic;">*Primarily validated for HCV-related fibrosis</span>
+                </div>
+            </div>
+        `;
+                    } else {
+                        resBox.innerHTML = '';
+                        resBox.style.display = 'none';
+                    }
+                }
+
+                function calculateWinters() {
+                    const hco3 = parseFloat(document.getElementById('winters-hco3').value);
+                    const measuredPco2 = parseFloat(document.getElementById('winters-pco2').value);
+                    const resBox = document.getElementById('res-winters-final');
+
+                    if (hco3) {
+                        // Winters' Formula: Expected pCO2 = (1.5 × HCO3) + 8 ± 2
+                        const expectedPco2Low = (1.5 * hco3) + 8 - 2;
+                        const expectedPco2Mid = (1.5 * hco3) + 8;
+                        const expectedPco2High = (1.5 * hco3) + 8 + 2;
+
+                        let comparisonHtml = "";
+                        let color = "#3b82f6";
+
+                        if (measuredPco2) {
+                            let compInterpretation = "";
+                            let compColor = "#16a34a";
+
+                            if (measuredPco2 >= expectedPco2Low && measuredPco2 <= expectedPco2High) {
+                                compInterpretation = "Measured pCO2 is within expected range → Appropriate respiratory compensation (simple metabolic acidosis)";
+                                compColor = "#16a34a";
+                            } else if (measuredPco2 < expectedPco2Low) {
+                                compInterpretation = "Measured pCO2 is LOWER than expected → Additional respiratory alkalosis (mixed disorder)";
+                                compColor = "#dc2626";
+                            } else {
+                                compInterpretation = "Measured pCO2 is HIGHER than expected → Additional respiratory acidosis (mixed disorder)";
+                                compColor = "#dc2626";
+                            }
+                            color = compColor;
+
+                            comparisonHtml = `
+                                <div style="margin-top: 12px; padding: 12px; background: rgba(var(--primary-rgb), 0.08); border-left: 4px solid ${compColor}; border-radius: 8px;">
+                                    <div style="font-size: 0.9rem; font-weight: bold; color: ${compColor};">Measured pCO2: ${measuredPco2} mmHg</div>
+                                    <div style="font-size: 0.8rem; margin-top: 4px; color: #334155;">${compInterpretation}</div>
+                                </div>
+                            `;
+                        }
+
+                        resBox.style.display = 'block';
+                        resBox.innerHTML = `
+            <div style="background: rgba(var(--primary-rgb), 0.05); border-left: 4px solid ${color}; padding: 12px; border-radius: 8px; margin-top: 10px;">
+                <div style="font-size: 1.1rem; font-weight: bold; color: ${color};">Expected pCO2: ${expectedPco2Mid.toFixed(1)} mmHg</div>
+                <div style="font-size: 0.85rem; margin-top: 4px; color: #334155;">Expected range: <strong>${expectedPco2Low.toFixed(1)} - ${expectedPco2High.toFixed(1)} mmHg</strong></div>
+                ${comparisonHtml}
+                <div style="margin-top: 10px; padding-top: 8px; border-top: 1px solid rgba(0,0,0,0.1); font-size: 0.75rem; color: #64748b; line-height:1.4;">
+                    <strong>Formula:</strong> Expected pCO2 = (1.5 × HCO3) + 8 ± 2<br>
+                    = (1.5 × ${hco3}) + 8 = ${expectedPco2Mid.toFixed(1)} mmHg<br>
+                    <span style="font-style: italic;">*Valid for primary metabolic acidosis. Also consider: If pCO2 = last 2 digits of pH → adequate compensation</span>
+                </div>
+            </div>
+        `;
+                    } else {
+                        resBox.innerHTML = '';
+                        resBox.style.display = 'none';
+                    }
+                }
+
+                // ==========================================
+                // METHOD COMPARISON (BLAND-ALTMAN) FUNCTIONS
+                // ==========================================
+
+                let baChartDiff = null;
+                let baChartCorr = null;
+                let baResults = null;
+
+                // Initialize BA table on load
+                function initBATable() {
+                    const tbody = document.getElementById('ba-data-body');
+                    if (tbody && tbody.children.length === 0) {
+                        for (let i = 0; i < 10; i++) addBARow();
+                    }
+                }
+
+                function addBARow() {
+                    const tbody = document.getElementById('ba-data-body');
+                    const rowCount = tbody.children.length + 1;
+                    const row = document.createElement('tr');
+                    row.style.borderBottom = '1px solid var(--border-color)';
+                    row.innerHTML = `
+                        <td style="padding: 8px; text-align: center; color: var(--text-light);">${rowCount}</td>
+                        <td style="padding: 6px;"><input type="number" class="ba-m1" step="any" style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 6px; text-align: center;" onchange="updateBASampleCount()"></td>
+                        <td style="padding: 6px;"><input type="number" class="ba-m2" step="any" style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 6px; text-align: center;" onchange="updateBASampleCount()"></td>
+                        <td style="padding: 6px; text-align: center;">
+                            <button onclick="removeBARow(this)" style="background: none; border: none; color: #dc2626; cursor: pointer; font-size: 0.9rem;"><i class="fa-solid fa-xmark"></i></button>
+                        </td>
+                    `;
+                    tbody.appendChild(row);
+                    renumberBARows();
+                }
+
+                function removeBARow(btn) {
+                    btn.closest('tr').remove();
+                    renumberBARows();
+                    updateBASampleCount();
+                }
+
+                function renumberBARows() {
+                    const rows = document.querySelectorAll('#ba-data-body tr');
+                    rows.forEach((row, idx) => {
+                        row.querySelector('td').textContent = idx + 1;
+                    });
+                }
+
+                function clearBAData() {
+                    document.getElementById('ba-data-body').innerHTML = '';
+                    for (let i = 0; i < 10; i++) addBARow();
+                    document.getElementById('res-ba-stats').style.display = 'none';
+                    document.getElementById('ba-charts-container').style.display = 'none';
+                    if (baChartDiff) { baChartDiff.destroy(); baChartDiff = null; }
+                    if (baChartCorr) { baChartCorr.destroy(); baChartCorr = null; }
+                    updateBASampleCount();
+                }
+
+                function loadSampleBAData() {
+                    clearBAData();
+                    const sampleData = [
+                        [5.2, 5.1], [10.3, 10.5], [15.1, 15.0], [20.5, 20.8], [25.2, 25.0],
+                        [30.1, 29.8], [35.6, 35.9], [40.2, 40.0], [45.8, 46.1], [50.3, 50.0],
+                        [55.1, 55.5], [60.2, 59.8], [65.4, 65.7], [70.1, 70.3], [75.6, 75.2],
+                        [80.3, 80.8], [85.2, 85.0], [90.1, 90.4], [95.5, 95.1], [100.2, 100.5]
+                    ];
+                    const tbody = document.getElementById('ba-data-body');
+                    tbody.innerHTML = '';
+                    sampleData.forEach((d, i) => {
+                        const row = document.createElement('tr');
+                        row.style.borderBottom = '1px solid var(--border-color)';
+                        row.innerHTML = `
+                            <td style="padding: 8px; text-align: center; color: var(--text-light);">${i + 1}</td>
+                            <td style="padding: 6px;"><input type="number" class="ba-m1" value="${d[0]}" step="any" style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 6px; text-align: center;" onchange="updateBASampleCount()"></td>
+                            <td style="padding: 6px;"><input type="number" class="ba-m2" value="${d[1]}" step="any" style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 6px; text-align: center;" onchange="updateBASampleCount()"></td>
+                            <td style="padding: 6px; text-align: center;">
+                                <button onclick="removeBARow(this)" style="background: none; border: none; color: #dc2626; cursor: pointer; font-size: 0.9rem;"><i class="fa-solid fa-xmark"></i></button>
+                            </td>
+                        `;
+                        tbody.appendChild(row);
+                    });
+                    updateBASampleCount();
+                    calculateBA();
+                }
+
+                function updateBASampleCount() {
+                    const data = getBAData();
+                    document.getElementById('ba-sample-count').textContent = `${data.length} samples entered`;
+                }
+
+                function getBAData() {
+                    const m1Inputs = document.querySelectorAll('.ba-m1');
+                    const m2Inputs = document.querySelectorAll('.ba-m2');
+                    const data = [];
+                    m1Inputs.forEach((input, idx) => {
+                        const v1 = parseFloat(input.value);
+                        const v2 = parseFloat(m2Inputs[idx].value);
+                        if (!isNaN(v1) && !isNaN(v2)) {
+                            data.push({ m1: v1, m2: v2 });
+                        }
+                    });
+                    return data;
+                }
+
+                // Statistical helper functions
+                function mean(arr) { return arr.reduce((a, b) => a + b, 0) / arr.length; }
+                function median(arr) {
+                    const sorted = [...arr].sort((a, b) => a - b);
+                    const mid = Math.floor(sorted.length / 2);
+                    return sorted.length % 2 ? sorted[mid] : (sorted[mid - 1] + sorted[mid]) / 2;
+                }
+                function stdDev(arr) {
+                    const m = mean(arr);
+                    return Math.sqrt(arr.reduce((sum, val) => sum + Math.pow(val - m, 2), 0) / (arr.length - 1));
+                }
+                function iqr(arr) {
+                    const sorted = [...arr].sort((a, b) => a - b);
+                    const q1 = sorted[Math.floor(sorted.length * 0.25)];
+                    const q3 = sorted[Math.floor(sorted.length * 0.75)];
+                    return { q1, q3, iqr: q3 - q1 };
+                }
+
+                // T-critical values for 95% CI (two-tailed, alpha = 0.05)
+                function getTCritical(df, alpha) {
+                    // Lookup table for common df values (two-tailed 95% CI)
+                    const tTable = {
+                        1: 12.706, 2: 4.303, 3: 3.182, 4: 2.776, 5: 2.571,
+                        6: 2.447, 7: 2.365, 8: 2.306, 9: 2.262, 10: 2.228,
+                        11: 2.201, 12: 2.179, 13: 2.160, 14: 2.145, 15: 2.131,
+                        16: 2.120, 17: 2.110, 18: 2.101, 19: 2.093, 20: 2.086,
+                        21: 2.080, 22: 2.074, 23: 2.069, 24: 2.064, 25: 2.060,
+                        26: 2.056, 27: 2.052, 28: 2.048, 29: 2.045, 30: 2.042,
+                        40: 2.021, 50: 2.009, 60: 2.000, 80: 1.990, 100: 1.984,
+                        120: 1.980
+                    };
+                    if (tTable[df]) return tTable[df];
+                    if (df > 120) return 1.96;
+                    // Interpolate for missing values
+                    const keys = Object.keys(tTable).map(Number).sort((a, b) => a - b);
+                    for (let i = 0; i < keys.length - 1; i++) {
+                        if (df > keys[i] && df < keys[i + 1]) {
+                            const ratio = (df - keys[i]) / (keys[i + 1] - keys[i]);
+                            return tTable[keys[i]] + ratio * (tTable[keys[i + 1]] - tTable[keys[i]]);
+                        }
+                    }
+                    return 1.96;
+                }
+
+                // Shapiro-Wilk Test (simplified approximation for n < 50)
+                function shapiroWilkTest(data) {
+                    const n = data.length;
+                    if (n < 3 || n > 5000) return { W: null, p: null };
+
+                    const sorted = [...data].sort((a, b) => a - b);
+                    const m = mean(data);
+                    const ss = data.reduce((sum, x) => sum + Math.pow(x - m, 2), 0);
+
+                    // Simplified W statistic calculation
+                    let b = 0;
+                    const coeffs = getShapiroCoeffs(n);
+                    for (let i = 0; i < Math.floor(n / 2); i++) {
+                        b += coeffs[i] * (sorted[n - 1 - i] - sorted[i]);
+                    }
+                    const W = (b * b) / ss;
+
+                    // Approximate p-value (simplified)
+                    const logW = Math.log(1 - W);
+                    const mu = -1.2725 + 1.0521 * Math.log(n);
+                    const sigma = 1.0308 - 0.26758 * Math.log(n);
+                    const z = (logW - mu) / sigma;
+                    const p = 1 - normalCDF(z);
+
+                    return { W: W.toFixed(4), p: p.toFixed(4) };
+                }
+
+                function getShapiroCoeffs(n) {
+                    // Simplified coefficients for small samples
+                    const coeffs = [];
+                    for (let i = 1; i <= Math.floor(n / 2); i++) {
+                        const m = normalQuantile((i - 0.375) / (n + 0.25));
+                        coeffs.push(m);
+                    }
+                    const sumSq = coeffs.reduce((s, c) => s + c * c, 0);
+                    return coeffs.map(c => c / Math.sqrt(sumSq));
+                }
+
+                function normalCDF(z) {
+                    const a1 = 0.254829592, a2 = -0.284496736, a3 = 1.421413741;
+                    const a4 = -1.453152027, a5 = 1.061405429, p = 0.3275911;
+                    const sign = z < 0 ? -1 : 1;
+                    z = Math.abs(z) / Math.sqrt(2);
+                    const t = 1 / (1 + p * z);
+                    const y = 1 - (((((a5 * t + a4) * t) + a3) * t + a2) * t + a1) * t * Math.exp(-z * z);
+                    return 0.5 * (1 + sign * y);
+                }
+
+                function normalQuantile(p) {
+                    // Approximate inverse normal using rational approximation
+                    if (p <= 0) return -Infinity;
+                    if (p >= 1) return Infinity;
+                    if (p === 0.5) return 0;
+
+                    const a = [0, -3.969683028665376e+01, 2.209460984245205e+02, -2.759285104469687e+02, 1.383577518672690e+02, -3.066479806614716e+01, 2.506628277459239e+00];
+                    const b = [0, -5.447609879822406e+01, 1.615858368580409e+02, -1.556989798598866e+02, 6.680131188771972e+01, -1.328068155288572e+01];
+                    const c = [0, -7.784894002430293e-03, -3.223964580411365e-01, -2.400758277161838e+00, -2.549732539343734e+00, 4.374664141464968e+00, 2.938163982698783e+00];
+                    const d = [0, 7.784695709041462e-03, 3.224671290700398e-01, 2.445134137142996e+00, 3.754408661907416e+00];
+
+                    const pLow = 0.02425, pHigh = 1 - pLow;
+                    let q, r;
+
+                    if (p < pLow) {
+                        q = Math.sqrt(-2 * Math.log(p));
+                        return (((((c[1] * q + c[2]) * q + c[3]) * q + c[4]) * q + c[5]) * q + c[6]) / ((((d[1] * q + d[2]) * q + d[3]) * q + d[4]) * q + 1);
+                    } else if (p <= pHigh) {
+                        q = p - 0.5;
+                        r = q * q;
+                        return (((((a[1] * r + a[2]) * r + a[3]) * r + a[4]) * r + a[5]) * r + a[6]) * q / (((((b[1] * r + b[2]) * r + b[3]) * r + b[4]) * r + b[5]) * r + 1);
+                    } else {
+                        q = Math.sqrt(-2 * Math.log(1 - p));
+                        return -(((((c[1] * q + c[2]) * q + c[3]) * q + c[4]) * q + c[5]) * q + c[6]) / ((((d[1] * q + d[2]) * q + d[3]) * q + d[4]) * q + 1);
+                    }
+                }
+
+                // Linear Regression
+                function linearRegression(x, y) {
+                    const n = x.length;
+                    const sumX = x.reduce((a, b) => a + b, 0);
+                    const sumY = y.reduce((a, b) => a + b, 0);
+                    const sumXY = x.reduce((sum, xi, i) => sum + xi * y[i], 0);
+                    const sumX2 = x.reduce((sum, xi) => sum + xi * xi, 0);
+                    const sumY2 = y.reduce((sum, yi) => sum + yi * yi, 0);
+
+                    const slope = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX);
+                    const intercept = (sumY - slope * sumX) / n;
+
+                    // R squared
+                    const yMean = sumY / n;
+                    const ssTotal = y.reduce((sum, yi) => sum + Math.pow(yi - yMean, 2), 0);
+                    const ssRes = y.reduce((sum, yi, i) => sum + Math.pow(yi - (slope * x[i] + intercept), 2), 0);
+                    const r2 = 1 - ssRes / ssTotal;
+                    const r = Math.sqrt(r2) * (slope >= 0 ? 1 : -1);
+
+                    // For Confidence Intervals
+                    const syx = Math.sqrt(ssRes / (n - 2));
+
+                    return { slope, intercept, r, r2, n, sumX, sumX2, syx, xMean: sumX / n };
+                }
+
+                // Deming Regression (assuming equal variance ratio λ = 1)
+                function demingRegression(x, y, lambda = 1) {
+                    const n = x.length;
+                    const xMean = mean(x);
+                    const yMean = mean(y);
+
+                    let sxx = 0, syy = 0, sxy = 0;
+                    for (let i = 0; i < n; i++) {
+                        sxx += Math.pow(x[i] - xMean, 2);
+                        syy += Math.pow(y[i] - yMean, 2);
+                        sxy += (x[i] - xMean) * (y[i] - yMean);
+                    }
+
+                    const diff = syy - lambda * sxx;
+                    const slope = (diff + Math.sqrt(diff * diff + 4 * lambda * sxy * sxy)) / (2 * sxy);
+                    const intercept = yMean - slope * xMean;
+
+                    return { slope, intercept };
+                }
+
+                // Passing-Bablok Regression
+                function passingBablokRegression(x, y) {
+                    const n = x.length;
+                    const slopes = [];
+
+                    for (let i = 0; i < n; i++) {
+                        for (let j = i + 1; j < n; j++) {
+                            if (x[i] !== x[j]) {
+                                slopes.push((y[j] - y[i]) / (x[j] - x[i]));
+                            }
+                        }
+                    }
+
+                    slopes.sort((a, b) => a - b);
+
+                    // Count negative slopes for offset
+                    const K = slopes.filter(s => s < 0).length;
+                    const N = slopes.length;
+
+                    // Median slope with offset
+                    const idx = Math.floor((N + K) / 2);
+                    const slope = (N + K) % 2 === 0
+                        ? (slopes[idx - 1] + slopes[idx]) / 2
+                        : slopes[idx];
+
+                    // Calculate intercepts and take median
+                    const intercepts = [];
+                    for (let i = 0; i < n; i++) {
+                        intercepts.push(y[i] - slope * x[i]);
+                    }
+                    const intercept = median(intercepts);
+
+                    return { slope, intercept };
+                }
+
+                // Main calculation function
+                function calculateBA() {
+                    const data = getBAData();
+                    const statsBox = document.getElementById('res-ba-stats');
+                    const chartsContainer = document.getElementById('ba-charts-container');
+                    const regressionBox = document.getElementById('res-ba-regression');
+
+                    if (data.length < 3) {
+                        statsBox.style.display = 'none';
+                        chartsContainer.style.display = 'none';
+                        return;
+                    }
+
+                    const diffTypeSelect = document.getElementById('ba-diff-type');
+                    const plotType = diffTypeSelect ? diffTypeSelect.value : 'absolute';
+                    const xAxisSelect = document.getElementById('ba-xaxis-type');
+                    const xAxisType = xAxisSelect ? xAxisSelect.value : 'mean';
+                    const biasMethod = 'mean'; // Default to mean bias for standardized QC
+                    const tea = parseFloat(document.getElementById('ba-allowable-diff').value) || 10;
+
+                    // Calculate differences
+                    const m1 = data.map(d => d.m1);
+                    const m2 = data.map(d => d.m2);
+                    const means = data.map(d => (d.m1 + d.m2) / 2);
+
+                    let differences, diffUnit;
+                    if (plotType === 'percent') {
+                        differences = data.map(d => ((d.m1 - d.m2) / ((d.m1 + d.m2) / 2)) * 100);
+                        diffUnit = '%';
+                    } else {
+                        differences = data.map(d => d.m1 - d.m2);
+                        diffUnit = 'units';
+                    }
+
+                    // Bias calculation
+                    let bias, biasLabel;
+                    if (biasMethod === 'mean') {
+                        bias = mean(differences);
+                        biasLabel = 'Mean Bias';
+                    } else {
+                        bias = median(differences);
+                        biasLabel = 'Median Bias';
+                    }
+
+                    const sd = stdDev(differences);
+                    const loaUpper = bias + 1.96 * sd;
+                    const loaLower = bias - 1.96 * sd;
+
+                    // Shapiro-Wilk test for normality
+                    const swTest = shapiroWilkTest(differences);
+                    const isNormal = swTest.p > 0.05;
+
+                    // Regression analyses
+                    const linReg = linearRegression(m2, m1);
+                    const demReg = demingRegression(m2, m1);
+                    const pbReg = passingBablokRegression(m2, m1);
+
+                    // Store results
+                    baResults = { data, m1, m2, means, differences, bias, sd, loaUpper, loaLower, plotType, xAxisType, tea, linReg, demReg, pbReg, diffUnit };
+
+                    // Calculate 95% CI for mean difference
+                    const n = data.length;
+                    const se = sd / Math.sqrt(n);
+                    const tCrit = n > 30 ? 1.96 : getTCritical(n - 1, 0.025); // t-critical for 95% CI
+                    const ciLower = bias - tCrit * se;
+                    const ciUpper = bias + tCrit * se;
+                    const ciIncludesZero = ciLower <= 0 && ciUpper >= 0;
+
+                    // Trend Analysis (Proportional Bias Detection)
+                    const trendReg = linearRegression(means, differences);
+                    const hasProportionalBias = Math.abs(trendReg.r) > 0.3; // correlation > 0.3 suggests proportional bias
+
+                    // Calculate LoA width
+                    const loaWidth = loaUpper - loaLower;
+
+                    // Display interpretation (EP09C style)
+                    const teaStatus = Math.abs(bias) <= tea;
+                    statsBox.style.display = 'block';
+                    statsBox.innerHTML = `
+                        <div style="margin-bottom: 15px;">
+                            <h4 style="margin: 0 0 15px 0; color: var(--text); font-size: 1rem;">
+                                <i class="fa-solid fa-clipboard-check"></i> Interpretation
+                            </h4>
+
+                            <!-- 1. Normality -->
+                            <div style="background: ${isNormal ? '#dcfce7' : '#fef9c3'}; border-left: 4px solid ${isNormal ? '#22c55e' : '#eab308'}; padding: 12px; border-radius: 6px; margin-bottom: 10px;">
+                                <div style="font-weight: bold; color: ${isNormal ? '#166534' : '#854d0e'};">
+                                    ${isNormal ? '✓ Differences are Normally Distributed' : '⚠ Differences are NOT Normally Distributed'}
+                                </div>
+                                <div style="font-size: 0.8rem; color: #374151; margin-top: 4px;">
+                                    Shapiro-Wilk: p = ${swTest.p}, W = ${swTest.W} (p > 0.05)
+                                </div>
+                                <div style="font-size: 0.75rem; color: #6b7280; margin-top: 2px;">
+                                    ${isNormal ? 'Parametric method (Mean ± 1.96×SD) is appropriate for this data.' : 'Consider using Median difference and non-parametric limits.'}
+                                </div>
+                            </div>
+
+                            <!-- 2. Sample Size Warning -->
+                            ${n < 30 ? `
+                            <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: 12px; border-radius: 6px; margin-bottom: 10px;">
+                                <div style="font-weight: bold; color: #92400e;">
+                                    ⚠ Small Sample Size (n = ${n})
+                                </div>
+                                <div style="font-size: 0.8rem; color: #374151; margin-top: 4px;">
+                                    Studies comparing measurement methods should have n ≥ 30 for reliable results.
+                                </div>
+                                <div style="font-size: 0.75rem; color: #6b7280; margin-top: 2px;">
+                                    Current results may have reduced generalizability. Consider increasing sample size for validation.
+                                </div>
+                            </div>
+                            ` : ''}
+
+                            <!-- 3. Systematic Bias (Mean Difference) -->
+                            <div style="background: ${ciIncludesZero ? '#dbeafe' : '#fee2e2'}; border-left: 4px solid ${ciIncludesZero ? '#3b82f6' : '#ef4444'}; padding: 12px; border-radius: 6px; margin-bottom: 10px;">
+                                <div style="font-weight: bold; color: ${ciIncludesZero ? '#1e40af' : '#991b1b'};">
+                                    1 Systematic Bias (${biasLabel})
+                                </div>
+                                <div style="font-size: 0.9rem; color: #374151; margin-top: 6px;">
+                                    <strong>${biasLabel}:</strong> ${bias.toFixed(4)} (95% CI: ${ciLower.toFixed(4)} to ${ciUpper.toFixed(4)}) ${diffUnit}
+                                </div>
+                                <div style="font-size: 0.8rem; color: ${ciIncludesZero ? '#3b82f6' : '#dc2626'}; margin-top: 4px;">
+                                    ${ciIncludesZero
+                            ? '✓ No significant bias detected. The CI includes zero.'
+                            : `⚠ Significant bias detected. The CI does not include zero.<br>Method 1 measures <strong>${bias > 0 ? 'higher' : 'lower'}</strong> than Method 2 by an average of <strong>${Math.abs(bias).toFixed(4)}</strong> ${diffUnit}.`}
+                                </div>
+                            </div>
+
+                            <!-- 4. Error Characteristics (Trend Analysis) -->
+                            <div style="background: ${hasProportionalBias ? '#fef3c7' : '#f0fdf4'}; border-left: 4px solid ${hasProportionalBias ? '#f59e0b' : '#22c55e'}; padding: 12px; border-radius: 6px; margin-bottom: 10px;">
+                                <div style="font-weight: bold; color: ${hasProportionalBias ? '#92400e' : '#166534'};">
+                                    2 Error Characteristics (Trend Analysis)
+                                </div>
+                                <div style="font-size: 0.9rem; color: #374151; margin-top: 6px;">
+                                    <strong>Correlation (mean vs difference):</strong> r = ${trendReg.r.toFixed(4)}
+                                </div>
+                                <div style="font-size: 0.8rem; color: ${hasProportionalBias ? '#d97706' : '#16a34a'}; margin-top: 4px;">
+                                    ${hasProportionalBias
+                            ? `⚠ <strong>Proportional Bias Detected.</strong><br>The difference between methods <strong>${trendReg.r > 0 ? 'increases' : 'decreases'}</strong> as measurement values increase.<br>${plotType !== 'percent' ? `<em style="font-size: 0.75rem;">Recommendation: Consider analyzing percentage differences (%) instead of absolute differences.</em>` : `<em style="font-size: 0.75rem;">Note: You are using percentage differences, which is appropriate for this data.</em>`}`
+                            : '✓ No proportional bias detected. Differences are consistent across the measurement range.'}
+                                </div>
+                            </div>
+
+                            <!-- 5. Limits of Agreement -->
+                            <div style="background: #e0f2fe; border-left: 4px solid #0ea5e9; padding: 12px; border-radius: 6px; margin-bottom: 10px;">
+                                <div style="font-weight: bold; color: #0369a1;">
+                                    3 Limits of Agreement (LoA)
+                                </div>
+                                <div style="font-size: 0.9rem; color: #374151; margin-top: 6px;">
+                                    <strong>LoA Range:</strong> ${loaLower.toFixed(4)} to ${loaUpper.toFixed(4)} (Width: ${loaWidth.toFixed(4)}) ${diffUnit}
+                                </div>
+                                <div style="font-size: 0.75rem; color: #6b7280; margin-top: 4px;">
+                                    95% of differences between the two methods fall within this range.
+                                </div>
+                            </div>
+
+                            <!-- 6. Clinical Acceptability -->
+                            <div style="background: ${teaStatus ? '#dcfce7' : '#fee2e2'}; border-left: 4px solid ${teaStatus ? '#22c55e' : '#ef4444'}; padding: 12px; border-radius: 6px; margin-bottom: 10px;">
+                                <div style="font-weight: bold; color: ${teaStatus ? '#166534' : '#991b1b'};">
+                                    ${teaStatus ? '✓' : '✗'} Clinical Acceptability ${teaStatus ? 'PASSED' : 'FAILED'}
+                                </div>
+                                <div style="font-size: 0.8rem; color: #374151; margin-top: 4px;">
+                                    Allowable Difference (TEa) = ±${tea}% | Observed Bias = ${Math.abs(bias).toFixed(2)}${diffUnit}
+                                </div>
+                                <div style="font-size: 0.75rem; color: #6b7280; margin-top: 2px;">
+                                    ${teaStatus
+                            ? 'Bias is within clinically acceptable limits.'
+                            : 'Bias exceeds clinically acceptable limits. Methods may not be interchangeable.'}
+                                </div>
+                            </div>
+
+                            <!-- Important Note -->
+                            <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: 12px; border-radius: 6px;">
+                                <div style="font-weight: bold; color: #92400e;">
+                                    ▲ Important Note
+                                </div>
+                                <div style="font-size: 0.75rem; color: #6b7280; margin-top: 4px;">
+                                    High correlation (e.g., r=0.99) does NOT imply good agreement. Two methods can be highly correlated but still have clinically significant differences. B&A analysis evaluates <strong>agreement</strong>, not correlation.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Summary Stats Grid -->
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; margin-top: 15px;">
+                            <div style="background: var(--bg-card); padding: 10px; border-radius: 8px; border: 1px solid var(--border-color); text-align: center;">
+                                <div style="font-size: 0.7rem; color: var(--text-light);">n</div>
+                                <div style="font-size: 1.1rem; font-weight: bold;">${n}</div>
+                            </div>
+                            <div style="background: var(--bg-card); padding: 10px; border-radius: 8px; border: 1px solid var(--border-color); text-align: center;">
+                                <div style="font-size: 0.7rem; color: var(--text-light);">${biasLabel}</div>
+                                <div style="font-size: 1.1rem; font-weight: bold; color: ${teaStatus ? '#16a34a' : '#dc2626'};">${bias.toFixed(3)}</div>
+                            </div>
+                            <div style="background: var(--bg-card); padding: 10px; border-radius: 8px; border: 1px solid var(--border-color); text-align: center;">
+                                <div style="font-size: 0.7rem; color: var(--text-light);">SD</div>
+                                <div style="font-size: 1.1rem; font-weight: bold;">${sd.toFixed(3)}</div>
+                            </div>
+                            <div style="background: var(--bg-card); padding: 10px; border-radius: 8px; border: 1px solid var(--border-color); text-align: center;">
+                                <div style="font-size: 0.7rem; color: var(--text-light);">Pearson r</div>
+                                <div style="font-size: 1.1rem; font-weight: bold;">${linReg.r.toFixed(4)}</div>
+                            </div>
+                        </div>
+                    `
+
+                    // Calculate CI for Linear Regression Slope and Intercept
+                    const ssX = linReg.sumX2 - (linReg.sumX * linReg.sumX) / linReg.n;
+                    const seSlope = linReg.syx / Math.sqrt(ssX);
+                    const seIntercept = linReg.syx * Math.sqrt(linReg.sumX2 / (linReg.n * ssX));
+                    const tCritReg = linReg.n > 30 ? 1.96 : getTCritical(linReg.n - 1, 0.025);
+
+                    const slopeCI = [linReg.slope - tCritReg * seSlope, linReg.slope + tCritReg * seSlope];
+                    const interceptCI = [linReg.intercept - tCritReg * seIntercept, linReg.intercept + tCritReg * seIntercept];
+
+                    // Display regression results
+                    regressionBox.style.display = 'block';
+                    regressionBox.innerHTML = `
+                        <div style="background: rgba(var(--primary-rgb), 0.05); border-left: 4px solid #6366f1; padding: 15px; border-radius: 8px;">
+                            <h4 style="margin: 0 0 15px 0; color: #6366f1;"><i class="fa-solid fa-arrow-trend-up"></i> Regression Analysis</h4>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px;">
+                                <div style="background: var(--bg-card); padding: 12px; border-radius: 8px; border: 1px solid var(--border-color);">
+                                    <div style="font-size: 0.85rem; font-weight: bold; color: #3b82f6; margin-bottom: 6px;">Linear (OLR)</div>
+                                    <div style="font-size: 0.85rem;">y = ${linReg.slope.toFixed(4)}x + ${linReg.intercept.toFixed(4)}</div>
+                                    <div style="font-size: 0.75rem; color: var(--text-light); margin-top:4px;">
+                                        <strong>Slope:</strong> ${linReg.slope.toFixed(4)} <span style="font-size:0.7rem;">(95% CI: ${slopeCI[0].toFixed(4)} to ${slopeCI[1].toFixed(4)})</span><br>
+                                        <strong>Intercept:</strong> ${linReg.intercept.toFixed(4)} <span style="font-size:0.7rem;">(95% CI: ${interceptCI[0].toFixed(4)} to ${interceptCI[1].toFixed(4)})</span><br>
+                                        <strong>R²:</strong> ${linReg.r2.toFixed(4)}
+                                    </div>
+                                </div>
+                                <div style="background: var(--bg-card); padding: 12px; border-radius: 8px; border: 1px solid var(--border-color);">
+                                    <div style="font-size: 0.85rem; font-weight: bold; color: #16a34a; margin-bottom: 6px;">Deming</div>
+                                    <div style="font-size: 0.85rem;">y = ${demReg.slope.toFixed(4)}x + ${demReg.intercept.toFixed(4)}</div>
+                                    <div style="font-size: 0.75rem; color: var(--text-light); margin-top:4px;">λ = 1 (equal variance assumption)</div>
+                                </div>
+                                <div style="background: var(--bg-card); padding: 12px; border-radius: 8px; border: 1px solid var(--border-color);">
+                                    <div style="font-size: 0.85rem; font-weight: bold; color: #f97316; margin-bottom: 6px;">Passing-Bablok</div>
+                                    <div style="font-size: 0.85rem;">y = ${pbReg.slope.toFixed(4)}x + ${pbReg.intercept.toFixed(4)}</div>
+                                    <div style="font-size: 0.75rem; color: var(--text-light); margin-top:4px;">Non-parametric, outlier-resistant</div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+
+                    // Render charts
+                    chartsContainer.style.display = 'block';
+                    renderBADiffPlot();
+                    renderBACorrelationPlot();
+                }
+
+                function renderBADiffPlot() {
+                    if (!baResults) return;
+                    const { data, means, differences, bias, loaUpper, loaLower, xAxisType, tea, diffUnit, plotType, m2 } = baResults;
+
+                    const xData = xAxisType === 'mean' ? means : m2;
+                    const xLabel = xAxisType === 'mean' ? 'Mean of Methods' : 'Comparative Method (Method 2)';
+                    const yLabel = plotType === 'percent' ? 'Difference (%)' : 'Difference (units)';
+
+                    const ctx = document.getElementById('ba-chart-diff').getContext('2d');
+                    if (baChartDiff) baChartDiff.destroy();
+
+                    const minX = Math.min(...xData) * 0.9;
+                    const maxX = Math.max(...xData) * 1.1;
+
+                    baChartDiff = new Chart(ctx, {
+                        type: 'scatter',
+                        data: {
+                            datasets: [
+                                {
+                                    label: 'Differences',
+                                    data: xData.map((x, i) => ({ x, y: differences[i] })),
+                                    backgroundColor: 'rgba(13, 148, 136, 0.7)',
+                                    pointRadius: 6,
+                                    pointHoverRadius: 8
+                                },
+                                {
+                                    label: `Mean Bias (${bias.toFixed(2)})`,
+                                    data: [{ x: minX, y: bias }, { x: maxX, y: bias }],
+                                    type: 'line',
+                                    borderColor: '#dc2626',
+                                    borderWidth: 2,
+                                    borderDash: [5, 5],
+                                    pointRadius: 0,
+                                    fill: false
+                                },
+                                {
+                                    label: `+1.96 SD (${loaUpper.toFixed(2)})`,
+                                    data: [{ x: minX, y: loaUpper }, { x: maxX, y: loaUpper }],
+                                    type: 'line',
+                                    borderColor: '#f97316',
+                                    borderWidth: 2,
+                                    borderDash: [3, 3],
+                                    pointRadius: 0,
+                                    fill: false
+                                },
+                                {
+                                    label: `-1.96 SD (${loaLower.toFixed(2)})`,
+                                    data: [{ x: minX, y: loaLower }, { x: maxX, y: loaLower }],
+                                    type: 'line',
+                                    borderColor: '#f97316',
+                                    borderWidth: 2,
+                                    borderDash: [3, 3],
+                                    pointRadius: 0,
+                                    fill: false
+                                },
+                                {
+                                    label: `+TEa (${tea}%)`,
+                                    data: [{ x: minX, y: tea }, { x: maxX, y: tea }],
+                                    type: 'line',
+                                    borderColor: 'rgba(22, 163, 74, 0.5)',
+                                    borderWidth: 1,
+                                    borderDash: [2, 2],
+                                    pointRadius: 0,
+                                    fill: false
+                                },
+                                {
+                                    label: `-TEa (-${tea}%)`,
+                                    data: [{ x: minX, y: -tea }, { x: maxX, y: -tea }],
+                                    type: 'line',
+                                    borderColor: 'rgba(22, 163, 74, 0.5)',
+                                    borderWidth: 1,
+                                    borderDash: [2, 2],
+                                    pointRadius: 0,
+                                    fill: false
+                                }
+                            ]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: { display: true, position: 'bottom', labels: { font: { size: 10 } } },
+                                title: { display: false }
+                            },
+                            scales: {
+                                x: { title: { display: true, text: xLabel } },
+                                y: { title: { display: true, text: yLabel } }
+                            }
+                        }
+                    });
+                }
+
+                function renderBACorrelationPlot() {
+                    updateBACorrelationPlot();
+                }
+
+                function updateBACorrelationPlot() {
+                    if (!baResults) return;
+                    const { m1, m2, linReg, demReg, pbReg } = baResults;
+
+                    const showLinear = document.getElementById('ba-show-linear').checked;
+                    const showDeming = document.getElementById('ba-show-deming').checked;
+                    const showPB = document.getElementById('ba-show-pb').checked;
+
+                    const ctx = document.getElementById('ba-chart-corr').getContext('2d');
+                    if (baChartCorr) baChartCorr.destroy();
+
+                    const minX = Math.min(...m2) * 0.9;
+                    const maxX = Math.max(...m2) * 1.1;
+
+                    const datasets = [
+                        {
+                            label: 'Data Points',
+                            data: m2.map((x, i) => ({ x, y: m1[i] })),
+                            backgroundColor: 'rgba(99, 102, 241, 0.7)',
+                            pointRadius: 6,
+                            pointHoverRadius: 8
+                        },
+                        {
+                            label: 'Identity Line (y=x)',
+                            data: [{ x: minX, y: minX }, { x: maxX, y: maxX }],
+                            type: 'line',
+                            borderColor: '#9ca3af',
+                            borderWidth: 1,
+                            borderDash: [5, 5],
+                            pointRadius: 0,
+                            fill: false
+                        }
+                    ];
+
+                    if (showLinear) {
+                        // Generate points for CI band
+                        const ciPointsCount = 20;
+                        const ciDataUpper = [];
+                        const ciDataLower = [];
+                        const tCrit = linReg.n > 30 ? 1.96 : getTCritical(linReg.n - 1, 0.025);
+                        const ssX = linReg.sumX2 - (linReg.sumX * linReg.sumX) / linReg.n;
+
+                        for (let i = 0; i <= ciPointsCount; i++) {
+                            const curX = minX + (maxX - minX) * (i / ciPointsCount);
+                            const seFit = linReg.syx * Math.sqrt(1 / linReg.n + Math.pow(curX - linReg.xMean, 2) / ssX);
+                            const yHat = linReg.slope * curX + linReg.intercept;
+                            ciDataUpper.push({ x: curX, y: yHat + tCrit * seFit });
+                            ciDataLower.push({ x: curX, y: yHat - tCrit * seFit });
+                        }
+
+                        // Add shaded area dataset
+                        datasets.push({
+                            label: '95% Confidence Interval',
+                            data: ciDataUpper,
+                            type: 'line',
+                            borderColor: 'transparent',
+                            backgroundColor: 'rgba(59, 130, 246, 0.15)',
+                            fill: '+1', // Fill to next dataset
+                            pointRadius: 0,
+                            order: 10
+                        });
+                        datasets.push({
+                            label: 'CI Lower',
+                            data: ciDataLower,
+                            type: 'line',
+                            borderColor: 'transparent',
+                            backgroundColor: 'transparent',
+                            fill: false,
+                            pointRadius: 0,
+                            order: 10,
+                            hidden: true // Hide from legend
+                        });
+
+                        datasets.push({
+                            label: `Linear (y=${linReg.slope.toFixed(2)}x+${linReg.intercept.toFixed(2)})`,
+                            data: [{ x: minX, y: linReg.slope * minX + linReg.intercept }, { x: maxX, y: linReg.slope * maxX + linReg.intercept }],
+                            type: 'line',
+                            borderColor: '#3b82f6',
+                            borderWidth: 2,
+                            pointRadius: 0,
+                            fill: false,
+                            order: 5 // Bring to front
+                        });
+                    }
+
+                    if (showDeming) {
+                        datasets.push({
+                            label: `Deming (y=${demReg.slope.toFixed(2)}x+${demReg.intercept.toFixed(2)})`,
+                            data: [{ x: minX, y: demReg.slope * minX + demReg.intercept }, { x: maxX, y: demReg.slope * maxX + demReg.intercept }],
+                            type: 'line',
+                            borderColor: '#16a34a',
+                            borderWidth: 2,
+                            pointRadius: 0,
+                            fill: false
+                        });
+                    }
+
+                    if (showPB) {
+                        datasets.push({
+                            label: `Passing-Bablok (y=${pbReg.slope.toFixed(2)}x+${pbReg.intercept.toFixed(2)})`,
+                            data: [{ x: minX, y: pbReg.slope * minX + pbReg.intercept }, { x: maxX, y: pbReg.slope * maxX + pbReg.intercept }],
+                            type: 'line',
+                            borderColor: '#f97316',
+                            borderWidth: 2,
+                            pointRadius: 0,
+                            fill: false
+                        });
+                    }
+
+                    baChartCorr = new Chart(ctx, {
+                        type: 'scatter',
+                        data: { datasets },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    display: true,
+                                    position: 'bottom',
+                                    labels: {
+                                        font: { size: 10 },
+                                        filter: function (item, chart) {
+                                            // Hide the technical 'CI Lower' marker from legend
+                                            return !item.text.includes('CI Lower');
+                                        }
+                                    }
+                                }
+                            },
+                            scales: {
+                                x: { title: { display: true, text: 'Method 2 (Comparative)' } },
+                                y: { title: { display: true, text: 'Method 1 (Candidate)' } }
+                            }
+                        }
+                    });
+                }
+
+                // Initialize BA table when calculator is shown
+                document.addEventListener('DOMContentLoaded', () => {
+                    setTimeout(initBATable, 500);
+                });
 
                 function calculateFENa() {
                     const sna = getNormalizedValue('fena-sna', 'mEq/L');
@@ -5728,17 +6817,26 @@
                     if (!tbody) return;
                     tbody.innerHTML = '';
 
+                    const diffTypeSelect = document.getElementById('ba-diff-type');
+                    const isPercentDiff = diffTypeSelect ? diffTypeSelect.value === 'percent' : false;
+
                     for (let i = baData.length - 1; i >= 0; i--) {
                         const d = baData[i];
                         const mean = (d.m1 + d.m2) / 2;
-                        const diff = d.m1 - d.m2;
+                        let diff;
+                        if (isPercentDiff) {
+                            diff = mean !== 0 ? ((d.m1 - d.m2) / mean) * 100 : 0;
+                        } else {
+                            diff = d.m1 - d.m2;
+                        }
+
                         const tr = document.createElement('tr');
                         tr.innerHTML = `
                     <td contenteditable="true" onkeydown="handleBAInlineEnter(event)" onblur="commitBAPosition(${i}, this)" style="cursor:text;" title="Sırayı değiştir">${i + 1}</td>
                     <td contenteditable="true" onkeydown="handleBAInlineEnter(event)" onblur="commitBAM1(${i}, this)" style="font-weight:bold; color:var(--primary); cursor:text;" title="Method 1 değerini düzenle">${d.m1.toFixed(2)}</td>
                     <td contenteditable="true" onkeydown="handleBAInlineEnter(event)" onblur="commitBAM2(${i}, this)" style="font-weight:bold; color:var(--primary); cursor:text;" title="Method 2 değerini düzenle">${d.m2.toFixed(2)}</td>
                     <td>${mean.toFixed(2)}</td>
-                    <td>${diff.toFixed(2)}</td>
+                    <td>${diff.toFixed(2)}${isPercentDiff ? '%' : ''}</td>
                     <td>
                         <div class="action-group">
                             <button class="btn-icon btn-delete" onclick="removeBAPoint(${i})" title="Delete"><i class="fa-solid fa-trash"></i></button>
@@ -5749,6 +6847,14 @@
                     }
                     if (baData.length === 0) tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; color:#999; padding:10px;">No data.</td></tr>';
                 }
+
+                // Auto-refresh chart and table on setting change
+                document.addEventListener('change', function (e) {
+                    if (e.target.id === 'ba-diff-type' || e.target.id === 'ba-xaxis-type') {
+                        renderBATable();
+                        if (baData.length >= 3) runBlandAltman();
+                    }
+                });
 
                 function handleBAInlineEnter(e) { if (e.key === 'Enter') { e.preventDefault(); e.target.blur(); } }
 
@@ -6021,15 +7127,33 @@
                     const method2Name = document.getElementById('ba-method2-name').value || 'Method 2';
                     const allowableDiff = parseFloat(document.getElementById('ba-allowable-diff').value);
 
+                    const diffTypeSelect = document.getElementById('ba-diff-type');
+                    const xAxisSelect = document.getElementById('ba-xaxis-type');
+
+                    // Robust check for difference type
+                    const diffType = diffTypeSelect ? diffTypeSelect.value.toLowerCase() : 'absolute';
+                    const xAxisType = xAxisSelect ? xAxisSelect.value.toLowerCase() : 'mean';
+                    const isPercentDiff = (diffType === 'percent' || diffType === 'percentage');
+
                     // Get selected analysis method
                     const analysisMethod = document.querySelector('input[name="ba-analysis-method"]:checked').value;
                     const isParametric = analysisMethod === 'parametric';
 
-                    // Calculate means and differences
-                    const points = baData.map(d => ({
-                        mean: (d.m1 + d.m2) / 2,
-                        diff: d.m1 - d.m2
-                    }));
+                    // Calculate means and differences based on selected difference type
+                    const points = baData.map(d => {
+                        const mean = (d.m1 + d.m2) / 2;
+                        let diff;
+                        if (isPercentDiff) {
+                            // Percent difference: ((M1 - M2) / Mean) * 100
+                            diff = mean !== 0 ? ((d.m1 - d.m2) / mean) * 100 : 0;
+                        } else {
+                            // Absolute difference
+                            diff = d.m1 - d.m2;
+                        }
+                        // X-axis value based on selection
+                        const xValue = xAxisType === 'mean' ? mean : d.m2;
+                        return { mean, diff, xValue };
+                    });
 
                     const vals1 = baData.map(d => d.m1);
                     const vals2 = baData.map(d => d.m2);
@@ -6040,6 +7164,8 @@
                     const n = points.length;
                     const diffs = points.map(p => p.diff);
                     const means = points.map(p => p.mean);
+                    const xValues = points.map(p => p.xValue);
+                    const diffUnit = isPercentDiff ? '%' : 'units';
 
                     // Normality test for differences (per Bland-Altman 1986 guidelines)
                     const normalityResult = shapiroWilkTest(diffs);
@@ -6122,9 +7248,13 @@
                         clinicalAcceptable = (Math.abs(upperLoA) <= allowableDiff && Math.abs(lowerLoA) <= allowableDiff);
                     }
 
-                    // Chart range
-                    const minMean = Math.min(...means);
-                    const maxMean = Math.max(...means);
+                    // Chart range (use xValues for proper X-axis based on selection)
+                    const minX = Math.min(...xValues);
+                    const maxX = Math.max(...xValues);
+                    const minMean = minX; // Backward compatibility
+                    const maxMean = maxX;
+                    const xAxisLabel = xAxisType === 'mean' ? 'Mean of ' + method1Name + ' and ' + method2Name : method2Name + ' (Comparative Method)';
+                    const yAxisLabel = isPercentDiff ? 'Difference (%)' : 'Difference (' + method1Name + ' - ' + method2Name + ')';
 
                     // Build interpretation HTML
                     let interpretHTML = '';
@@ -6161,10 +7291,10 @@
                     interpretHTML += `<div style="background:rgba(59,130,246,0.08); padding:12px; border-radius:6px; margin-bottom:10px; border-left:4px solid #2563eb;">
                     <strong style="color:#1e40af;"><i class="fa-solid fa-1" style="margin-right:5px;"></i> Systematic Bias (Mean Difference)</strong><br>
                     <div style="font-size:0.85rem; margin-top:6px;">
-                        <strong>Mean Difference:</strong> ${meanDiff.toFixed(4)} (95% CI: ${biasCILower.toFixed(4)} to ${biasCIUpper.toFixed(4)})<br>
+                        <strong>Mean Difference:</strong> ${meanDiff.toFixed(4)} (95% CI: ${biasCILower.toFixed(4)} to ${biasCIUpper.toFixed(4)}) ${diffUnit}<br>
                         ${biasSignificant ?
                             `<span style="color:#dc2626;"><strong>⚠️ Significant bias detected.</strong> The CI does not include zero.<br>
-                            ${method1Name} measures <strong>${meanDiff > 0 ? 'higher' : 'lower'}</strong> than ${method2Name} by an average of <strong>${Math.abs(meanDiff).toFixed(4)}</strong> units.</span>` :
+                            ${method1Name} measures <strong>${meanDiff > 0 ? 'higher' : 'lower'}</strong> than ${method2Name} by an average of <strong>${Math.abs(meanDiff).toFixed(4)}</strong> ${diffUnit}.</span>` :
                             `<span style="color:#16a34a;"><strong>✅ No significant systematic bias.</strong> The CI includes zero.<br>
                             The mean difference is close to zero, indicating no consistent directional error between methods.</span>`
                         }
@@ -6179,7 +7309,7 @@
                         ${proportionalBias ?
                             `<span style="color:#d97706;"><strong>⚠️ Proportional Bias Detected.</strong><br>
                             The difference between methods ${rProp > 0 ? '<strong>increases</strong>' : '<strong>decreases</strong>'} as measurement values increase.<br>
-                            <em>Recommendation:</em> Consider analyzing <strong>percentage differences</strong> (%) instead of absolute differences.</span>` :
+                            ${!isPercentDiff ? `<em>Recommendation:</em> Consider analyzing <strong>percentage differences</strong> (%) instead of absolute differences.` : `<em>Note:</em> You are already using percentage differences, which is appropriate for proportional bias.`}</span>` :
                             `<span style="color:#16a34a;"><strong>✅ Constant Error Pattern.</strong><br>
                             Points are randomly distributed around the mean difference line.<br>
                             The error appears to be <strong>constant</strong> across the measurement range (no trend).</span>`
@@ -6191,7 +7321,7 @@
                     interpretHTML += `<div style="background:rgba(6,182,212,0.08); padding:12px; border-radius:6px; margin-bottom:10px; border-left:4px solid #0891b2;">
                     <strong style="color:#0e7490;"><i class="fa-solid fa-3" style="margin-right:5px;"></i> Limits of Agreement (LoA)</strong><br>
                     <div style="font-size:0.85rem; margin-top:6px;">
-                        <strong>LoA Range:</strong> ${lowerLoA.toFixed(4)} to ${upperLoA.toFixed(4)} (Width: ${loaWidth.toFixed(4)})<br>
+                        <strong>LoA Range:</strong> ${lowerLoA.toFixed(4)} to ${upperLoA.toFixed(4)} (Width: ${loaWidth.toFixed(4)}) ${diffUnit}<br>
                         <em style="color:var(--text-light);">95% of differences between the two methods fall within this range.</em>
                     </div>
                 </div>`;
@@ -6202,7 +7332,7 @@
                             interpretHTML += `<div style="background:rgba(22,163,74,0.1); padding:12px; border-radius:6px; margin-bottom:10px; border-left:4px solid #16a34a;">
                         <strong style="color:#16a34a;"><i class="fa-solid fa-check-circle" style="margin-right:5px;"></i> Clinically Acceptable</strong><br>
                         <div style="font-size:0.85rem; margin-top:6px;">
-                            LoA (${lowerLoA.toFixed(2)} to ${upperLoA.toFixed(2)}) is within your pre-defined allowable difference of <strong>±${allowableDiff}</strong>.<br>
+                            LoA (${lowerLoA.toFixed(2)} to ${upperLoA.toFixed(2)}) ${diffUnit} is within your pre-defined allowable difference of <strong>±${allowableDiff} ${diffUnit}</strong>.<br>
                             <strong>Conclusion:</strong> The two methods can be used <strong>interchangeably</strong> for clinical purposes.
                         </div>
                     </div>`;
@@ -6210,7 +7340,7 @@
                             interpretHTML += `<div style="background:rgba(220,38,38,0.1); padding:12px; border-radius:6px; margin-bottom:10px; border-left:4px solid #dc2626;">
                         <strong style="color:#dc2626;"><i class="fa-solid fa-times-circle" style="margin-right:5px;"></i> Clinically NOT Acceptable</strong><br>
                         <div style="font-size:0.85rem; margin-top:6px;">
-                            LoA (${lowerLoA.toFixed(2)} to ${upperLoA.toFixed(2)}) <strong>exceeds</strong> your pre-defined allowable difference of <strong>±${allowableDiff}</strong>.<br>
+                            LoA (${lowerLoA.toFixed(2)} to ${upperLoA.toFixed(2)}) ${diffUnit} <strong>exceeds</strong> your pre-defined allowable difference of <strong>±${allowableDiff} ${diffUnit}</strong>.<br>
                             <strong>Conclusion:</strong> The two methods should <strong>NOT</strong> be used interchangeably.
                         </div>
                     </div>`;
@@ -6300,7 +7430,7 @@
                     statsDiv.innerHTML = `
                 <div style="background: var(--bg-card); padding: 15px; border-radius: 10px; border: 1px solid var(--border-color); box-shadow: var(--shadow);">
                     <div style="font-size: 1.1rem; font-weight: bold; color: var(--primary); margin-bottom: 10px;">
-                        <i class="fa-solid fa-chart-line"></i> Bland-Altman Analysis Results
+                        <i class="fa-solid fa-compress"></i> Bland-Altman Analysis Results
                     </div>
                     
                     <!-- Analysis Method Badge -->
@@ -6316,26 +7446,26 @@
                         </div>
                         <div style="background:var(--bg-input); padding:10px; border-radius:6px;">
                             <div style="color:var(--text-light); font-size:0.75rem;">Mean Difference (Bias)</div>
-                            <div style="font-weight:bold; font-size:1.1rem;">${meanDiff.toFixed(3)}</div>
-                            <div style="font-size:0.7rem; color:var(--text-light);">95% CI: [${biasCILower.toFixed(3)}, ${biasCIUpper.toFixed(3)}]</div>
+                            <div style="font-weight:bold; font-size:1.1rem;">${meanDiff.toFixed(3)} ${diffUnit}</div>
+                            <div style="font-size:0.7rem; color:var(--text-light);">95% CI: [${biasCILower.toFixed(3)}, ${biasCIUpper.toFixed(3)}] ${diffUnit}</div>
                         </div>
                         <div style="background:var(--bg-input); padding:10px; border-radius:6px;">
                             <div style="color:var(--text-light); font-size:0.75rem;">SD of Differences</div>
-                            <div style="font-weight:bold; font-size:1.1rem;">${sdDiff.toFixed(3)}</div>
+                            <div style="font-weight:bold; font-size:1.1rem;">${sdDiff.toFixed(3)} ${diffUnit}</div>
                         </div>
                         <div style="background:var(--bg-input); padding:10px; border-radius:6px;">
                             <div style="color:var(--text-light); font-size:0.75rem;">Upper LoA ${isParametric ? '(+1.96 SD)' : '(97.5th %ile)'}</div>
-                            <div style="font-weight:bold; font-size:1.1rem; color:#dc2626;">${upperLoA.toFixed(3)}</div>
+                            <div style="font-weight:bold; font-size:1.1rem; color:#dc2626;">${upperLoA.toFixed(3)} ${diffUnit}</div>
                             <div style="font-size:0.7rem; color:var(--text-light);">95% CI: ${formatCI(upperLoACILower, upperLoACIUpper)}</div>
                         </div>
                         <div style="background:var(--bg-input); padding:10px; border-radius:6px;">
                             <div style="color:var(--text-light); font-size:0.75rem;">Lower LoA ${isParametric ? '(-1.96 SD)' : '(2.5th %ile)'}</div>
-                            <div style="font-weight:bold; font-size:1.1rem; color:#dc2626;">${lowerLoA.toFixed(3)}</div>
+                            <div style="font-weight:bold; font-size:1.1rem; color:#dc2626;">${lowerLoA.toFixed(3)} ${diffUnit}</div>
                             <div style="font-size:0.7rem; color:var(--text-light);">95% CI: ${formatCI(lowerLoACILower, lowerLoACIUpper)}</div>
                         </div>
                         <div style="background:var(--bg-input); padding:10px; border-radius:6px;">
                             <div style="color:var(--text-light); font-size:0.75rem;">LoA Width</div>
-                            <div style="font-weight:bold; font-size:1.1rem;">${loaWidth.toFixed(3)}</div>
+                            <div style="font-weight:bold; font-size:1.1rem;">${loaWidth.toFixed(3)} ${diffUnit}</div>
                             <div style="font-size:0.7rem; color:var(--text-light);">95% of differences fall within this range</div>
                         </div>
                     </div>
@@ -6361,7 +7491,7 @@
                             datasets: [
                                 {
                                     label: 'Data Points',
-                                    data: points.map(p => ({ x: p.mean, y: p.diff })),
+                                    data: points.map(p => ({ x: p.xValue, y: p.diff })),
                                     backgroundColor: 'rgba(37, 99, 235, 0.7)',
                                     borderColor: 'rgba(37, 99, 235, 1)',
                                     pointRadius: 5,
@@ -6407,20 +7537,13 @@
                                     text: `Bland-Altman Plot: ${method1Name} vs ${method2Name}`,
                                     font: { size: 14, weight: 'bold' }
                                 },
-                                legend: {
-                                    display: true,
-                                    position: 'bottom',
-                                    labels: {
-                                        font: { size: 10 },
-                                        boxWidth: 12
-                                    }
-                                },
+                                legend: { position: 'top' },
                                 tooltip: {
                                     enabled: true,
                                     callbacks: {
                                         label: function (context) {
                                             if (context.datasetIndex === 0) {
-                                                return `Mean: ${context.parsed.x.toFixed(2)}, Diff: ${context.parsed.y.toFixed(2)}`;
+                                                return `X: ${context.parsed.x.toFixed(2)}, Diff: ${context.parsed.y.toFixed(2)} ${diffUnit}`;
                                             }
                                             return '';
                                         }
@@ -6434,7 +7557,7 @@
                                 x: {
                                     title: {
                                         display: true,
-                                        text: `Mean of ${method1Name} and ${method2Name}`,
+                                        text: xAxisType === 'mean' ? `Mean of ${method1Name} and ${method2Name}` : `Comparative Method (${method2Name})`,
                                         font: { size: 12, weight: 'bold' }
                                     },
                                     grid: {
@@ -6444,7 +7567,7 @@
                                 y: {
                                     title: {
                                         display: true,
-                                        text: `Difference (${method1Name} - ${method2Name})`,
+                                        text: isPercentDiff ? 'Percent Difference (%)' : `Absolute Difference (${diffUnit})`,
                                         font: { size: 12, weight: 'bold' }
                                     },
                                     grid: {
